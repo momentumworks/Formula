@@ -11,9 +11,16 @@
 
 int main(int argc, const char * argv[]) {
   @autoreleasepool {
-    NSString *directory = @"/Users/rb/Documents/Shared Playground Data/Sources";
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *targetDirectory = [userDefaults stringForKey:@"target"];
+
+    if (targetDirectory == nil) {
+      NSLog(@"Usage: \"codegen -target <target-dir>\"");
+      return 1;
+    }
+
     NSArray *generators = @[[[ImmutableSettersGenerator alloc] init]];
-    [[[CodeGenerator alloc] initWithGenerators:generators] generateForDirectory:directory];
+    [[[CodeGenerator alloc] initWithGenerators:generators] generateForDirectory:targetDirectory];
   }
   return 0;
 }
