@@ -13,7 +13,11 @@ import Foundation
   public func generateFor(objects: [Object]) -> [TypeName : [GeneratedFunction]] {
     let generatedTuples = objects.filter(filter).map { object -> (TypeName, [GeneratedFunction]) in
       let generatedFunctions = object.fields.map { field in
-        "\n  \(field.accessibility)func set(\(field.name) \(field.name): \(field.type)) {\n    \(object.constructorCall)\n  }\n"
+        [
+          "  \(field.accessibility)func set(\(field.name) \(field.name): \(field.type)) {",
+          "    \(object.constructorCall)",
+          "  }"
+        ].joinWithSeparator("\n")
       }
 
       return (object.name, generatedFunctions)

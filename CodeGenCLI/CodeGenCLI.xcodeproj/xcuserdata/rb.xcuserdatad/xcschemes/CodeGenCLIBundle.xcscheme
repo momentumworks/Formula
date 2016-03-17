@@ -66,6 +66,10 @@
             argument = "-target &quot;/Users/rb/Documents/Shared Playground Data/Sources&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-clean true"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

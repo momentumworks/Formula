@@ -12,15 +12,17 @@
 int main(int argc, const char * argv[]) {
   @autoreleasepool {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    BOOL cleanFirst = [userDefaults boolForKey:@"clean"];
     NSString *targetDirectory = [userDefaults stringForKey:@"target"];
 
     if (targetDirectory == nil) {
-      NSLog(@"Usage: \"codegen -target <target-dir>\"");
+      NSLog(@"Usage: \"codegen -target <target-dir> [-clean true]\"");
       return 1;
     }
 
     NSArray *generators = @[[[ImmutableSettersGenerator alloc] init]];
-    [[[CodeGenerator alloc] initWithGenerators:generators] generateForDirectory:targetDirectory];
+    [[[CodeGenerator alloc] initWithGenerators:generators] generateForDirectory:targetDirectory cleanFirst: cleanFirst];
   }
   return 0;
 }

@@ -14,14 +14,16 @@ public typealias GeneratedFunction = String
 
 @objc public class CodeGenerator : NSObject {
   let GeneratedCodeDirectory = "Autogen"
-  let WarningComment = "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY"
   let generators: [Generator]
 
   public init(generators: [Generator]) {
     self.generators = generators
   }
   
-  public func generateForDirectory(directory: String) {
+  public func generateForDirectory(directory: String, cleanFirst: Bool) {
+    let trimmedTarget = Utils.removeTrailingFileSeparator(directory)
+    let outputDirectory = "\(trimmedTarget)/\(GeneratedCodeDirectory)"
+    
     NSLog("About to generate extensions for directory \(directory) using generators \(generators.map{ String($0.dynamicType) })")
     let parsed = Array(Extractor.parseDirectory(directory, ignoreDirectory: GeneratedCodeDirectory).values)
     
@@ -32,14 +34,19 @@ public typealias GeneratedFunction = String
     }
     
     let generatedExtensions = generatedFuncs.map { (type, generatedFunctions) -> (TypeName, SourceString) in
-      let source = generatedFunctions.joinWithSeparator("\n  ")
-      let generated = "\(WarningComment)\n\nextension \(type) {\n\(source)\n}\n"
+      let source = generatedFunctions.joinWithSeparator("\n\n")
+      let generated = [
+        "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY",
+        "",
+        "extension \(type) {",
+        source,
+        "}"
+      ].joinWithSeparator("\n")
+      
       return (type, generated)
     }
-
-    let trimmedTarget = Utils.removeTrailingFileSeparator(directory)
-    let outputDirectory = "\(trimmedTarget)/\(GeneratedCodeDirectory)"
-    Utils.deleteDirectory(outputDirectory)
+    
+    if (cleanFirst) { Utils.deleteDirectory(outputDirectory) }
     Utils.createDirectoryIfNonExistent(outputDirectory)
 
     for (type, source) in generatedExtensions {
