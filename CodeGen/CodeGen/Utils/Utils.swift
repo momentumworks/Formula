@@ -14,11 +14,15 @@ struct Utils {
     }
   }
 
-  static func deleteDirectory(directory: String) {
-    NSLog("Deleting directory \(directory)")
-    try! NSFileManager.defaultManager().removeItemAtPath(directory)
+  static func deleteFile(filePath: String) {
+    NSLog("Deleting \(filePath)")
+    do {
+      try NSFileManager.defaultManager().removeItemAtPath(filePath)
+    } catch {
+      NSLog("Unable to delete \(filePath) - \(error)")
+    }
   }
-
+  
   static func createDirectoryIfNonExistent(directory: String) {
     NSLog("Creating directory \(directory)")
     try! NSFileManager.defaultManager().createDirectoryAtPath(directory, withIntermediateDirectories: true, attributes: nil)
