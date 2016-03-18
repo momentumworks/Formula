@@ -3,7 +3,7 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 ## Build generated
-build/
+# build/ <- I'm not sure what folder this is meant to aim at, but it stops carthage dependencies being checked in
 DerivedData
 
 ## Various settings
