@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		317EF87D1C9C53990070266C /* CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E618A31C99A31400607130 /* CodeGen.framework */; };
 		31E617EB1C997D6700607130 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E617EA1C997D6700607130 /* main.m */; };
 		31E618381C99837700607130 /* CodeGenCLI in Copy Files */ = {isa = PBXBuildFile; fileRef = 31E617E71C997D6700607130 /* CodeGenCLI */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		31E618A61C99A4D500607130 /* CodeGen.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31E618A31C99A31400607130 /* CodeGen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -15,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		31E618351C99834600607130 /* PBXContainerItemProxy */ = {
+		317EF87B1C9C538F0070266C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 31E617DF1C997D6700607130 /* Project object */;
 			proxyType = 1;
@@ -42,8 +43,8 @@
 		31E617E51C997D6700607130 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -74,9 +75,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		317EF8181C9C12A20070266C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		31E617E71C997D6700607130 /* CodeGenCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGenCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E617EA1C997D6700607130 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		31E617F51C997DD900607130 /* CodeGenCLI.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeGenCLI.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E617F51C997DD900607130 /* CodeGenCLIBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeGenCLIBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E617F71C997DDA00607130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31E6189D1C99A31400607130 /* CodeGen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodeGen.xcodeproj; path = ../CodeGen/CodeGen.xcodeproj; sourceTree = "<group>"; };
 		31E618AB1C99B20200607130 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = ../CodeGen/Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				317EF87D1C9C53990070266C /* CodeGen.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				31E617E71C997D6700607130 /* CodeGenCLI */,
-				31E617F51C997DD900607130 /* CodeGenCLI.bundle */,
+				31E617F51C997DD900607130 /* CodeGenCLIBundle.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 		31E6183C1C9983BF00607130 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				317EF8181C9C12A20070266C /* AppKit.framework */,
 				31E618AB1C99B20200607130 /* SourceKittenFramework.framework */,
 				31E618AC1C99B20200607130 /* SWXMLHash.framework */,
 				31E6189D1C99A31400607130 /* CodeGen.xcodeproj */,
@@ -188,11 +192,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				31E618361C99834600607130 /* PBXTargetDependency */,
+				317EF87C1C9C538F0070266C /* PBXTargetDependency */,
 			);
 			name = CodeGenCLIBundle;
 			productName = CodeGenCLIBundle;
-			productReference = 31E617F51C997DD900607130 /* CodeGenCLI.bundle */;
+			productReference = 31E617F51C997DD900607130 /* CodeGenCLIBundle.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -282,10 +286,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		31E618361C99834600607130 /* PBXTargetDependency */ = {
+		317EF87C1C9C538F0070266C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 31E617E61C997D6700607130 /* CodeGenCLI */;
-			targetProxy = 31E618351C99834600607130 /* PBXContainerItemProxy */;
+			targetProxy = 317EF87B1C9C538F0070266C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -330,6 +334,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -366,13 +371,20 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		31E617EF1C997D6700607130 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/$(PRODUCT_NAME).bundle/Contents/Frameworks";
+				CODE_SIGN_IDENTITY = "";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/$(PRODUCT_NAME).bundle/Contents/Frameworks /Library/Bundles/$(PRODUCT_NAME).bundle/Contents/Frameworks @executable_path/../../../Library/Bundles/$(PRODUCT_NAME).bundle/Contents/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -380,7 +392,13 @@
 		31E617F01C997D6700607130 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				CODE_SIGN_IDENTITY = "";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/$(PRODUCT_NAME).bundle/Contents/Frameworks /Library/Bundles/$(PRODUCT_NAME).bundle/Contents/Frameworks @executable_path/../../../Library/Bundles/$(PRODUCT_NAME).bundle/Contents/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -397,9 +415,13 @@
 				);
 				INFOPLIST_FILE = CodeGenCLIBundle/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.CodeGenCLIBundle;
 				PRODUCT_NAME = CodeGenCLI;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -416,9 +438,13 @@
 				);
 				INFOPLIST_FILE = CodeGenCLIBundle/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.CodeGenCLIBundle;
 				PRODUCT_NAME = CodeGenCLI;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -451,6 +477,7 @@
 				31E617FA1C997DDA00607130 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
