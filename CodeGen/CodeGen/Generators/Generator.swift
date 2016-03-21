@@ -40,7 +40,7 @@ public typealias GeneratedFunction = String
     }
     
     let warning = "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY\n"
-    let imports = extractedImports.map { "import \($0)" }.joinWithSeparator("\n")
+    let imports = Set(extractedImports).map { "import \($0)" }.joinWithSeparator("\n")
     let extensions = generatedFuncs.map { (type, generatedFunctions) -> SourceString in
       let source = generatedFunctions.joinWithSeparator("\n\n")
       let generated = [

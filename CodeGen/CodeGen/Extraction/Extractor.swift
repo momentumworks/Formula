@@ -69,7 +69,7 @@ public class Extractor {
   }
 
   private static func extractObjects(types: [SourceKitRepresentable]) -> [TypeName : Object] {
-    let tuple = types.flatMap{ type -> (TypeName, Object)? in
+    let tuples = types.flatMap{ type -> (TypeName, Object)? in
       guard let obj = extractObject(type) else {
         return nil
       }
@@ -77,7 +77,7 @@ public class Extractor {
       return (obj.name, obj)
     }
 
-    return Dictionary(tuple)
+    return Dictionary(tuples){ $0.mergeWith($1) }
   }
   
   private static func extractImports(filePath: String) -> [Import] {

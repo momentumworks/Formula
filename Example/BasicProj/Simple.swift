@@ -1,9 +1,10 @@
 import AppKit
+import MomentumCore
 
-struct Thing : Equatable {
-  private let s : String
-  let f : Float
-  public let i : Int
+public class Thing: Equatable {
+  private let s: String
+  let f: Float
+  public let i: Int
 }
 
 struct OtherThing : Equatable {
@@ -13,3 +14,11 @@ struct OtherThing : Equatable {
 struct ThirdThing {
   let i : Int
 }
+
+public class FourthThing: Equatable {
+  private let s: String
+  let f: Float
+  public let i: Int
+}
+
+extension FourthThing: Immutable {}

@@ -12,6 +12,17 @@ public extension Dictionary {
       self[k] = v
     }
   }
+  
+  public init(_ tupleArr: [Element], mergeFn: (Value, Value) -> Value) {
+    self.init()
+    for (k, v) in tupleArr {
+      if let existing = self[k] {
+        self[k] = mergeFn(v, existing)
+      } else {
+        self[k] = v
+      }
+    }
+  }
 
   public func mergeWith(other: Dictionary<Key, Value>, mergeFn: (Value, Value) -> Value) -> Dictionary<Key, Value> {
     var merged = self
