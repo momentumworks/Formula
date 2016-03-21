@@ -22,7 +22,7 @@ int main(int argc, const char * argv[]) {
     }
 
     NSArray *generators = @[[[ImmutableSettersGenerator alloc] init]];
-    [[[CodeGenerator alloc] initWithGenerators:generators] generateForDirectory:targetDirectory cleanFirst: cleanFirst];
+    [[[CodeGen alloc] init] generateForDirectory:targetDirectory usingGenerators:generators cleanFirst: cleanFirst];
   }
   return 0;
 }

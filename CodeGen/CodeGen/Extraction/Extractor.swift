@@ -80,21 +80,31 @@ public class Extractor {
     return Dictionary(tuples){ $0.mergeWith($1) }
   }
   
-  private static func extractImports(filePath: String) -> [Import] {
-    // SourceKitten doesn't give us info about the import statements, and 
+  static func extractImports(lines: [String]) -> [Import] {
+    // SourceKitten doesn't give us info about the import statements, and
     // altering it to support that would be way more work than this, so...
     
-    let readFile = try! NSString(contentsOfFile: filePath, encoding: NSUTF8StringEncoding) as String
-    return readFile.lines()
-      .filter {
-        $0.content.trim().hasPrefix("import")
+    return lines.filter {
+        $0.trim().hasPrefix("import")
       }
       .map {
-        $0.content.trim().split("import")[1].trim()
+        $0.trim().split("import")[1].trim()
       }
   }
+  
+  static func extractImports(file: File) -> [Import] {
+    return extractImports(file.lines.map{ $0.content })
+  }
+  
+  static func extractImports(files: [File]) -> [Import] {
+    let allImports = files.reduce([Import]()) { imports, file in
+      return imports + extractImports(file)
+    }
+    return [Import](Set(allImports))
+  }
 
-  public static func parseFile(file: File) -> [TypeName : Object] {
+  static func extractObjects(file: File) -> [TypeName : Object] {
+    NSLog("Extracting objects from \(file.path ?? "")")
     let structure: Structure = Structure(file: file)
     let dictionary = structure.dictionary
     guard let substructures = dictionary["key.substructure"] as? [SourceKitRepresentable] else {
@@ -103,22 +113,10 @@ public class Extractor {
 
     return extractObjects(substructures)
   }
-
-  public static func parseDirectory(path: String, ignoreDirectory: String) -> (imports: [Import], objects: [TypeName : Object]) {
-    let files = NSFileManager.defaultManager().enumeratorAtPath(path)?.allObjects as! [NSString]
-    let ignoredPrefix = "\(Utils.removeTrailingFileSeparator(ignoreDirectory))/"
-    
-    let initial = ([Import](), [TypeName : Object]())
-    return files.filter{ $0.pathExtension == "swift" && !$0.hasPrefix(ignoredPrefix) }.reduce(initial) { tuple, filePath in
-      let (imports, objects) = tuple
-      let fullFilePath = "\(path)/\(filePath)"
-      NSLog("Parsing file \(fullFilePath)")
-      let file = File(path: fullFilePath)!
-
-      let nextObjects = objects.mergeWith(parseFile(file)){ $0.mergeWith($1) }
-      let nextImports = imports + extractImports(fullFilePath)
-      
-      return (nextImports, nextObjects)
+  
+  static func extractObjects(files: [File]) -> [TypeName : Object] {
+    return files.reduce([TypeName : Object]()) { objects, file in
+      return objects.mergeWith(extractObjects(file)){ $0.mergeWith($1) }
     }
   }
 }

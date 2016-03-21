@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		317155F61CA051AC00625EB2 /* CodeGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317155F51CA051AC00625EB2 /* CodeGen.swift */; };
+		317155F81CA0637200625EB2 /* TestTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317155F71CA0637200625EB2 /* TestTargets.swift */; };
+		317155FD1CA06A1300625EB2 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E618861C998D3700607130 /* SourceKittenFramework.framework */; };
+		317155FE1CA06A1500625EB2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E618881C998D3700607130 /* SWXMLHash.framework */; };
+		317156041CA06D8B00625EB2 /* SourceKittenFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31E618861C998D3700607130 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		317156051CA06D8E00625EB2 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31E618881C998D3700607130 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		31BEFB441C99B55F00C2945F /* String+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BEFB431C99B55F00C2945F /* String+MW.swift */; };
 		31E6186F1C998CE200607130 /* CodeGen.h in Headers */ = {isa = PBXBuildFile; fileRef = 31E6186E1C998CE200607130 /* CodeGen.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		31E618761C998CE200607130 /* CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E6186B1C998CE200607130 /* CodeGen.framework */; };
@@ -34,7 +40,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		317156031CA06D8300625EB2 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				317156041CA06D8B00625EB2 /* SourceKittenFramework.framework in CopyFiles */,
+				317156051CA06D8E00625EB2 /* SWXMLHash.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		317155F51CA051AC00625EB2 /* CodeGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGen.swift; sourceTree = "<group>"; };
+		317155F71CA0637200625EB2 /* TestTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTargets.swift; sourceTree = "<group>"; };
 		31BEFB431C99B55F00C2945F /* String+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MW.swift"; sourceTree = "<group>"; };
 		31E6186B1C998CE200607130 /* CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E6186E1C998CE200607130 /* CodeGen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodeGen.h; sourceTree = "<group>"; };
@@ -70,6 +92,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				31E618761C998CE200607130 /* CodeGen.framework in Frameworks */,
+				317155FD1CA06A1300625EB2 /* SourceKittenFramework.framework in Frameworks */,
+				317155FE1CA06A1500625EB2 /* SWXMLHash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +126,7 @@
 				31E618911C99A2D600607130 /* Extraction */,
 				31E618941C99A2D600607130 /* Generators */,
 				31E6186E1C998CE200607130 /* CodeGen.h */,
+				317155F51CA051AC00625EB2 /* CodeGen.swift */,
 				31E618701C998CE200607130 /* Info.plist */,
 				E30330069A005DB4C8ABE2B7 /* Utils */,
 			);
@@ -113,6 +138,7 @@
 			children = (
 				31E6187A1C998CE200607130 /* CodeGenTests.swift */,
 				31E6187C1C998CE200607130 /* Info.plist */,
+				317155F71CA0637200625EB2 /* TestTargets.swift */,
 			);
 			path = CodeGenTests;
 			sourceTree = "<group>";
@@ -203,6 +229,7 @@
 				31E618711C998CE200607130 /* Sources */,
 				31E618721C998CE200607130 /* Frameworks */,
 				31E618731C998CE200607130 /* Resources */,
+				317156031CA06D8300625EB2 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -278,6 +305,7 @@
 				31E6189C1C99A2D600607130 /* ImmutableSettersGenerator.swift in Sources */,
 				31E618971C99A2D600607130 /* Array+MW.swift in Sources */,
 				31E6189A1C99A2D600607130 /* Object.swift in Sources */,
+				317155F61CA051AC00625EB2 /* CodeGen.swift in Sources */,
 				31E618981C99A2D600607130 /* Dictionary+MW.swift in Sources */,
 				31BEFB441C99B55F00C2945F /* String+MW.swift in Sources */,
 				31E6189B1C99A2D600607130 /* Generator.swift in Sources */,
@@ -290,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31E6187B1C998CE200607130 /* CodeGenTests.swift in Sources */,
+				317155F81CA0637200625EB2 /* TestTargets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,7 +466,12 @@
 		31E618831C998CE200607130 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = CodeGenTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.CodeGenTests;
@@ -448,7 +482,12 @@
 		31E618841C998CE200607130 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = CodeGenTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.CodeGenTests;
