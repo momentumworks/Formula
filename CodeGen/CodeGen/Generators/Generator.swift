@@ -9,7 +9,7 @@ public typealias GeneratedFunction = String
 
 @objc public protocol Generator {
   func filter(object: Object) -> Bool
-  func generateFor(objects: [Object]) -> [TypeName : [GeneratedFunction]]
+  func generateFor(filteredObjects: [Object]) -> [TypeName : [GeneratedFunction]]
 }
 
 @objc public class CodeGenerator : NSObject {
@@ -27,16 +27,21 @@ public typealias GeneratedFunction = String
     let outputDirectory = "\(trimmedTarget)/\(CodeGenerator.GeneratedCodeDirectory)"
     let outputFile = "\(outputDirectory)/\(CodeGenerator.GeneratedCodeFile)"
     
+    if (cleanFirst) { Utils.deleteFile(outputFile) }
+    
     NSLog("About to generate extensions for directory \(directory) using generators \(generators.map{ String($0.dynamicType) })")
-    let parsed = Array(Extractor.parseDirectory(directory, ignoreDirectory: CodeGenerator.GeneratedCodeDirectory).values)
+    let (extractedImports, extractedObjects) = Extractor.parseDirectory(directory, ignoreDirectory: CodeGenerator.GeneratedCodeDirectory)
+    let parsed = Array(extractedObjects.values)
     
     let generatedFuncs = generators.reduce([TypeName : [GeneratedFunction]]()) { accumulated, generator in
-      let nextGenerated: [TypeName : [GeneratedFunction]] = generator.generateFor(parsed)
+      let nextGenerated: [TypeName : [GeneratedFunction]] = generator.generateFor(parsed.filter{generator.filter($0)})
       
       return accumulated.mergeWith(nextGenerated) { $0 + $1 }
     }
     
-    let generatedExtensions = generatedFuncs.map { (type, generatedFunctions) -> SourceString in
+    let warning = "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY\n"
+    let imports = extractedImports.map { "import \($0)" }.joinWithSeparator("\n")
+    let extensions = generatedFuncs.map { (type, generatedFunctions) -> SourceString in
       let source = generatedFunctions.joinWithSeparator("\n\n")
       let generated = [
         "extension \(type) {",
@@ -45,19 +50,13 @@ public typealias GeneratedFunction = String
       ].joinWithSeparator("\n")
       
       return generated
-    }
+    }.joinWithSeparator("\n\n")
     
-    let allGeneratedLines = [
-      "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY",
-      ] + generatedExtensions
+    let output = "\(warning)\n\(imports)\n\n\(extensions)"
     
-    let generatedSource = allGeneratedLines.joinWithSeparator("\n\n")
-    
-    if (cleanFirst) { Utils.deleteFile(outputFile) }
     Utils.createDirectoryIfNonExistent(outputDirectory)
-
     NSLog("Writing file \(outputFile)")
-    try! generatedSource.writeToFile(outputFile, atomically: true, encoding: NSUTF8StringEncoding)
+    try! output.writeToFile(outputFile, atomically: true, encoding: NSUTF8StringEncoding)
 
     NSLog("Finished generating extensions")
   }

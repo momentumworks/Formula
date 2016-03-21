@@ -79,6 +79,20 @@ public class Extractor {
 
     return Dictionary(tuple)
   }
+  
+  private static func extractImports(filePath: String) -> [Import] {
+    // SourceKitten doesn't give us info about the import statements, and 
+    // altering it to support that would be way more work than this, so...
+    
+    let readFile = try! NSString(contentsOfFile: filePath, encoding: NSUTF8StringEncoding) as String
+    return readFile.lines()
+      .filter {
+        $0.content.trim().hasPrefix("import")
+      }
+      .map {
+        $0.content.trim().split("import")[1].trim()
+      }
+  }
 
   public static func parseFile(file: File) -> [TypeName : Object] {
     let structure: Structure = Structure(file: file)
@@ -90,14 +104,21 @@ public class Extractor {
     return extractObjects(substructures)
   }
 
-  public static func parseDirectory(path: String, ignoreDirectory: String) -> [TypeName : Object] {
+  public static func parseDirectory(path: String, ignoreDirectory: String) -> (imports: [Import], objects: [TypeName : Object]) {
     let files = NSFileManager.defaultManager().enumeratorAtPath(path)?.allObjects as! [NSString]
     let ignoredPrefix = "\(Utils.removeTrailingFileSeparator(ignoreDirectory))/"
+    
+    let initial = ([Import](), [TypeName : Object]())
+    return files.filter{ $0.pathExtension == "swift" && !$0.hasPrefix(ignoredPrefix) }.reduce(initial) { tuple, filePath in
+      let (imports, objects) = tuple
+      let fullFilePath = "\(path)/\(filePath)"
+      NSLog("Parsing file \(fullFilePath)")
+      let file = File(path: fullFilePath)!
 
-    return files.filter{ $0.pathExtension == "swift" && !$0.hasPrefix(ignoredPrefix) }.reduce([TypeName : Object]()) { objs, filePath in
-      let file = File(path: "\(path)/\(filePath)")!
-
-      return objs.mergeWith(parseFile(file)){ $0.mergeWith($1) }
+      let nextObjects = objects.mergeWith(parseFile(file)){ $0.mergeWith($1) }
+      let nextImports = imports + extractImports(fullFilePath)
+      
+      return (nextImports, nextObjects)
     }
   }
 }

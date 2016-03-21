@@ -38,4 +38,10 @@ public extension String {
     
     return suffix
   }
+  
+  public func trim() -> String {
+    return self.stringByTrimmingCharactersInSet(
+      NSCharacterSet.whitespaceCharacterSet()
+    )
+  }
 }

@@ -8,6 +8,7 @@ import Foundation
 public typealias Extension = String
 public typealias TypeName = String
 public typealias SourceString = String
+public typealias Import = String
 
 @objc public class Object : NSObject {
   public let accessibility : Accessibility?

@@ -78,7 +78,7 @@
 		317EF8181C9C12A20070266C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		31E617E71C997D6700607130 /* CodeGenCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGenCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E617EA1C997D6700607130 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		31E617F51C997DD900607130 /* CodeGenCLIBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeGenCLIBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		31E617F51C997DD900607130 /* CodeGenCLI.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeGenCLI.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E617F71C997DDA00607130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31E6189D1C99A31400607130 /* CodeGen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodeGen.xcodeproj; path = ../CodeGen/CodeGen.xcodeproj; sourceTree = "<group>"; };
 		31E618AB1C99B20200607130 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = ../CodeGen/Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				31E617E71C997D6700607130 /* CodeGenCLI */,
-				31E617F51C997DD900607130 /* CodeGenCLIBundle.bundle */,
+				31E617F51C997DD900607130 /* CodeGenCLI.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,7 +196,7 @@
 			);
 			name = CodeGenCLIBundle;
 			productName = CodeGenCLIBundle;
-			productReference = 31E617F51C997DD900607130 /* CodeGenCLIBundle.bundle */;
+			productReference = 31E617F51C997DD900607130 /* CodeGenCLI.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */

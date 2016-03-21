@@ -10,11 +10,11 @@ import Foundation
     return object.extensions.contains("Immutable")
   }
 
-  public func generateFor(objects: [Object]) -> [TypeName : [GeneratedFunction]] {
-    let generatedTuples = objects.filter(filter).map { object -> (TypeName, [GeneratedFunction]) in
+  public func generateFor(filteredObjects: [Object]) -> [TypeName : [GeneratedFunction]] {
+    let generatedTuples = filteredObjects.map { object -> (TypeName, [GeneratedFunction]) in
       let generatedFunctions = object.fields.map { field in
         [
-          "  \(field.accessibility)func set(\(field.name) \(field.name): \(field.type)) {",
+          "  \(field.accessibility)func set(\(field.name) \(field.name): \(field.type)) -> \(object.name) {",
           "    \(object.constructorCall)",
           "  }"
         ].joinWithSeparator("\n")
