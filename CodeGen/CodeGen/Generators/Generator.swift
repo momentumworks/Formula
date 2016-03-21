@@ -31,7 +31,7 @@ public typealias GeneratedFunction = String
     
     NSLog("About to generate extensions for directory \(directory) using generators \(generators.map{ String($0.dynamicType) })")
     let (extractedImports, extractedObjects) = Extractor.parseDirectory(directory, ignoreDirectory: CodeGenerator.GeneratedCodeDirectory)
-    let parsed = Array(extractedObjects.values)
+    let parsed = [Object](extractedObjects.values)
     
     let generatedFuncs = generators.reduce([TypeName : [GeneratedFunction]]()) { accumulated, generator in
       let nextGenerated: [TypeName : [GeneratedFunction]] = generator.generateFor(parsed.filter{generator.filter($0)})
@@ -39,10 +39,14 @@ public typealias GeneratedFunction = String
       return accumulated.mergeWith(nextGenerated) { $0 + $1 }
     }
     
+    let sortedImports = Set(extractedImports).sort()
+    let sortedTypes = Set(generatedFuncs.keys).sort()
+    
     let warning = "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY\n"
-    let imports = Set(extractedImports).map { "import \($0)" }.joinWithSeparator("\n")
-    let extensions = generatedFuncs.map { (type, generatedFunctions) -> SourceString in
-      let source = generatedFunctions.joinWithSeparator("\n\n")
+    let imports = sortedImports.map { "import \($0)" }.joinWithSeparator("\n")
+    let extensions = sortedTypes.map { type -> SourceString in
+      let functions = generatedFuncs[type]!
+      let source = functions.sort().joinWithSeparator("\n\n")
       let generated = [
         "extension \(type) {",
         source,
