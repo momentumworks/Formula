@@ -36,20 +36,25 @@ public class Extractor {
       return extractName(inheritedTypeDict)
     }
   }
-
+  
   private static func extractFields(typeDict: [String: SourceKitRepresentable]) -> [Field] {
     guard let fields = typeDict["key.substructure"] as? [SourceKitRepresentable] else {
       return []
     }
+    
+    func fieldIsntCalculated(field: [String: SourceKitRepresentable]) -> Bool {
+      return field["key.bodylength"] == nil
+    }
 
     return fields.flatMap { field in
       guard let fieldData = field as? [String: SourceKitRepresentable],
-      let accessibility = extractAccessibility(fieldData),
-      let fieldName = extractName(fieldData),
-      let fieldType = extractType(fieldData) else {
-
-        return nil
-      }
+        let accessibility = extractAccessibility(fieldData),
+        let fieldName = extractName(fieldData),
+        let fieldType = extractType(fieldData)
+        where fieldIsntCalculated(fieldData) else {
+          return nil
+        }
+      
       return Field(accessibility: accessibility, name: fieldName, type: fieldType)
     }
   }

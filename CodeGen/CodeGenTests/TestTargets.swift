@@ -38,6 +38,7 @@ struct TestTargets {
       "  private let s: String",
       "  let f: Float",
       "  public let i: Int",
+      "  var calculated: Int { return 1 }",
       "}",
       "",
       "struct OtherThing : Equatable {",

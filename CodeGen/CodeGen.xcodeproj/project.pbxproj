@@ -7,20 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		312DF6B71CA19014002B0813 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312DF6B31CA19014002B0813 /* SourceKittenFramework.framework */; };
+		312DF6B81CA19014002B0813 /* SourceKittenFramework.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 312DF6B41CA19014002B0813 /* SourceKittenFramework.framework.dSYM */; };
+		312DF6B91CA19014002B0813 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 312DF6B51CA19014002B0813 /* SWXMLHash.framework */; };
+		312DF6BA1CA19014002B0813 /* SWXMLHash.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 312DF6B61CA19014002B0813 /* SWXMLHash.framework.dSYM */; };
+		312DF6BF1CA195D2002B0813 /* SourceKittenFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 312DF6B31CA19014002B0813 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		312DF6C01CA195D2002B0813 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 312DF6B51CA19014002B0813 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		317155F61CA051AC00625EB2 /* CodeGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317155F51CA051AC00625EB2 /* CodeGen.swift */; };
 		317155F81CA0637200625EB2 /* TestTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317155F71CA0637200625EB2 /* TestTargets.swift */; };
-		317155FD1CA06A1300625EB2 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E618861C998D3700607130 /* SourceKittenFramework.framework */; };
-		317155FE1CA06A1500625EB2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E618881C998D3700607130 /* SWXMLHash.framework */; };
-		317156041CA06D8B00625EB2 /* SourceKittenFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31E618861C998D3700607130 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		317156051CA06D8E00625EB2 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31E618881C998D3700607130 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		31BEFB441C99B55F00C2945F /* String+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BEFB431C99B55F00C2945F /* String+MW.swift */; };
 		31E6186F1C998CE200607130 /* CodeGen.h in Headers */ = {isa = PBXBuildFile; fileRef = 31E6186E1C998CE200607130 /* CodeGen.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		31E618761C998CE200607130 /* CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E6186B1C998CE200607130 /* CodeGen.framework */; };
 		31E6187B1C998CE200607130 /* CodeGenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6187A1C998CE200607130 /* CodeGenTests.swift */; };
-		31E6188A1C998D3700607130 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E618861C998D3700607130 /* SourceKittenFramework.framework */; };
-		31E6188B1C998D3700607130 /* SourceKittenFramework.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 31E618871C998D3700607130 /* SourceKittenFramework.framework.dSYM */; };
-		31E6188C1C998D3700607130 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E618881C998D3700607130 /* SWXMLHash.framework */; };
-		31E6188D1C998D3700607130 /* SWXMLHash.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 31E618891C998D3700607130 /* SWXMLHash.framework.dSYM */; };
 		31E618971C99A2D600607130 /* Array+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6188F1C99A2D600607130 /* Array+MW.swift */; };
 		31E618981C99A2D600607130 /* Dictionary+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E618901C99A2D600607130 /* Dictionary+MW.swift */; };
 		31E618991C99A2D600607130 /* Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E618921C99A2D600607130 /* Extractor.swift */; };
@@ -47,14 +45,18 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				317156041CA06D8B00625EB2 /* SourceKittenFramework.framework in CopyFiles */,
-				317156051CA06D8E00625EB2 /* SWXMLHash.framework in CopyFiles */,
+				312DF6BF1CA195D2002B0813 /* SourceKittenFramework.framework in CopyFiles */,
+				312DF6C01CA195D2002B0813 /* SWXMLHash.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		312DF6B31CA19014002B0813 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = "<group>"; };
+		312DF6B41CA19014002B0813 /* SourceKittenFramework.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SourceKittenFramework.framework.dSYM; path = Carthage/Build/Mac/SourceKittenFramework.framework.dSYM; sourceTree = "<group>"; };
+		312DF6B51CA19014002B0813 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/Mac/SWXMLHash.framework; sourceTree = "<group>"; };
+		312DF6B61CA19014002B0813 /* SWXMLHash.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SWXMLHash.framework.dSYM; path = Carthage/Build/Mac/SWXMLHash.framework.dSYM; sourceTree = "<group>"; };
 		317155F51CA051AC00625EB2 /* CodeGen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGen.swift; sourceTree = "<group>"; };
 		317155F71CA0637200625EB2 /* TestTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTargets.swift; sourceTree = "<group>"; };
 		31BEFB431C99B55F00C2945F /* String+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MW.swift"; sourceTree = "<group>"; };
@@ -64,10 +66,6 @@
 		31E618751C998CE200607130 /* CodeGenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeGenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E6187A1C998CE200607130 /* CodeGenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeGenTests.swift; sourceTree = "<group>"; };
 		31E6187C1C998CE200607130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		31E618861C998D3700607130 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = "<group>"; };
-		31E618871C998D3700607130 /* SourceKittenFramework.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SourceKittenFramework.framework.dSYM; path = Carthage/Build/Mac/SourceKittenFramework.framework.dSYM; sourceTree = "<group>"; };
-		31E618881C998D3700607130 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/Mac/SWXMLHash.framework; sourceTree = "<group>"; };
-		31E618891C998D3700607130 /* SWXMLHash.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SWXMLHash.framework.dSYM; path = Carthage/Build/Mac/SWXMLHash.framework.dSYM; sourceTree = "<group>"; };
 		31E6188F1C99A2D600607130 /* Array+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+MW.swift"; sourceTree = "<group>"; };
 		31E618901C99A2D600607130 /* Dictionary+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+MW.swift"; sourceTree = "<group>"; };
 		31E618921C99A2D600607130 /* Extractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extractor.swift; sourceTree = "<group>"; };
@@ -82,8 +80,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31E6188C1C998D3700607130 /* SWXMLHash.framework in Frameworks */,
-				31E6188A1C998D3700607130 /* SourceKittenFramework.framework in Frameworks */,
+				312DF6B91CA19014002B0813 /* SWXMLHash.framework in Frameworks */,
+				312DF6B71CA19014002B0813 /* SourceKittenFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,8 +90,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				31E618761C998CE200607130 /* CodeGen.framework in Frameworks */,
-				317155FD1CA06A1300625EB2 /* SourceKittenFramework.framework in Frameworks */,
-				317155FE1CA06A1500625EB2 /* SWXMLHash.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,10 +142,10 @@
 		31E618851C998CF900607130 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				31E618861C998D3700607130 /* SourceKittenFramework.framework */,
-				31E618871C998D3700607130 /* SourceKittenFramework.framework.dSYM */,
-				31E618881C998D3700607130 /* SWXMLHash.framework */,
-				31E618891C998D3700607130 /* SWXMLHash.framework.dSYM */,
+				312DF6B31CA19014002B0813 /* SourceKittenFramework.framework */,
+				312DF6B41CA19014002B0813 /* SourceKittenFramework.framework.dSYM */,
+				312DF6B51CA19014002B0813 /* SWXMLHash.framework */,
+				312DF6B61CA19014002B0813 /* SWXMLHash.framework.dSYM */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -282,8 +278,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31E6188D1C998D3700607130 /* SWXMLHash.framework.dSYM in Resources */,
-				31E6188B1C998D3700607130 /* SourceKittenFramework.framework.dSYM in Resources */,
+				312DF6BA1CA19014002B0813 /* SWXMLHash.framework.dSYM in Resources */,
+				312DF6B81CA19014002B0813 /* SourceKittenFramework.framework.dSYM in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
