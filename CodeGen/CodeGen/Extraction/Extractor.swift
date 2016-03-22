@@ -45,13 +45,19 @@ public class Extractor {
     func fieldIsntCalculated(field: [String: SourceKitRepresentable]) -> Bool {
       return field["key.bodylength"] == nil
     }
+    
+    func fieldIsntStatic(field: [String: SourceKitRepresentable]) -> Bool {
+      // This feels dangerous...
+      return field["key.kind"].flatMap{ $0 as? String } != Optional(SwiftDeclarationKind.VarStatic.rawValue)
+    }
 
     return fields.flatMap { field in
       guard let fieldData = field as? [String: SourceKitRepresentable],
         let accessibility = extractAccessibility(fieldData),
         let fieldName = extractName(fieldData),
         let fieldType = extractType(fieldData)
-        where fieldIsntCalculated(fieldData) else {
+        where fieldIsntCalculated(fieldData) &&
+        fieldIsntStatic(fieldData) else {
           return nil
         }
       

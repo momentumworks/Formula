@@ -5,6 +5,8 @@ public class Thing: Equatable {
   private let s: String
   let f: Float
   public let i: Int
+  var calculated: Int { return 1 }
+  static let constant: Int = 10
 }
 
 struct OtherThing : Equatable {

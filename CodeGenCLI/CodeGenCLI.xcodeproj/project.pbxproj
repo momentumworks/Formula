@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		312DF6BD1CA19158002B0813 /* SourceKittenFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 312DF6BB1CA19158002B0813 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		312DF6BE1CA19158002B0813 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 312DF6BC1CA19158002B0813 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		317EF87D1C9C53990070266C /* CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E618A31C99A31400607130 /* CodeGen.framework */; };
 		31E617EB1C997D6700607130 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E617EA1C997D6700607130 /* main.m */; };
 		31E618381C99837700607130 /* CodeGenCLI in Copy Files */ = {isa = PBXBuildFile; fileRef = 31E617E71C997D6700607130 /* CodeGenCLI */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		31E618A61C99A4D500607130 /* CodeGen.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31E618A31C99A31400607130 /* CodeGen.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		31E618AD1C99B20200607130 /* SourceKittenFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31E618AB1C99B20200607130 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		31E618AE1C99B20200607130 /* SWXMLHash.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 31E618AC1C99B20200607130 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,22 +67,21 @@
 			dstSubfolderSpec = 10;
 			files = (
 				31E618A61C99A4D500607130 /* CodeGen.framework in CopyFiles */,
-				31E618AD1C99B20200607130 /* SourceKittenFramework.framework in CopyFiles */,
-				31E618AE1C99B20200607130 /* SWXMLHash.framework in CopyFiles */,
+				312DF6BD1CA19158002B0813 /* SourceKittenFramework.framework in CopyFiles */,
+				312DF6BE1CA19158002B0813 /* SWXMLHash.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		317EF8181C9C12A20070266C /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		312DF6BB1CA19158002B0813 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = ../CodeGen/Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = "<group>"; };
+		312DF6BC1CA19158002B0813 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = ../CodeGen/Carthage/Build/Mac/SWXMLHash.framework; sourceTree = "<group>"; };
 		31E617E71C997D6700607130 /* CodeGenCLI */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGenCLI; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E617EA1C997D6700607130 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		31E617F51C997DD900607130 /* CodeGenCLI.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeGenCLI.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		31E617F71C997DDA00607130 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		31E6189D1C99A31400607130 /* CodeGen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CodeGen.xcodeproj; path = ../CodeGen/CodeGen.xcodeproj; sourceTree = "<group>"; };
-		31E618AB1C99B20200607130 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = ../CodeGen/Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = "<group>"; };
-		31E618AC1C99B20200607130 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = ../CodeGen/Carthage/Build/Mac/SWXMLHash.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,9 +141,8 @@
 		31E6183C1C9983BF00607130 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				317EF8181C9C12A20070266C /* AppKit.framework */,
-				31E618AB1C99B20200607130 /* SourceKittenFramework.framework */,
-				31E618AC1C99B20200607130 /* SWXMLHash.framework */,
+				312DF6BB1CA19158002B0813 /* SourceKittenFramework.framework */,
+				312DF6BC1CA19158002B0813 /* SWXMLHash.framework */,
 				31E6189D1C99A31400607130 /* CodeGen.xcodeproj */,
 			);
 			name = Frameworks;
