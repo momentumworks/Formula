@@ -65,12 +65,12 @@ public class Extractor {
     }
   }
 
-  private static func extractObject(type: SourceKitRepresentable) -> Object? {
-    guard let typeDict = type as? [String : SourceKitRepresentable],
-    let name = extractName(typeDict) else {
-
+  private static func extractObject(typeDict: [String : SourceKitRepresentable], nesting: [TypeName]) -> Object? {
+    guard let unqualifiedName = extractName(typeDict) else {
       return nil
     }
+    
+    let name = (nesting + unqualifiedName).joinWithSeparator(".")
 
     let accessibility = extractAccessibility(typeDict)
     let fields = extractFields(typeDict)
@@ -78,16 +78,29 @@ public class Extractor {
 
     return Object(accessibility: accessibility, name: name, fields: fields, extensions: extensions)
   }
-
-  private static func extractObjects(types: [SourceKitRepresentable]) -> [TypeName : Object] {
-    let tuples = types.flatMap{ type -> (TypeName, Object)? in
-      guard let obj = extractObject(type) else {
-        return nil
-      }
-
-      return (obj.name, obj)
+  
+  private static func extractNestedObjects(typeDict: [String : SourceKitRepresentable], nesting: [TypeName]) -> [(TypeName, Object)] {
+    guard let nestedTypes = typeDict["key.substructure"] as? [SourceKitRepresentable] else {
+      return []
     }
+    
+    return extractObjectsAsTuples(nestedTypes, nesting: nesting)
+  }
+  
+  private static func extractObjectsAsTuples(types: [SourceKitRepresentable], nesting: [TypeName]) -> [(TypeName, Object)] {
+    return types.flatMap{ type -> [(TypeName, Object)] in
+      guard let typeDict = type as? [String : SourceKitRepresentable],
+        let obj = extractObject(typeDict, nesting: nesting) else {
+        return []
+      }
+      
+      let nestedObjects = extractNestedObjects(typeDict, nesting: nesting + obj.name)
+      return nestedObjects + (obj.name, obj)
+    }
+  }
 
+  private static func extractObjects(types: [SourceKitRepresentable], nesting: [TypeName]) -> [TypeName : Object] {
+    let tuples = extractObjectsAsTuples(types, nesting: nesting)
     return Dictionary(tuples){ $0.mergeWith($1) }
   }
   
@@ -122,7 +135,7 @@ public class Extractor {
       return [:]
     }
 
-    return extractObjects(substructures)
+    return extractObjects(substructures, nesting: [])
   }
   
   static func extractObjects(files: [File]) -> [TypeName : Object] {

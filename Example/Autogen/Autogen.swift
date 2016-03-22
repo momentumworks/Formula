@@ -23,6 +23,18 @@ extension OtherThing {
   }
 }
 
+extension Outer.Inner {
+  func set(s s: String) -> Outer.Inner {
+    return Outer.Inner(s: s)
+  }
+}
+
+extension Outer.OtherInner {
+  func set(i i: Int) -> Outer.OtherInner {
+    return Outer.OtherInner(i: i)
+  }
+}
+
 extension Thing {
   func set(f f: Float) -> Thing {
     return Thing(s: s, f: f, i: i)

@@ -67,7 +67,20 @@ struct TestTargets {
       "import MomentumCore",
       "",
       "extension OtherThing : Immutable {}"
-    ].joinWithSeparator("\n")
+    ].joinWithSeparator("\n"),
+    [
+      "struct Outer {",
+      "  struct Inner : Immutable {",
+      "    let s: String",
+      "  }",
+      "  ",
+      "  struct OtherInner {",
+      "    let i: Int",
+      "  }",
+      "}",
+      "",
+      "extension Outer.OtherInner : Immutable {}"
+    ].joinWithSeparator("\n"),
   ]
   
   static let ComplexResult = [
@@ -93,6 +106,18 @@ struct TestTargets {
     "extension OtherThing {",
     "  func set(s s: String) -> OtherThing {",
     "    return OtherThing(s: s)",
+    "  }",
+    "}",
+    "",
+    "extension Outer.Inner {",
+    "  func set(s s: String) -> Outer.Inner {",
+    "    return Outer.Inner(s: s)",
+    "  }",
+    "}",
+    "",
+    "extension Outer.OtherInner {",
+    "  func set(i i: Int) -> Outer.OtherInner {",
+    "    return Outer.OtherInner(i: i)",
     "  }",
     "}",
     "",
