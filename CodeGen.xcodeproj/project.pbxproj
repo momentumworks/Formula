@@ -1,0 +1,532 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3169C1301CA2E9FE009828E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3169C11B1CA2E9FE009828E2 /* Assets.xcassets */; };
+		3169C13E1CA2E9FE009828E2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C12F1CA2E9FE009828E2 /* main.swift */; };
+		3169C1551CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 3169C1511CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM */; };
+		3169C1571CA2EE2E009828E2 /* SWXMLHash.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 3169C1531CA2EE2E009828E2 /* SWXMLHash.framework.dSYM */; };
+		3169C1581CA2EE36009828E2 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; };
+		3169C1591CA2EE36009828E2 /* SourceKittenFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3169C15A1CA2EE36009828E2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; };
+		3169C15B1CA2EE36009828E2 /* SWXMLHash.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3169C1681CA2F138009828E2 /* Array+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C15D1CA2F138009828E2 /* Array+MW.swift */; };
+		3169C1691CA2F138009828E2 /* Dictionary+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C15E1CA2F138009828E2 /* Dictionary+MW.swift */; };
+		3169C16A1CA2F138009828E2 /* String+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C15F1CA2F138009828E2 /* String+MW.swift */; };
+		3169C16B1CA2F138009828E2 /* Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1611CA2F138009828E2 /* Extractor.swift */; };
+		3169C16C1CA2F138009828E2 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1621CA2F138009828E2 /* Object.swift */; };
+		3169C16D1CA2F138009828E2 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1641CA2F138009828E2 /* Generator.swift */; };
+		3169C16E1CA2F138009828E2 /* ImmutableSettersGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1651CA2F138009828E2 /* ImmutableSettersGenerator.swift */; };
+		3169C16F1CA2F138009828E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1671CA2F138009828E2 /* Utils.swift */; };
+		3169C1721CA2F168009828E2 /* CodeGenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1701CA2F168009828E2 /* CodeGenTests.swift */; };
+		3169C1731CA2F168009828E2 /* TestTargets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1711CA2F168009828E2 /* TestTargets.swift */; };
+		3169C1751CA2F1BA009828E2 /* SourceKittenFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3169C1761CA2F1BA009828E2 /* SWXMLHash.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3169C1781CA2F646009828E2 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; };
+		3169C1791CA2F646009828E2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3169C1481CA2EC36009828E2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD3D74271CA2907D0021FC36 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD3D742E1CA2907D0021FC36;
+			remoteInfo = CodeGen;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3169C1741CA2F1AB009828E2 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3169C1751CA2F1BA009828E2 /* SourceKittenFramework.framework in Copy Frameworks */,
+				3169C1761CA2F1BA009828E2 /* SWXMLHash.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D74541CA293E40021FC36 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3169C15B1CA2EE36009828E2 /* SWXMLHash.framework in Embed Frameworks */,
+				3169C1591CA2EE36009828E2 /* SourceKittenFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3169C11B1CA2E9FE009828E2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3169C12E1CA2E9FE009828E2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3169C12F1CA2E9FE009828E2 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		3169C1431CA2EC36009828E2 /* CodeGenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodeGenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3169C1471CA2EC36009828E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SourceKittenFramework.framework; path = Carthage/Build/Mac/SourceKittenFramework.framework; sourceTree = SOURCE_ROOT; };
+		3169C1511CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SourceKittenFramework.framework.dSYM; path = Carthage/Build/Mac/SourceKittenFramework.framework.dSYM; sourceTree = SOURCE_ROOT; };
+		3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SWXMLHash.framework; path = Carthage/Build/Mac/SWXMLHash.framework; sourceTree = SOURCE_ROOT; };
+		3169C1531CA2EE2E009828E2 /* SWXMLHash.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = SWXMLHash.framework.dSYM; path = Carthage/Build/Mac/SWXMLHash.framework.dSYM; sourceTree = SOURCE_ROOT; };
+		3169C15D1CA2F138009828E2 /* Array+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+MW.swift"; sourceTree = "<group>"; };
+		3169C15E1CA2F138009828E2 /* Dictionary+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+MW.swift"; sourceTree = "<group>"; };
+		3169C15F1CA2F138009828E2 /* String+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MW.swift"; sourceTree = "<group>"; };
+		3169C1611CA2F138009828E2 /* Extractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extractor.swift; sourceTree = "<group>"; };
+		3169C1621CA2F138009828E2 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
+		3169C1641CA2F138009828E2 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		3169C1651CA2F138009828E2 /* ImmutableSettersGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImmutableSettersGenerator.swift; sourceTree = "<group>"; };
+		3169C1671CA2F138009828E2 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		3169C1701CA2F168009828E2 /* CodeGenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGenTests.swift; sourceTree = "<group>"; };
+		3169C1711CA2F168009828E2 /* TestTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTargets.swift; sourceTree = "<group>"; };
+		CD3D742F1CA2907D0021FC36 /* CodeGen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeGen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3169C1401CA2EC36009828E2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3169C1781CA2F646009828E2 /* SourceKittenFramework.framework in Frameworks */,
+				3169C1791CA2F646009828E2 /* SWXMLHash.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D742C1CA2907D0021FC36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3169C15A1CA2EE36009828E2 /* SWXMLHash.framework in Frameworks */,
+				3169C1581CA2EE36009828E2 /* SourceKittenFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3169C11A1CA2E9FE009828E2 /* CodeGen */ = {
+			isa = PBXGroup;
+			children = (
+				3169C15C1CA2F138009828E2 /* Extensions */,
+				3169C1601CA2F138009828E2 /* Extraction */,
+				3169C1631CA2F138009828E2 /* Generators */,
+				3169C1661CA2F138009828E2 /* Utils */,
+				3169C11B1CA2E9FE009828E2 /* Assets.xcassets */,
+				3169C12E1CA2E9FE009828E2 /* Info.plist */,
+				3169C12F1CA2E9FE009828E2 /* main.swift */,
+			);
+			path = CodeGen;
+			sourceTree = "<group>";
+		};
+		3169C1441CA2EC36009828E2 /* CodeGenTests */ = {
+			isa = PBXGroup;
+			children = (
+				3169C1701CA2F168009828E2 /* CodeGenTests.swift */,
+				3169C1711CA2F168009828E2 /* TestTargets.swift */,
+				3169C1471CA2EC36009828E2 /* Info.plist */,
+			);
+			path = CodeGenTests;
+			sourceTree = "<group>";
+		};
+		3169C14F1CA2EE16009828E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */,
+				3169C1511CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM */,
+				3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */,
+				3169C1531CA2EE2E009828E2 /* SWXMLHash.framework.dSYM */,
+			);
+			name = Frameworks;
+			path = CodeGen;
+			sourceTree = "<group>";
+		};
+		3169C15C1CA2F138009828E2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3169C15D1CA2F138009828E2 /* Array+MW.swift */,
+				3169C15E1CA2F138009828E2 /* Dictionary+MW.swift */,
+				3169C15F1CA2F138009828E2 /* String+MW.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3169C1601CA2F138009828E2 /* Extraction */ = {
+			isa = PBXGroup;
+			children = (
+				3169C1611CA2F138009828E2 /* Extractor.swift */,
+				3169C1621CA2F138009828E2 /* Object.swift */,
+			);
+			path = Extraction;
+			sourceTree = "<group>";
+		};
+		3169C1631CA2F138009828E2 /* Generators */ = {
+			isa = PBXGroup;
+			children = (
+				3169C1641CA2F138009828E2 /* Generator.swift */,
+				3169C1651CA2F138009828E2 /* ImmutableSettersGenerator.swift */,
+			);
+			path = Generators;
+			sourceTree = "<group>";
+		};
+		3169C1661CA2F138009828E2 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3169C1671CA2F138009828E2 /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		CD3D74261CA2907D0021FC36 = {
+			isa = PBXGroup;
+			children = (
+				3169C14F1CA2EE16009828E2 /* Frameworks */,
+				3169C11A1CA2E9FE009828E2 /* CodeGen */,
+				3169C1441CA2EC36009828E2 /* CodeGenTests */,
+				CD3D74301CA2907D0021FC36 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CD3D74301CA2907D0021FC36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD3D742F1CA2907D0021FC36 /* CodeGen.app */,
+				3169C1431CA2EC36009828E2 /* CodeGenTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3169C1421CA2EC36009828E2 /* CodeGenTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3169C14A1CA2EC36009828E2 /* Build configuration list for PBXNativeTarget "CodeGenTests" */;
+			buildPhases = (
+				3169C13F1CA2EC36009828E2 /* Sources */,
+				3169C1401CA2EC36009828E2 /* Frameworks */,
+				3169C1411CA2EC36009828E2 /* Resources */,
+				3169C1741CA2F1AB009828E2 /* Copy Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3169C1491CA2EC36009828E2 /* PBXTargetDependency */,
+			);
+			name = CodeGenTests;
+			productName = CodeGenTests;
+			productReference = 3169C1431CA2EC36009828E2 /* CodeGenTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CD3D742E1CA2907D0021FC36 /* CodeGen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD3D743C1CA2907D0021FC36 /* Build configuration list for PBXNativeTarget "CodeGen" */;
+			buildPhases = (
+				CD3D742B1CA2907D0021FC36 /* Sources */,
+				CD3D742C1CA2907D0021FC36 /* Frameworks */,
+				CD3D742D1CA2907D0021FC36 /* Resources */,
+				CD3D74541CA293E40021FC36 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CodeGen;
+			productName = "codegen-cli";
+			productReference = CD3D742F1CA2907D0021FC36 /* CodeGen.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD3D74271CA2907D0021FC36 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Momentumworks;
+				TargetAttributes = {
+					3169C1421CA2EC36009828E2 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = CD3D742E1CA2907D0021FC36;
+					};
+					CD3D742E1CA2907D0021FC36 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = CD3D742A1CA2907D0021FC36 /* Build configuration list for PBXProject "CodeGen" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CD3D74261CA2907D0021FC36;
+			productRefGroup = CD3D74301CA2907D0021FC36 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD3D742E1CA2907D0021FC36 /* CodeGen */,
+				3169C1421CA2EC36009828E2 /* CodeGenTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3169C1411CA2EC36009828E2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D742D1CA2907D0021FC36 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3169C1301CA2E9FE009828E2 /* Assets.xcassets in Resources */,
+				3169C1551CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM in Resources */,
+				3169C1571CA2EE2E009828E2 /* SWXMLHash.framework.dSYM in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3169C13F1CA2EC36009828E2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3169C1731CA2F168009828E2 /* TestTargets.swift in Sources */,
+				3169C1721CA2F168009828E2 /* CodeGenTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD3D742B1CA2907D0021FC36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3169C16A1CA2F138009828E2 /* String+MW.swift in Sources */,
+				3169C13E1CA2E9FE009828E2 /* main.swift in Sources */,
+				3169C16F1CA2F138009828E2 /* Utils.swift in Sources */,
+				3169C16B1CA2F138009828E2 /* Extractor.swift in Sources */,
+				3169C16E1CA2F138009828E2 /* ImmutableSettersGenerator.swift in Sources */,
+				3169C1681CA2F138009828E2 /* Array+MW.swift in Sources */,
+				3169C16D1CA2F138009828E2 /* Generator.swift in Sources */,
+				3169C16C1CA2F138009828E2 /* Object.swift in Sources */,
+				3169C1691CA2F138009828E2 /* Dictionary+MW.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3169C1491CA2EC36009828E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD3D742E1CA2907D0021FC36 /* CodeGen */;
+			targetProxy = 3169C1481CA2EC36009828E2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3169C14B1CA2EC36009828E2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = CodeGenTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.CodeGenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodeGen.app/Contents/MacOS/CodeGen";
+			};
+			name = Debug;
+		};
+		3169C14C1CA2EC36009828E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = CodeGenTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.CodeGenTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CodeGen.app/Contents/MacOS/CodeGen";
+			};
+			name = Release;
+		};
+		CD3D743A1CA2907D0021FC36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CD3D743B1CA2907D0021FC36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CD3D743D1CA2907D0021FC36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = CodeGen/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.codegen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CD3D743E1CA2907D0021FC36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				INFOPLIST_FILE = CodeGen/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.codegen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3169C14A1CA2EC36009828E2 /* Build configuration list for PBXNativeTarget "CodeGenTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3169C14B1CA2EC36009828E2 /* Debug */,
+				3169C14C1CA2EC36009828E2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD3D742A1CA2907D0021FC36 /* Build configuration list for PBXProject "CodeGen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD3D743A1CA2907D0021FC36 /* Debug */,
+				CD3D743B1CA2907D0021FC36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD3D743C1CA2907D0021FC36 /* Build configuration list for PBXNativeTarget "CodeGen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD3D743D1CA2907D0021FC36 /* Debug */,
+				CD3D743E1CA2907D0021FC36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CD3D74271CA2907D0021FC36 /* Project object */;
+}
