@@ -8,6 +8,7 @@
 
 import Foundation
 import SourceKittenFramework
+import AppKit
 
 let GeneratedCodeDirectory = "Autogen"
 let GeneratedCodeFile = "Autogen.swift"
@@ -56,4 +57,11 @@ func main() {
   generateForDirectory(target, usingGenerators: generators, cleanFirst: cleanFirst)
 }
 
-main()
+let inTests = NSClassFromString("XCTest") != nil
+
+if inTests {
+    NSApplicationMain( 0,  UnsafeMutablePointer<UnsafeMutablePointer<CChar>>(nil) )
+}
+else {
+    main()
+}

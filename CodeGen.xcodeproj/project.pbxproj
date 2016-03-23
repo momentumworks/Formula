@@ -29,6 +29,8 @@
 		3169C1761CA2F1BA009828E2 /* SWXMLHash.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3169C1781CA2F646009828E2 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; };
 		3169C1791CA2F646009828E2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; };
+		317D2D9F1CA3066300305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
+		317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,7 @@
 		3169C1671CA2F138009828E2 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3169C1701CA2F168009828E2 /* CodeGenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGenTests.swift; sourceTree = "<group>"; };
 		3169C1711CA2F168009828E2 /* TestTargets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTargets.swift; sourceTree = "<group>"; };
+		317D2D9E1CA3066300305424 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		CD3D742F1CA2907D0021FC36 /* CodeGen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeGen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -123,6 +126,7 @@
 				3169C11B1CA2E9FE009828E2 /* Assets.xcassets */,
 				3169C12E1CA2E9FE009828E2 /* Info.plist */,
 				3169C12F1CA2E9FE009828E2 /* main.swift */,
+				317D2D9E1CA3066300305424 /* MainMenu.xib */,
 			);
 			path = CodeGen;
 			sourceTree = "<group>";
@@ -287,6 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +302,7 @@
 				3169C1301CA2E9FE009828E2 /* Assets.xcassets in Resources */,
 				3169C1551CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM in Resources */,
 				3169C1571CA2EE2E009828E2 /* SWXMLHash.framework.dSYM in Resources */,
+				317D2D9F1CA3066300305424 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
