@@ -17,15 +17,15 @@ public typealias GeneratedFunction = String
 
 class CodeGenerator {
   static let Warning = "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY\n"
-  
+
   let templates: [Template]
   let infoHeader: String
-    
+
   init(templates: [Template], infoHeader: String? = CodeGenerator.Warning) {
     self.templates = templates
     self.infoHeader = infoHeader ?? ""
   }
-  
+
   func generateForFiles(files: [File]) -> String {
     let extractedObjects = Extractor.extractObjects(files)
     let extractedImports = Extractor.extractImports(files)
@@ -35,12 +35,12 @@ class CodeGenerator {
     let extensions = objects.reduce([Extension:[Object]]()) { acc, object in
       var newAcc = acc
       object.extensions.forEach { ext in
-        guard let oldValue = newAcc[ext] else {
-            newAcc[ext] = [object]
-            return
+
+        if let oldValue = newAcc[ext] {
+          newAcc[ext] = oldValue + [object]
+        } else {
+          newAcc[ext] = [object]
         }
-        
-        newAcc[ext] = oldValue + [object]
       }
 
       return newAcc
@@ -61,14 +61,14 @@ class CodeGenerator {
 
       return accumulated + result
     }
-    
+
     var header = infoHeader + sortedImports.map { "import \($0)" }.joinWithSeparator("\n")
-    if header.isEmpty == false {
+    if !header.isEmpty {
         header += "\n"
     }
     return header + generated.trimWithNewLines()
 }
-  
+
   func generateForDirectory(directory: String) -> String {
     let filePaths = Utils.fullPathForAllFilesAt(directory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
     let files = filePaths.map { File(path: $0)! }

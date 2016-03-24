@@ -5,7 +5,7 @@ import MomentumCore
 
 	extension Outer.OtherInner {
 		
-			 func set(i i: Int -> Outer.OtherInner) {
+			 func set(i i: Int -> Outer.OtherInner {
 				return Outer.OtherInner(i: i)
 			}
 		
@@ -13,7 +13,7 @@ import MomentumCore
 
 	extension OtherThing {
 		
-			 func set(s s: String -> OtherThing) {
+			 func set(s s: String -> OtherThing {
 				return OtherThing(s: s)
 			}
 		
@@ -21,7 +21,7 @@ import MomentumCore
 
 	extension Simple {
 		
-			 func set(s s: String -> Simple) {
+			 func set(s s: String -> Simple {
 				return Simple(s: s)
 			}
 		
@@ -29,15 +29,15 @@ import MomentumCore
 
 	extension FourthThing {
 		
-			private func set(s s: String -> FourthThing) {
+			private func set(s s: String -> FourthThing {
 				return FourthThing(s: s, f: f, i: i)
 			}
 		
-			 func set(f f: Float -> FourthThing) {
+			 func set(f f: Float -> FourthThing {
 				return FourthThing(s: s, f: f, i: i)
 			}
 		
-			public func set(i i: Int -> FourthThing) {
+			public func set(i i: Int -> FourthThing {
 				return FourthThing(s: s, f: f, i: i)
 			}
 		
@@ -45,15 +45,15 @@ import MomentumCore
 
 	extension Thing {
 		
-			private func set(s s: String -> Thing) {
+			private func set(s s: String -> Thing {
 				return Thing(s: s, f: f, i: i)
 			}
 		
-			 func set(f f: Float -> Thing) {
+			 func set(f f: Float -> Thing {
 				return Thing(s: s, f: f, i: i)
 			}
 		
-			public func set(i i: Int -> Thing) {
+			public func set(i i: Int -> Thing {
 				return Thing(s: s, f: f, i: i)
 			}
 		
@@ -61,7 +61,7 @@ import MomentumCore
 
 	extension Outer.Inner {
 		
-			 func set(s s: String -> Outer.Inner) {
+			 func set(s s: String -> Outer.Inner {
 				return Outer.Inner(s: s)
 			}
 		
