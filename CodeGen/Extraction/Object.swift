@@ -16,17 +16,6 @@ public typealias Import = String
   public let fields : [Field]
   public let extensions : [Extension]
 
-  public var constructor : String {
-    let params = self.fields.map { "\($0.name): \($0.type)" }.joinWithSeparator(", ")
-    let fieldInits = self.fields.map { "    \($0.name) = \($0.name)" }.joinWithSeparator("\n")
-    return "  init(\(params)) {\n\(fieldInits)\n  }"
-  }
-
-  public var constructorCall : String {
-    let initParams = self.fields.map { "\($0.name): \($0.name)" }.joinWithSeparator(", ")
-    return "return \(self.name)(\(initParams))"
-  }
-    
   public init(accessibility: Accessibility?, name: TypeName, fields: [Field], extensions: [Extension]) {
     self.accessibility = accessibility
     self.name = name
@@ -59,10 +48,16 @@ public typealias Import = String
   }
 }
 
-public struct Field {
-  public let accessibility : Accessibility
+@objc public class Field: NSObject {
+  public let accessibility : String
   public let name : String
   public let type : String
+    
+  public init(accessibility: Accessibility, name: String, type: String) {
+    self.accessibility = accessibility.description
+    self.name = name
+    self.type = type
+  }
 }
 
 public enum Accessibility : String, CustomStringConvertible {
@@ -72,9 +67,9 @@ public enum Accessibility : String, CustomStringConvertible {
 
   public var description : String {
     switch self {
-    case Private: return "private "
+    case Private: return "private"
     case Internal: return ""
-    case Public: return "public "
+    case Public: return "public"
     }
   }
 }

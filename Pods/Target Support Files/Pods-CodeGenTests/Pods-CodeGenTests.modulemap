@@ -1,0 +1,6 @@
+framework module Pods_CodeGenTests {
+  umbrella header "Pods-CodeGenTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
