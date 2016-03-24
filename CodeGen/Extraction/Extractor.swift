@@ -128,7 +128,7 @@ public class Extractor {
   }
 
   static func extractObjects(file: File) -> [TypeName : Object] {
-    NSLog("Extracting objects from \(file.path ?? "source string")")
+    print("Extracting objects from \(file.path ?? "source string")")
     let structure: Structure = Structure(file: file)
     let dictionary = structure.dictionary
     guard let substructures = dictionary["key.substructure"] as? [SourceKitRepresentable] else {

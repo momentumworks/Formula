@@ -5,6 +5,8 @@
 
 import Foundation
 import SourceKittenFramework
+import Stencil
+import PathKit
 
 public typealias GeneratedFunction = String
 
@@ -14,46 +16,61 @@ public typealias GeneratedFunction = String
 }
 
 class CodeGenerator {
-  static let Warning = "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY"
+  static let Warning = "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY\n"
   
-  let generators: [Generator]
-
-  init(generators: [Generator]) {
-    self.generators = generators
+  let templates: [Template]
+  let infoHeader: String
+    
+  init(templates: [Template], infoHeader: String? = CodeGenerator.Warning) {
+    self.templates = templates
+    self.infoHeader = infoHeader ?? ""
   }
   
   func generateForFiles(files: [File]) -> String {
     let extractedObjects = Extractor.extractObjects(files)
     let extractedImports = Extractor.extractImports(files)
-    let parsed = [Object](extractedObjects.values)
-    
-    let generatedFuncs = generators.reduce([TypeName : [GeneratedFunction]]()) { accumulated, generator in
-      let nextGenerated: [TypeName : [GeneratedFunction]] = generator.generateFor(parsed.filter{generator.filter($0)})
-      
-      return accumulated.mergeWith(nextGenerated) { $0 + $1 }
+    let sortedImports = extractedImports.sort()
+
+    let objects = [Object](extractedObjects.values)
+    let extensions = objects.reduce([Extension:[Object]]()) { acc, object in
+      var newAcc = acc
+      object.extensions.forEach { ext in
+        guard let oldValue = newAcc[ext] else {
+            newAcc[ext] = [object]
+            return
+        }
+        
+        newAcc[ext] = oldValue + [object]
+      }
+
+      return newAcc
+    }
+
+    let context = Context(dictionary: [
+        "objects": objects,
+        "extensions": extensions
+    ])
+
+    let generated = templates.reduce("") { accumulated, template in
+      var result = ""
+      do {
+        result = try template.render(context)
+      } catch {
+        print("Failed to render template \(error)")
+      }
+
+      return accumulated + result
     }
     
-    let sortedImports = extractedImports.sort()
-    let sortedTypes = Set(generatedFuncs.keys).sort()
-    
-    let imports = sortedImports.map { "import \($0)" }.joinWithSeparator("\n")
-    let extensions = sortedTypes.map { type -> SourceString in
-      let functions = generatedFuncs[type]!
-      let source = functions.sort().joinWithSeparator("\n\n")
-      let generated = [
-        "extension \(type) {",
-        source,
-        "}"
-        ].joinWithSeparator("\n")
-      
-      return generated
-      }.joinWithSeparator("\n\n")
-    
-    return "\(CodeGenerator.Warning)\(sortedImports.count > 0 ? "\n\n\(imports)" : "")\n\n\(extensions)"
-  }
+    var header = infoHeader + sortedImports.map { "import \($0)" }.joinWithSeparator("\n")
+    if header.isEmpty == false {
+        header += "\n"
+    }
+    return header + generated.trimWithNewLines()
+}
   
   func generateForDirectory(directory: String) -> String {
-    let filePaths = Utils.fullPathForAllSourceFilesAt(directory, ignoreSubdirectory: GeneratedCodeDirectory)
+    let filePaths = Utils.fullPathForAllFilesAt(directory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
     let files = filePaths.map { File(path: $0)! }
     return generateForFiles(files)
   }

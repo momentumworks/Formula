@@ -8,29 +8,40 @@
 
 import XCTest
 @testable import CodeGen
+import Stencil
+import SourceKittenFramework
 
 class CodeGenTests: XCTestCase {
+  var testBundle: NSBundle!
+  var template: Template!
+
   override func setUp() {
     super.setUp()
+    testBundle = NSBundle(forClass: self.dynamicType)
+    template = try! Template(named: "Immutable.stencil", inBundle: testBundle)
   }
-  
+
   override func tearDown() {
     super.tearDown()
   }
-  
+
   func testSimpleGeneration() {
-    let input = Utils.filesFromSources(TestTargets.Simple)
-    let generator = CodeGenerator(generators: [ImmutableSettersGenerator()])
-    let output = generator.generateForFiles(input)
-    
-    XCTAssertEqual(output, TestTargets.SimpleResult, "Generated code wasn't as expected")
+    let fixture = File(path: testBundle.pathForResource("SimpleSource", ofType: "fixture")!)!
+    let expected = File(path: testBundle.pathForResource("SimpleResult", ofType: "fixture")!)!.contents
+
+    let generator = CodeGenerator(templates: [template], infoHeader: nil)
+    let output = generator.generateForFiles([fixture])
+
+    XCTAssertEqual(output, expected, "Generated code wasn't as expected")
   }
 
   func testComplexGeneration() {
-    let input = Utils.filesFromSources(TestTargets.Complex)
-    let generator = CodeGenerator(generators: [ImmutableSettersGenerator()])
-    let output = generator.generateForFiles(input)
-    
-    XCTAssertEqual(output, TestTargets.ComplexResult, "Generated code wasn't as expected")
+    let fixture = File(path: testBundle.pathForResource("ComplexSource", ofType: "fixture")!)!
+    let expected = File(path: testBundle.pathForResource("ComplexResult", ofType: "fixture")!)!.contents
+
+    let generator = CodeGenerator(templates: [template], infoHeader: nil)
+    let output = generator.generateForFiles([fixture])
+
+    XCTAssertEqual(output, expected, "Generated code wasn't as expected")
   }
 }
