@@ -45,10 +45,15 @@ class CodeGenerator {
 
       return newAcc
     }
+    
+    var sortedExtension = [Extension: [Object]]()
+    extensions.forEach { value in
+        sortedExtension[value.0] = value.1.sort { $0.name < $1.name }
+    }
 
     let context = Context(dictionary: [
         "objects": objects,
-        "extensions": extensions
+        "extensions": sortedExtension
     ])
 
     let generated = templates.reduce("") { accumulated, template in
