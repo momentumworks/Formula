@@ -66,8 +66,14 @@ public class Extractor {
   }
 
   private static func extractObject(typeDict: [String : SourceKitRepresentable], nesting: [TypeName]) -> Object? {
-    guard let unqualifiedName = extractName(typeDict) else {
+    guard let type = typeDict["key.kind"] as? String,
+        let unqualifiedName = extractName(typeDict) else {
       return nil
+    }
+    
+    let allowedTypes = [SwiftDeclarationKind.Class.rawValue, SwiftDeclarationKind.ExtensionClass.rawValue, SwiftDeclarationKind.Struct.rawValue, SwiftDeclarationKind.ExtensionStruct.rawValue, SwiftDeclarationKind.Extension.rawValue]
+    if !allowedTypes.contains(type) {
+        return nil
     }
     
     let name = (nesting + unqualifiedName).joinWithSeparator(".")
