@@ -6,36 +6,39 @@
 import Foundation
 
 public typealias Extension = String
-public typealias TypeName = String
+public typealias Name = String
 public typealias SourceString = String
 public typealias Import = String
+public typealias Kind = String
 
-@objc public class Object : NSObject {
+@objc public class Type: NSObject {
   public let accessibility : Accessibility?
-  public let name : TypeName
+  public let name : Name
   public let fields : [Field]
   public let extensions : [Extension]
+  public let kind: Kind
 
-  public init(accessibility: Accessibility?, name: TypeName, fields: [Field], extensions: [Extension]) {
+  public init(accessibility: Accessibility?, name: Name, fields: [Field], extensions: [Extension], kind: Kind) {
     self.accessibility = accessibility
     self.name = name
     self.fields = fields
     self.extensions = extensions
+    self.kind = kind
   }
 
-  public func set(accessibility accessibility: Accessibility) -> Object {
-    return Object(accessibility: accessibility, name: name, fields: fields, extensions: extensions)
+  public func set(accessibility accessibility: Accessibility) -> Type {
+    return Type(accessibility: accessibility, name: name, fields: fields, extensions: extensions, kind: kind)
   }
 
-  public func set(fields fields: [Field]) -> Object {
-    return Object(accessibility: accessibility, name: name, fields: fields, extensions: extensions)
+  public func set(fields fields: [Field]) -> Type {
+    return Type(accessibility: accessibility, name: name, fields: fields, extensions: extensions, kind: kind)
   }
 
-  public func appendExtensions(extensions: [Extension]) -> Object {
-    return Object(accessibility: accessibility, name: name, fields: fields, extensions: self.extensions + extensions)
+  public func appendExtensions(extensions: [Extension]) -> Type {
+    return Type(accessibility: accessibility, name: name, fields: fields, extensions: self.extensions + extensions, kind: kind)
   }
 
-  public func mergeWith(otherObj: Object) -> Object {
+  public func mergeWith(otherObj: Type) -> Type {
     guard otherObj.name == name else {
       return self
     }
@@ -44,7 +47,7 @@ public typealias Import = String
     let fields = self.fields + otherObj.fields
     let extensions = self.extensions + otherObj.extensions
 
-    return Object(accessibility: accessibility, name: name, fields: fields, extensions: extensions)
+    return Type(accessibility: accessibility, name: name, fields: fields, extensions: extensions, kind: kind)
   }
 }
 

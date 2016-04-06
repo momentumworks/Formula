@@ -11,8 +11,8 @@ import PathKit
 public typealias GeneratedFunction = String
 
 @objc public protocol Generator {
-  func filter(object: Object) -> Bool
-  func generateFor(filteredObjects: [Object]) -> [TypeName : [GeneratedFunction]]
+  func filter(object: Type) -> Bool
+  func generateFor(filteredObjects: [Type]) -> [Name: [GeneratedFunction]]
 }
 
 class CodeGenerator {
@@ -27,32 +27,33 @@ class CodeGenerator {
   }
 
   func generateForFiles(files: [File]) -> String {
-    let extractedObjects = Extractor.extractObjects(files)
+    let extractedTypes = Extractor.extractTypes(files)
     let extractedImports = Extractor.extractImports(files)
     let sortedImports = extractedImports.sort()
 
-    let objects = [Object](extractedObjects.values)
-    let extensions = objects.reduce([Extension:[Object]]()) { acc, object in
+    let types = [Type](extractedTypes.values).sort { $0.name < $1.name }
+    let extensions = types.reduce([Extension:[Type]]()) { acc, type in
       var newAcc = acc
-      object.extensions.forEach { ext in
+      type.extensions.forEach { ext in
 
         if let oldValue = newAcc[ext] {
-          newAcc[ext] = oldValue + [object]
+          newAcc[ext] = oldValue + [type]
         } else {
-          newAcc[ext] = [object]
+          newAcc[ext] = [type]
         }
       }
 
       return newAcc
     }
     
-    var sortedExtension = [Extension: [Object]]()
+    var sortedExtension = [Extension: [Type]]()
     extensions.forEach { value in
         sortedExtension[value.0] = value.1.sort { $0.name < $1.name }
     }
 
     let context = Context(dictionary: [
-        "objects": objects,
+        "types": types,
+        "structs": types.filter { $0.kind == "struct" },
         "extensions": sortedExtension
     ])
 

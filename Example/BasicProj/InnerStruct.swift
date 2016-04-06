@@ -5,6 +5,7 @@ struct Outer {
   
   struct OtherInner {
     let i: Int
+    let x: Optional<Int>
   }
 }
 
