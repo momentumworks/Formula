@@ -82,7 +82,7 @@ public class Extractor {
     let fields = extractFields(typeDict)
     let extensions = extractExtensions(typeDict)
 
-    return Type(accessibility: accessibility, name: name, fields: fields, extensions: extensions, kind: type.stringByReplacingOccurrencesOfString("source.lang.swift.decl.", withString: ""))
+    return Type(accessibility: accessibility?.description, name: name, fields: fields, extensions: extensions, kind: type.stringByReplacingOccurrencesOfString("source.lang.swift.decl.", withString: ""))
   }
   
   private static func extractNestedTypes(typeDict: [String : SourceKitRepresentable], nesting: [Name]) -> [(Name, Type)] {

@@ -12,21 +12,21 @@ public typealias Import = String
 public typealias Kind = String
 
 @objc public class Type: NSObject {
-  public let accessibility : Accessibility?
+  public let accessibility : String
   public let name : Name
   public let fields : [Field]
   public let extensions : [Extension]
   public let kind: Kind
 
-  public init(accessibility: Accessibility?, name: Name, fields: [Field], extensions: [Extension], kind: Kind) {
-    self.accessibility = accessibility
+  public init(accessibility: String?, name: Name, fields: [Field], extensions: [Extension], kind: Kind) {
+    self.accessibility = accessibility ?? ""
     self.name = name
     self.fields = fields
     self.extensions = extensions
     self.kind = kind
   }
 
-  public func set(accessibility accessibility: Accessibility) -> Type {
+  public func set(accessibility accessibility: String) -> Type {
     return Type(accessibility: accessibility, name: name, fields: fields, extensions: extensions, kind: kind)
   }
 
@@ -43,7 +43,8 @@ public typealias Kind = String
       return self
     }
 
-    let accessibility = self.accessibility ?? otherObj.accessibility
+    // not proud of this, but it's to allow us to remove optionals
+    let accessibility = self.accessibility == "" ? otherObj.accessibility : self.accessibility
     let fields = self.fields + otherObj.fields
     let extensions = self.extensions + otherObj.extensions
 
