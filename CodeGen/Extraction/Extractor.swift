@@ -71,7 +71,7 @@ public class Extractor {
       return nil
     }
     
-    let allowedTypes = [SwiftDeclarationKind.Class.rawValue, SwiftDeclarationKind.ExtensionClass.rawValue, SwiftDeclarationKind.Struct.rawValue, SwiftDeclarationKind.ExtensionStruct.rawValue, SwiftDeclarationKind.Extension.rawValue]
+    let allowedTypes = [SwiftDeclarationKind.Class.rawValue, SwiftDeclarationKind.ExtensionClass.rawValue, SwiftDeclarationKind.Struct.rawValue, SwiftDeclarationKind.ExtensionStruct.rawValue, SwiftDeclarationKind.Extension.rawValue, SwiftDeclarationKind.Enum.rawValue]
     if !allowedTypes.contains(type) {
         return nil
     }
