@@ -6,24 +6,27 @@
 import Foundation
 
 public typealias Extension = String
+public typealias Entity = String
 public typealias Name = String
 public typealias SourceString = String
 public typealias Import = String
 public typealias Kind = String
 
-@objc public class Type: NSObject {
+public struct Type {
   public let accessibility : String
   public let name : Name
   public let fields : [Field]
   public let extensions : [Extension]
+  public let enumCases: [EnumCase]
   public let kind: Kind
 
-  public init(accessibility: String?, name: Name, fields: [Field], extensions: [Extension], kind: Kind) {
+  public init(accessibility: String?, name: Name, fields: [Field], extensions: [Extension], kind: Kind, enumCases: [EnumCase] = []) {
     self.accessibility = accessibility ?? ""
     self.name = name
     self.fields = fields
     self.extensions = extensions
     self.kind = kind
+    self.enumCases = enumCases
   }
 
   public func set(accessibility accessibility: String) -> Type {
@@ -52,7 +55,7 @@ public typealias Kind = String
   }
 }
 
-@objc public class Field: NSObject {
+public struct Field {
   public let accessibility : String
   public let name : String
   public let type : String
@@ -77,3 +80,11 @@ public enum Accessibility : String, CustomStringConvertible {
     }
   }
 }
+
+public struct EnumCase {
+  
+  public let name: Name
+  public let associatedValues: [Kind]
+  
+}
+

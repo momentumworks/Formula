@@ -78,7 +78,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/merowing/work/contracts/momentum/code-gen/Example"
+            argument = "/Users/mark/Dev/code-gen/Example"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

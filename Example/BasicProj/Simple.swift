@@ -24,3 +24,9 @@ public class FourthThing: Equatable {
 }
 
 extension FourthThing: Immutable {}
+
+enum FifthThing {
+  case One(String), Two(String), Three
+}
+
+extension FifthThing: AutoEquatable {}

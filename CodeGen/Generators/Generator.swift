@@ -10,7 +10,7 @@ import PathKit
 
 public typealias GeneratedFunction = String
 
-@objc public protocol Generator {
+public protocol Generator {
   func filter(object: Type) -> Bool
   func generateFor(filteredObjects: [Type]) -> [Name: [GeneratedFunction]]
 }

@@ -1,0 +1,9 @@
+// MARK: - AutoEquatable
+{% for type in extensions.AutoEquatable %}
+extension {{ type.name }}: Equatable {}
+{{ type.accessibility }} func ==(lhs: {{ type.name }}, rhs: {{ type.name }}) -> Bool {
+  return {% for field in type.fields %}lhs.{{ field.name }} == rhs.{{ field.name }} 
+      && {% endfor %}true
+}
+{% endfor %}
+// MARK: -

@@ -22,6 +22,10 @@ public class Extractor {
   private static func extractType(typeDict: [String: SourceKitRepresentable]) -> String? {
     return typeDict["key.typename"] as? String
   }
+  
+  private static func extractKind(typeDict: [String: SourceKitRepresentable]) -> String? {
+    return typeDict["key.kind"] as? String
+  }
 
   private static func extractExtensions(typeDict: [String: SourceKitRepresentable]) -> [Extension] {
     guard let inheritedTypes = typeDict["key.inheritedtypes"] as? [SourceKitRepresentable] else {
@@ -34,6 +38,44 @@ public class Extractor {
       }
 
       return extractName(inheritedTypeDict)
+    }
+  }
+  
+  private static func extractEnums(typeDict: [String: SourceKitRepresentable]) -> [EnumCase] {
+    guard let entitityTypes = typeDict["key.entities"] as? [SourceKitRepresentable] else {
+      return []
+    }
+    return entitityTypes.flatMap { entityType in
+      guard let entityType = entityType as? [String : SourceKitRepresentable] else {
+        return nil
+      }
+      
+      return extractEnum(entityType)
+    }
+  }
+  
+  
+  private static func extractEnum(typeDict: [String: SourceKitRepresentable]) -> EnumCase? {
+    
+    guard let kind = typeDict["key.kind"] as? String,
+          let name = typeDict["key.name"] as? String
+          where kind == SwiftDeclarationKind.Enumelement.rawValue
+      else {
+        return nil
+    }
+    
+    let associatedValuesTypeDict = typeDict["key.entities"] as? [SourceKitRepresentable] ?? []
+    
+    return EnumCase(name: name, associatedValues: extractAssociatedTypes(associatedValuesTypeDict))
+  }
+  
+  private static func extractAssociatedTypes(typeArray: [SourceKitRepresentable]) -> [Kind] {
+    return typeArray.flatMap { associatedValueDict in
+      guard let dict = associatedValueDict as? [String: SourceKitRepresentable]
+        else {
+          return nil
+      }
+      return extractKind(dict)
     }
   }
   
@@ -71,7 +113,15 @@ public class Extractor {
       return nil
     }
     
-    let allowedTypes = [SwiftDeclarationKind.Class.rawValue, SwiftDeclarationKind.ExtensionClass.rawValue, SwiftDeclarationKind.Struct.rawValue, SwiftDeclarationKind.ExtensionStruct.rawValue, SwiftDeclarationKind.Extension.rawValue, SwiftDeclarationKind.Enum.rawValue]
+    let allowedTypes = [SwiftDeclarationKind.Class.rawValue,
+                        SwiftDeclarationKind.ExtensionClass.rawValue,
+                        SwiftDeclarationKind.Struct.rawValue,
+                        SwiftDeclarationKind.ExtensionStruct.rawValue,
+                        SwiftDeclarationKind.Extension.rawValue,
+                        SwiftDeclarationKind.ExtensionEnum.rawValue,
+                        SwiftDeclarationKind.Enum.rawValue,
+                        SwiftDeclarationKind.Enumcase.rawValue,
+                        SwiftDeclarationKind.Enumelement.rawValue]
     if !allowedTypes.contains(type) {
         return nil
     }
@@ -81,6 +131,7 @@ public class Extractor {
     let accessibility = extractAccessibility(typeDict)
     let fields = extractFields(typeDict)
     let extensions = extractExtensions(typeDict)
+    let entities = extractEnums(typeDict)
 
     return Type(accessibility: accessibility?.description, name: name, fields: fields, extensions: extensions, kind: type.stringByReplacingOccurrencesOfString("source.lang.swift.decl.", withString: ""))
   }
@@ -114,6 +165,8 @@ public class Extractor {
     // SourceKitten doesn't give us info about the import statements, and
     // altering it to support that would be way more work than this, so...
     
+    // TODO: this can be done using the Indexing feature of SourceKit/SourceKitten
+    
     return lines.filter {
         $0.trim().hasPrefix("import")
       }
@@ -134,19 +187,28 @@ public class Extractor {
   }
 
   static func extractTypes(file: File) -> [Name:Type] {
+    
     print("Extracting objects from \(file.path ?? "source string")")
     let structure: Structure = Structure(file: file)
     let dictionary = structure.dictionary
-    guard let substructures = dictionary["key.substructure"] as? [SourceKitRepresentable] else {
+    
+    let indexed = Request.Index(file: file.path!).send()
+    
+    guard
+//      let substructures = dictionary["key.substructure"] as? [SourceKitRepresentable],
+      let substructures = indexed["key.entities"] as? [SourceKitRepresentable]
+      else {
       return [:]
     }
+    
+    
 
     return extractTypes(substructures, nesting: [])
   }
   
   static func extractTypes(files: [File]) -> [Name:Type] {
-    return files.reduce([Name: Type]()) { objects, file in
-      return objects.mergeWith(extractTypes(file)){ $0.mergeWith($1) }
-    }
+    return files
+      .map(extractTypes)
+      .reduce([Name:Type](), combine: +)
   }
 }
