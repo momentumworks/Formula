@@ -46,16 +46,19 @@ public class Extractor {
   }
 
   
-  private static func extractEnum(entities: SourceKitRepresentable) -> Enum? {
+  private static func extractEnum(entities: SourceKitRepresentable) -> [Enum] {
     guard let entitiesDict = entities as? [String: SourceKitRepresentable],
           let type = extractKind(entitiesDict),
           let name = extractName(entitiesDict)
-          where type == SwiftDeclarationKind.Enum.rawValue
       else {
-        return nil
+        return []
     }
     
-    return Enum(name: name, cases: extractEntities(entitiesDict).flatMap(extractEnumCase))
+    guard type == SwiftDeclarationKind.Enum.rawValue else {
+      return extractEntities(entitiesDict).flatMap(extractEnum)
+    }
+    
+    return [Enum(name: name, cases: extractEntities(entitiesDict).flatMap(extractEnumCase))]
   }
   
   private static func extractEnumCase(typeDict: SourceKitRepresentable) -> EnumCase? {
