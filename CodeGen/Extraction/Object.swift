@@ -81,6 +81,13 @@ public enum Accessibility : String, CustomStringConvertible {
   }
 }
 
+public struct Enum {
+  
+  public let name: Name
+  public let cases: [EnumCase]
+  
+}
+
 public struct EnumCase {
   
   public let name: Name
