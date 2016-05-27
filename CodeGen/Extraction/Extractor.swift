@@ -14,11 +14,7 @@ public class Extractor {
 
     return Accessibility(rawValue: accessibilityStr)
   }
-
-//  private static func extractName(typeDict: [String: SourceKitRepresentable]) -> String? {
-//    return typeDict["key.name"] as? String
-//  }
-
+  
   private static func extractType(typeDict: [String: SourceKitRepresentable]) -> String? {
     return typeDict["key.typename"] as? String
   }
@@ -101,7 +97,7 @@ public class Extractor {
   
   
   private static func extractFields(typeDict: [String: SourceKitRepresentable]) -> [Field] {
-    guard let fields = typeDict["key.substructure"] as? [SourceKitRepresentable] else {
+    guard let fields = typeDict.substructures else {
       return []
     }
     
@@ -111,7 +107,7 @@ public class Extractor {
     
     func fieldIsntStatic(field: [String: SourceKitRepresentable]) -> Bool {
       // This feels dangerous...
-      return field["key.kind"].flatMap{ $0 as? String } != Optional(SwiftDeclarationKind.VarStatic.rawValue)
+      return field.kind.flatMap{ $0 as? String } != Optional(SwiftDeclarationKind.VarStatic.rawValue)
     }
 
     return fields.flatMap { field in
