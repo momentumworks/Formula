@@ -49,7 +49,7 @@ public class Extractor {
     return typeDict?["key.substructure"] as? [SourceKitRepresentable] ?? []
   }
   
-  private static func extractEnumFromIndex(entities: SourceKitRepresentable) -> [Enum] {
+  private static func extractEnumFromIndex(entities: SourceKitRepresentable, nesting: [Name] = []) -> [Enum] {
     guard let entitiesDict = entities as? [String: SourceKitRepresentable],
           let type = extractKind(entitiesDict),
           let name = extractName(entitiesDict)
@@ -58,14 +58,20 @@ public class Extractor {
     }
     
     guard type == SwiftDeclarationKind.Enum.rawValue else {
-      return extractEntities(entitiesDict).flatMap(extractEnumFromIndex)
+      return extractEntities(entitiesDict)
+        .flatMap { extractEnumFromIndex($0, nesting: nesting + name) }
     }
     
-    return [Enum(name: name, accessibility: nil, cases: extractEntities(entitiesDict).flatMap(extractEnumCase), extensions: [])]
+    return [Enum(name: (nesting + name).joinWithSeparator("."),
+      accessibility: nil,
+      cases: extractEntities(entitiesDict).flatMap(extractEnumCase),
+      extensions: []
+      )
+    ]
   }
   
   
-  private static func extractEnumFromStructure(substructures: SourceKitRepresentable) -> [Enum] {
+  private static func extractEnumFromStructure(substructures: SourceKitRepresentable, nesting: [Name]) -> [Enum] {
     guard let substructuresDict = substructures as? [String: SourceKitRepresentable],
       let type = extractKind(substructuresDict),
       let name = extractName(substructuresDict)
@@ -74,7 +80,8 @@ public class Extractor {
     }
     
     guard type == SwiftDeclarationKind.Enum.rawValue else {
-      return extractSubStructures(substructuresDict).flatMap(extractEnumFromStructure)
+      return extractSubStructures(substructuresDict)
+        .flatMap { extractEnumFromStructure($0, nesting: nesting + name) }
     }
     
     let intermediate = extractSubStructures(substructuresDict).first as? [String: SourceKitRepresentable]
@@ -82,7 +89,7 @@ public class Extractor {
     let cases = extractSubStructures(intermediate)
       .flatMap(extractEnumCase)
     
-    return [Enum(name: name, accessibility: nil, cases: cases, extensions: [])]
+    return [Enum(name: (nesting + name).joinWithSeparator("."), accessibility: nil, cases: cases, extensions: [])]
   }
   
   private static func extractEnumCase(typeDict: SourceKitRepresentable) -> EnumCase? {
@@ -224,8 +231,11 @@ public class Extractor {
       else { return [:] }
     
     let indexed = Request.Index(file: file.path!).send()
-    let enumsFromIndex = extractEntities(indexed).flatMap(extractEnumFromIndex)
-    let enumsFromStructure = substructures.flatMap(extractEnumFromStructure)
+    let enumsFromIndex = extractEntities(indexed)
+      .flatMap { extractEnumFromIndex($0, nesting: []) }
+    
+    let enumsFromStructure = substructures
+      .flatMap { extractEnumFromStructure($0, nesting: []) }
     
     return extractTypes(substructures, nesting: [])
   }
