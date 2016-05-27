@@ -84,8 +84,17 @@ public enum Accessibility : String, CustomStringConvertible {
 public struct Enum {
   
   public let name: Name
+  public let accessibility: String?
   public let cases: [EnumCase]
+  public let extensions: [Extension]
   
+  public func set(accessibility accessibility: String) -> Enum {
+    return Enum(name: name, accessibility: accessibility, cases: cases, extensions: extensions)
+  }
+  
+  public func set(extensions extensions: [Extension]) -> Enum {
+    return Enum(name: name, accessibility: accessibility, cases: cases, extensions: extensions)
+  }
 }
 
 public struct EnumCase {
