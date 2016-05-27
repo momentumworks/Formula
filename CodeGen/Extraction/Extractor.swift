@@ -9,17 +9,7 @@ import SourceKittenFramework
 public class Extractor {
 
   private static func extractExtensions(typeDict: [String: SourceKitRepresentable]) -> [Extension] {
-    guard let inheritedTypes = typeDict["key.inheritedtypes"] as? [SourceKitRepresentable] else {
-      return []
-    }
-
-    return inheritedTypes.flatMap { inheritedType in
-      guard let inheritedTypeDict = inheritedType as? [String : SourceKitRepresentable] else {
-        return nil
-      }
-
-      return inheritedTypeDict.name
-    }
+    return typeDict.inheritedTypes?.flatMap { $0.asDictionary?.name } ?? []
   }
   
   private static func extractEnumFromIndex(entities: SourceKitRepresentable, nesting: [Name] = []) -> [Enum] {
@@ -114,7 +104,7 @@ public class Extractor {
   }
 
   private static func extractType(typeDict: [String : SourceKitRepresentable], nesting: [Name]) -> Type? {
-    guard let type = typeDict["key.kind"] as? String,
+    guard let type = typeDict.kind,
         let unqualifiedName = typeDict.name else {
       return nil
     }

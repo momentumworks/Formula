@@ -40,4 +40,8 @@ extension SourceKitRepresentable {
     return Accessibility(rawValue: string)
   }
   
+  var inheritedTypes: [SourceKitRepresentable]? {
+    return self.asDictionary?["key.inheritedtypes"] as? [SourceKitRepresentable] ?? []
+  }
+  
 }
