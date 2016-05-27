@@ -28,11 +28,16 @@ extension SourceKitRepresentable {
   }
   
   var name: Name? {
-    return self.asDictionary?["key.name"] as? String
+    return self.asDictionary?["key.name"] as? Name
   }
   
   var kind: Kind? {
-    return self.asDictionary?["key.kind"] as? String
+    return self.asDictionary?["key.kind"] as? Kind
+  }
+  
+  var accessibility: Accessibility? {
+    guard let string = self.asDictionary?["key.accessibility"] as? String else { return nil }
+    return Accessibility(rawValue: string)
   }
   
 }

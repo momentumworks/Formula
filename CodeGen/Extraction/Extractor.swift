@@ -7,17 +7,6 @@ import Foundation
 import SourceKittenFramework
 
 public class Extractor {
-  private static func extractAccessibility(typeDict: [String: SourceKitRepresentable]) -> Accessibility? {
-    guard let accessibilityStr = typeDict["key.accessibility"] as? String else {
-      return nil
-    }
-
-    return Accessibility(rawValue: accessibilityStr)
-  }
-  
-  private static func extractType(typeDict: [String: SourceKitRepresentable]) -> String? {
-    return typeDict["key.typename"] as? String
-  }
 
   private static func extractExtensions(typeDict: [String: SourceKitRepresentable]) -> [Extension] {
     guard let inheritedTypes = typeDict["key.inheritedtypes"] as? [SourceKitRepresentable] else {
@@ -107,14 +96,14 @@ public class Extractor {
     
     func fieldIsntStatic(field: [String: SourceKitRepresentable]) -> Bool {
       // This feels dangerous...
-      return field.kind.flatMap{ $0 as? String } != Optional(SwiftDeclarationKind.VarStatic.rawValue)
+      return field.kind.flatMap{ $0 } != Optional(SwiftDeclarationKind.VarStatic.rawValue)
     }
 
     return fields.flatMap { field in
       guard let fieldData = field as? [String: SourceKitRepresentable],
-        let accessibility = extractAccessibility(fieldData),
+        let accessibility = fieldData.accessibility,
         let fieldName = fieldData.name,
-        let fieldType = extractType(fieldData)
+        let fieldType = fieldData.kind
         where fieldIsntCalculated(fieldData) &&
         fieldIsntStatic(fieldData) else {
           return nil
@@ -142,11 +131,10 @@ public class Extractor {
     
     let name = (nesting + unqualifiedName).joinWithSeparator(".")
 
-    let accessibility = extractAccessibility(typeDict)
     let fields = extractFields(typeDict)
     let extensions = extractExtensions(typeDict)
 
-    return Type(accessibility: accessibility?.description, name: name, fields: fields, extensions: extensions, kind: type.stringByReplacingOccurrencesOfString("source.lang.swift.decl.", withString: ""))
+    return Type(accessibility: typeDict.accessibility?.description, name: name, fields: fields, extensions: extensions, kind: type.stringByReplacingOccurrencesOfString("source.lang.swift.decl.", withString: ""))
   }
   
   
