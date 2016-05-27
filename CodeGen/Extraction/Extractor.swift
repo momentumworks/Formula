@@ -22,10 +22,6 @@ public class Extractor {
   private static func extractType(typeDict: [String: SourceKitRepresentable]) -> String? {
     return typeDict["key.typename"] as? String
   }
-  
-  private static func extractKind(typeDict: [String: SourceKitRepresentable]) -> String? {
-    return typeDict["key.kind"] as? String
-  }
 
   private static func extractExtensions(typeDict: [String: SourceKitRepresentable]) -> [Extension] {
     guard let inheritedTypes = typeDict["key.inheritedtypes"] as? [SourceKitRepresentable] else {
@@ -43,7 +39,7 @@ public class Extractor {
   
   private static func extractEnumFromIndex(entities: SourceKitRepresentable, nesting: [Name] = []) -> [Enum] {
     guard let entitiesDict = entities as? [String: SourceKitRepresentable],
-          let type = extractKind(entitiesDict),
+          let type = entitiesDict.kind,
           let name = entitiesDict.name
       else {
         return []
@@ -65,7 +61,7 @@ public class Extractor {
   
   private static func extractEnumFromStructure(substructures: SourceKitRepresentable, nesting: [Name]) -> [Enum] {
     guard let substructuresDict = substructures as? [String: SourceKitRepresentable],
-      let type = extractKind(substructuresDict),
+      let type = substructuresDict.kind,
       let name = substructuresDict.name
       else {
         return []
@@ -73,8 +69,10 @@ public class Extractor {
     
     guard type == SwiftDeclarationKind.Enum.rawValue else {
       return substructuresDict
-        .substructures
-        .flatMap { extractEnumFromStructure($0, nesting: nesting + name) } ?? []
+        .substructures?
+        .flatMap {
+          extractEnumFromStructure($0, nesting: nesting + name)
+        } ?? []
     }
     
     let cases = substructuresDict
@@ -96,19 +94,11 @@ public class Extractor {
         return nil
     }
     
-    return EnumCase(name: name,
-                    associatedValues: extractAssociatedTypes(entitiesDict.entities ?? []))
+    let associatedTypes = entitiesDict.entities?.flatMap { $0.asDictionary?.kind } ?? []
+    
+    return EnumCase(name: name, associatedValues: associatedTypes)
   }
   
-  private static func extractAssociatedTypes(typeArray: [SourceKitRepresentable]) -> [Kind] {
-    return typeArray.flatMap { associatedValueDict in
-      guard let dict = associatedValueDict as? [String: SourceKitRepresentable]
-        else {
-          return nil
-      }
-      return extractKind(dict)
-    }
-  }
   
   private static func extractFields(typeDict: [String: SourceKitRepresentable]) -> [Field] {
     guard let fields = typeDict["key.substructure"] as? [SourceKitRepresentable] else {

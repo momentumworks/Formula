@@ -20,7 +20,7 @@ extension SourceKitRepresentable {
   }
   
   var substructures: [SourceKitRepresentable]? {
-    return self.asDictionary?["key.substructures"] as? [SourceKitRepresentable]
+    return self.asDictionary?["key.substructure"] as? [SourceKitRepresentable]
   }
   
   var entities: [SourceKitRepresentable]? {
