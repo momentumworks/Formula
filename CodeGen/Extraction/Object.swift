@@ -40,19 +40,20 @@ public struct Type {
   public func appendExtensions(extensions: [Extension]) -> Type {
     return Type(accessibility: accessibility, name: name, fields: fields, extensions: self.extensions + extensions, kind: kind)
   }
+}
 
-  public func mergeWith(otherObj: Type) -> Type {
-    guard otherObj.name == name else {
-      return self
-    }
 
-    // not proud of this, but it's to allow us to remove optionals
-    let accessibility = self.accessibility == "" ? otherObj.accessibility : self.accessibility
-    let fields = self.fields + otherObj.fields
-    let extensions = self.extensions + otherObj.extensions
-
-    return Type(accessibility: accessibility, name: name, fields: fields, extensions: extensions, kind: kind)
+public func +(lhs: Type, rhs: Type) -> Type {
+  guard lhs.name == rhs.name else {
+    return lhs
   }
+  
+  // not proud of this, but it's to allow us to remove optionals
+  let accessibility = lhs.accessibility == "" ? rhs.accessibility : lhs.accessibility
+  let fields = lhs.fields + rhs.fields
+  let extensions = lhs.extensions + rhs.extensions
+  
+  return Type(accessibility: accessibility, name: lhs.name, fields: fields, extensions: extensions, kind: lhs.kind)
 }
 
 public struct Field {
@@ -95,6 +96,20 @@ public struct Enum {
   public func set(extensions extensions: [Extension]) -> Enum {
     return Enum(name: name, accessibility: accessibility, cases: cases, extensions: extensions)
   }
+
+}
+
+public func +(lhs: Enum, rhs: Enum) -> Enum {
+  guard lhs.name == rhs.name else {
+    return lhs
+  }
+  
+  // not proud of this, but it's to allow us to remove optionals
+  let accessibility = lhs.accessibility == "" ? rhs.accessibility : lhs.accessibility
+  let cases = lhs.cases + rhs.cases
+  let extensions = lhs.extensions + rhs.extensions
+  
+  return Enum(name: lhs.name, accessibility: accessibility, cases: cases, extensions: extensions)
 }
 
 public struct EnumCase {
