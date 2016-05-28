@@ -53,7 +53,7 @@ class CodeGenerator {
 
     let context = Context(dictionary: [
         "types": types,
-        "structs": types.filter { $0.kind == "struct" },
+        "structs": types.filter(onlyStructs),
         "extensions": sortedExtension
     ])
 
@@ -79,5 +79,13 @@ class CodeGenerator {
     let filePaths = Utils.fullPathForAllFilesAt(directory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
     let files = filePaths.map { File(path: $0)! }
     return generateForFiles(files)
+  }
+}
+
+private func onlyStructs(type: Type) -> Bool {
+  if case .Struct(_) = type.kind {
+    return true
+  } else {
+    return false
   }
 }

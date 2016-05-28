@@ -31,8 +31,8 @@ extension SourceKitRepresentable {
     return self.asDictionary?["key.name"] as? Name
   }
   
-  var kind: Kind? {
-    return self.asDictionary?["key.kind"] as? Kind
+  var kind: String? {
+    return self.asDictionary?["key.kind"] as? String
   }
   
   var accessibility: Accessibility? {

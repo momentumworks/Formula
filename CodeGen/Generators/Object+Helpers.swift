@@ -6,13 +6,25 @@
 import Foundation
 extension Type {
   public var constructor : String {
-    let params = self.fields.map { "\($0.name): \($0.type)" }.joinWithSeparator(", ")
-    let fieldInits = self.fields.map { "    \($0.name) = \($0.name)" }.joinWithSeparator("\n")
-    return "init(\(params)) {\n\(fieldInits)\n  }"
+    
+    switch kind {
+    case .Class(let fields):
+      let params = fields.map { "\($0.name): \($0.type)" }.joinWithSeparator(", ")
+      let fieldInits = fields.map { "    \($0.name) = \($0.name)" }.joinWithSeparator("\n")
+      return "init(\(params)) {\n\(fieldInits)\n  }"
+    case .Struct(let fields):
+      let params = fields.map { "\($0.name): \($0.type)" }.joinWithSeparator(", ")
+      let fieldInits = fields.map { "    \($0.name) = \($0.name)" }.joinWithSeparator("\n")
+      return "init(\(params)) {\n\(fieldInits)\n  }"
+    case .Enum(let cases):
+      fatalError()
+    }
   }
 
   public var constructorCall : String {
-    let initParams = self.fields.map { "\($0.name): \($0.name)" }.joinWithSeparator(", ")
-    return "\(self.name)(\(initParams))"
+//    let initParams = self.fields.map { "\($0.name): \($0.name)" }.joinWithSeparator(", ")
+//    return "\(self.name)(\(initParams))"
+//    return ""
+    fatalError()
   }
 }

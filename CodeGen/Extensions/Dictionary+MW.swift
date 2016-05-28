@@ -6,16 +6,16 @@
 import Foundation
 
 public extension Dictionary {
-  public init(_ tupleArr: [Element]) {
+  public init(tupleArray: [Element]) {
     self.init()
-    for (k, v) in tupleArr {
+    for (k, v) in tupleArray {
       self[k] = v
     }
   }
   
-  public init(_ tupleArr: [Element], mergeFn: (Value, Value) -> Value) {
+  public init(tupleArray: [Element], mergeFn: (Value, Value) -> Value) {
     self.init()
-    for (k, v) in tupleArr {
+    for (k, v) in tupleArray {
       if let existing = self[k] {
         self[k] = mergeFn(v, existing)
       } else {

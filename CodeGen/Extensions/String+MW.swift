@@ -38,10 +38,14 @@ public extension String {
   }
 
   public func trim() -> String {
-    return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
   }
 
   public func trimWithNewLines() -> String {
-    return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    return stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+  }
+  
+  public func drop(subString: String) -> String {
+    return stringByReplacingOccurrencesOfString(subString, withString: "")
   }
 }
