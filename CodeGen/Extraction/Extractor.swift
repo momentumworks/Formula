@@ -12,6 +12,7 @@ public class Extractor {
     return typeDict.inheritedTypes?.flatMap { $0.asDictionary?.name } ?? []
   }
   
+  // this only works with the output of the "index" command of SourceKit(ten)
   private static func extractEnumFromIndex(entities: SourceKitRepresentable, nesting: [Name] = []) -> [Type] {
     guard let entitiesDict = entities.asDictionary,
           let type = entitiesDict.kind,
@@ -32,7 +33,7 @@ public class Extractor {
     )]
   }
   
-  
+  // this only works with the output of the "structure" command of SourceKit(ten)
   private static func extractEnumFromStructure(substructures: SourceKitRepresentable, nesting: [Name]) -> [Type] {
     guard let substructuresDict = substructures.asDictionary,
       let type = substructuresDict.kind,
@@ -76,7 +77,6 @@ public class Extractor {
     return EnumCase(name: name, associatedValues: associatedTypes)
   }
   
-  
   private static func extractFields(typeDict: [String: SourceKitRepresentable]) -> [Field] {
     guard let fields = typeDict.substructures else {
       return []
@@ -105,15 +105,22 @@ public class Extractor {
     }
   }
 
-  private static func extractType(typeDict: [String : SourceKitRepresentable], nesting: [Name]) -> Type? {
-    guard let type = typeDict.kind,
+  // this only works with the output of the "structure" command of SourceKit(ten)
+  private static func extractClassOrStruct(source: SourceKitRepresentable, nesting: [Name]) -> [Type] {
+    guard let typeDict = source.asDictionary,
+          let type = typeDict.kind,
           let unqualifiedName = typeDict.name else {
-      return nil
+      return []
     }
     
     let allowedTypes = [SwiftDeclarationKind.Class.rawValue,
                         SwiftDeclarationKind.Struct.rawValue]
-    guard allowedTypes.contains(type) else { return nil }
+    guard allowedTypes.contains(type) else {
+      // if
+      return type
+        .substructures?
+        .flatMap { extractClassOrStruct($0, nesting: nesting + unqualifiedName) } ?? []
+    }
     
     let name = (nesting + unqualifiedName).joinWithSeparator(".")
     
@@ -133,9 +140,10 @@ public class Extractor {
     
     let extensions = extractExtensions(typeDict)
   
-    return Type(accessibility: typeDict.accessibility?.description, name: name, extensions: extensions, kind: kind)
+    return [Type(accessibility: typeDict.accessibility?.description, name: name, extensions: Set(extensions), kind: kind)]
   }
   
+  // this only works with the output of the "structure" command of SourceKit(ten)
   private static func extractExtensionTypes(source: SourceKitRepresentable, nesting: [Name]) -> [Type] {
     guard let typeDict = source.asDictionary,
           let type = typeDict.kind,
@@ -148,6 +156,7 @@ public class Extractor {
                         SwiftDeclarationKind.ExtensionClass.rawValue,
                         SwiftDeclarationKind.ExtensionEnum.rawValue]
     guard allowedTypes.contains(type) else {
+      // if fails, recurisvely call this function again, one level deeper, to see if there's a valid type in there
       return typeDict
         .substructures?
         .flatMap { extractExtensionTypes($0, nesting: nesting + unqualifiedName) } ?? []
@@ -159,31 +168,6 @@ public class Extractor {
       .map { Type(accessibility: nil, name: name, extensions: [$0], kind: Kind(rawValue: type)) }
   }
   
-  
-  private static func extractNestedTypes(typeDict: [String : SourceKitRepresentable], nesting: [Name]) -> [(Name, Type)] {
-    guard let nestedTypes = typeDict.substructures else {
-      return []
-    }
-    
-    return extractTypesAsTuples(nestedTypes, nesting: nesting)
-  }
-  
-  private static func extractTypesAsTuples(types: [SourceKitRepresentable], nesting: [Name]) -> [(Name, Type)] {
-    return types.flatMap{ type -> [(Name, Type)] in
-      guard let typeDict = type as? [String : SourceKitRepresentable],
-        let obj = extractType(typeDict, nesting: nesting) else {
-        return []
-      }
-      
-      let nestedObjects = extractNestedTypes(typeDict, nesting: nesting + obj.name)
-      return nestedObjects + (obj.name, obj)
-    }
-  }
-
-  private static func extractTypes(types: [SourceKitRepresentable], nesting: [Name]) -> [Name:Type] {
-    let tuples = extractTypesAsTuples(types, nesting: nesting)
-    return Dictionary(tupleArray: tuples, mergeFn: +)
-  }
   
   static func extractImports(lines: [String]) -> [Import] {
     // SourceKitten doesn't give us info about the import statements, and
@@ -214,41 +198,28 @@ public class Extractor {
     
     print("Extracting objects from \(file.path ?? "source string")")
     let structure: Structure = Structure(file: file)
-    guard let substructures = structure.dictionary.substructures else { return [:] }
-    
-    let extractedTypes = extractTypes(substructures, nesting: [])
-
-    // extracting out the structs and classes was easy, now the fun part - enums!
     
     let indexed = Request.Index(file: file.path!).send()
+
+    guard let substructures = structure.dictionary.substructures,
+          let entities = indexed.entities else {
+      return [:]
+    }
     
- 
+    let extractedTypes = extract(substructures, extractFuntion: extractClassOrStruct)
+    
     // the associated values that enum cases hold only appear in the output of the Index command
-    let enumsFromIndex = indexed.entities?
-      .flatMap { extractEnumFromIndex($0, nesting: []) }
-      .map(typeToTuple) ?? []
+    let enumsFromIndex = extract(entities, extractFuntion: extractEnumFromIndex)
     
     // but we still need the output of the structure to extract out accessiblity and other relevant information
-    let enumsFromStructure = substructures
-      .flatMap { extractEnumFromStructure($0, nesting: []) }
-      .map(typeToTuple)
-    
+    let enumsFromStructure = extract(substructures, extractFuntion: extractEnumFromStructure)
+
     // we have to extract out extensions separately for the enums, since they appear completely inconsistently throughout the structure output (not like with classes and structs, where they're nested)
-    let extensions = substructures
-      .flatMap { extractExtensionTypes($0, nesting: []) }
-      .map(typeToTuple)
+    let extensions = extract(substructures, extractFuntion: extractExtensionTypes)
 
-    let enumsFromStructureDic = Dictionary(tupleArray: enumsFromStructure, mergeFn: +)
-    let enumsFromIndexDic = Dictionary(tupleArray: enumsFromIndex, mergeFn: +)
-    
-    let extensionTypesDic = Dictionary(tupleArray: extensions, mergeFn: +)
-
-
-    let enums = enumsFromStructureDic
-      .mergeWith(enumsFromIndexDic, mergeFn: +)
-      .mergeWith(extensionTypesDic, mergeFn: +)
-    
-    
+    let enums = enumsFromStructure
+      .mergeWith(enumsFromIndex, mergeFn: +)
+      .mergeWith(extensions, mergeFn: +)
     
     return extractedTypes + enums
   }
@@ -258,12 +229,18 @@ public class Extractor {
       .map(extractTypes)
       .reduce([Name:Type](), combine: +)
   }
+  
 }
 
 private func typeToTuple(type: Type) -> (Name, Type) {
   return (type.name, type)
 }
 
-//private func extensionTypeToTuple(extensionType: ExtensionType) -> (Name, ExtensionType) {
-//  return (extensionType.name, extensionType)
-//}
+
+private func extract(input: [SourceKitRepresentable], extractFuntion: (source: SourceKitRepresentable, nesting: [Name]) -> [Type]) -> [Name: Type] {
+  let tuples = input
+    .flatMap { extractFuntion(source: $0, nesting: []) }
+    .map(typeToTuple)
+
+  return Dictionary(tupleArray: tuples, mergeFn: +)
+}

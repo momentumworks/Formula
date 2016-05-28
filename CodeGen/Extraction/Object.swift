@@ -38,10 +38,10 @@ public enum Kind {
 public struct Type {
   public let accessibility : String
   public let name : Name
-  public let extensions : [Extension]
+  public let extensions : Set<Extension>
   public let kind: Kind
 
-  public init(accessibility: String?, name: Name, extensions: [Extension], kind: Kind) {
+  public init(accessibility: String?, name: Name, extensions: Set<Extension>, kind: Kind) {
     self.accessibility = accessibility ?? ""
     self.name = name
     self.extensions = extensions
@@ -52,7 +52,7 @@ public struct Type {
     return Type(accessibility: accessibility, name: name, extensions: extensions, kind: kind)
   }
 
-  public func appendExtensions(extensions: [Extension]) -> Type {
+  public func appendExtensions(extensions: Set<Extension>) -> Type {
     return Type(accessibility: accessibility, name: name, extensions: self.extensions + extensions, kind: kind)
   }
 }

@@ -30,6 +30,7 @@
 		317D2D9F1CA3066300305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */; };
+		4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */; };
 		4DCBD0EB1CF278F70089BBE8 /* ComplexEnumSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4DCBD0EA1CF278F70089BBE8 /* ComplexEnumSource.fixture */; };
 		50C4F41BD66B6DDB1343F125 /* Pods_CodeGenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AE0A4AA598B898AA2FE8F8 /* Pods_CodeGenTests.framework */; };
 		6C553C77EAB3DE3B721902F0 /* Pods_CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD243D9A3A8ECECCEDE236D /* Pods_CodeGen.framework */; };
@@ -99,6 +100,7 @@
 		317D2D9E1CA3066300305424 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		39AE0A4AA598B898AA2FE8F8 /* Pods_CodeGenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SourceKitRepresentable+MW.swift"; sourceTree = "<group>"; };
+		4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Set+MW.swift"; sourceTree = "<group>"; };
 		4DCBD0EA1CF278F70089BBE8 /* ComplexEnumSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ComplexEnumSource.fixture; sourceTree = "<group>"; };
 		6AD243D9A3A8ECECCEDE236D /* Pods_CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EAD3536D2CA9821BC529B90 /* Pods-CodeGen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.debug.xcconfig"; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				3169C15D1CA2F138009828E2 /* Array+MW.swift */,
+				4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */,
 				3169C15E1CA2F138009828E2 /* Dictionary+MW.swift */,
 				3169C15F1CA2F138009828E2 /* String+MW.swift */,
 				4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */,
@@ -578,6 +581,7 @@
 				3169C16F1CA2F138009828E2 /* Utils.swift in Sources */,
 				3169C16B1CA2F138009828E2 /* Extractor.swift in Sources */,
 				3169C1681CA2F138009828E2 /* Array+MW.swift in Sources */,
+				4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */,
 				3169C16D1CA2F138009828E2 /* Generator.swift in Sources */,
 				3169C16C1CA2F138009828E2 /* Object.swift in Sources */,
 				3169C1691CA2F138009828E2 /* Dictionary+MW.swift in Sources */,
