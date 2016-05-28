@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import SourceKittenFramework
 
 public typealias Extension = String
 public typealias Entity = String
@@ -15,17 +16,21 @@ public enum Kind {
   case Struct([Field])
   case Class([Field])
   case Enum([EnumCase])
+  case Unknown
   
   init(rawValue: String?) {
     guard let rawValue = rawValue else { fatalError() }
     switch rawValue {
-    case "struct":
+    case "struct", SwiftDeclarationKind.ExtensionStruct.rawValue:
       self = .Struct([])
-    case "enum" :
+    case "enum", SwiftDeclarationKind.ExtensionEnum.rawValue:
       self = .Enum([])
-    case "class" :
+    case "class", SwiftDeclarationKind.ExtensionClass.rawValue:
       self = .Class([])
-    default: fatalError()
+    case SwiftDeclarationKind.Extension.rawValue:
+      self = .Unknown
+    default:
+      fatalError()
     }
   }
 }
@@ -69,6 +74,10 @@ public func +(lhs: Type, rhs: Type) -> Type {
       return .Enum(lhsValue + rhsValue)
     case let (.Class(lhsValue), .Class(rhsValue)):
       return .Class(lhsValue + rhsValue)
+    case (.Unknown, _):
+      return rhs.kind
+    case (_, .Unknown):
+      return lhs.kind
     default:
       fatalError()
     }
@@ -109,9 +118,3 @@ public struct EnumCase {
   public let associatedValues: [Kind]
   
 }
-
-internal struct ExtensionType {
-  let name: Name
-  let inheritedType: Extension
-}
-

@@ -18,6 +18,8 @@ extension Type {
       return "init(\(params)) {\n\(fieldInits)\n  }"
     case .Enum(let cases):
       fatalError()
+    case .Unknown:
+      fatalError()
     }
   }
 

@@ -28,10 +28,9 @@ class CodeGenerator {
 
   func generateForFiles(files: [File]) -> String {
     let extractedTypes = Extractor.extractTypes(files)
-    let extractedImports = Extractor.extractImports(files)
-    let sortedImports = extractedImports.sort()
+    let extractedImports = Extractor.extractImports(files).sort()
 
-    let types = [Type](extractedTypes.values).sort { $0.name < $1.name }
+    let types = [Type](extractedTypes.values).sort(sortByName)
     let extensions = types.reduce([Extension:[Type]]()) { acc, type in
       var newAcc = acc
       type.extensions.forEach { ext in
@@ -68,7 +67,7 @@ class CodeGenerator {
       return accumulated + result
     }
 
-    var header = infoHeader + sortedImports.map { "import \($0)" }.joinWithSeparator("\n")
+    var header = infoHeader + extractedImports.map { "import \($0)" }.joinWithSeparator("\n")
     if !header.isEmpty {
         header += "\n"
     }
@@ -88,4 +87,8 @@ private func onlyStructs(type: Type) -> Bool {
   } else {
     return false
   }
+}
+
+private func sortByName(lhs: Type, rhs: Type) -> Bool {
+  return lhs.name < rhs.name
 }

@@ -19,3 +19,11 @@ public func +<T>(left: [T], right: T) -> [T] {
 
   return newArray
 }
+
+public extension Array where Element : Hashable {
+  
+  public var unique: [Element] {
+    return Array(Set(self))
+  }
+  
+}

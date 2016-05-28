@@ -53,7 +53,11 @@ public class Extractor {
       .substructures?
       .flatMap(extractEnumCase) ?? []
     
-    return [Type(accessibility: substructuresDict.accessibility?.description, name: (nesting + name).joinWithSeparator("."), extensions: [], kind: .Enum(cases))]
+    return [Type(accessibility: substructuresDict.accessibility?.description,
+      name: (nesting + name).joinWithSeparator("."),
+      extensions: [],
+      kind: .Enum(cases)
+    )]
   }
   
   private static func extractEnumCase(typeDict: SourceKitRepresentable) -> EnumCase? {
@@ -108,7 +112,6 @@ public class Extractor {
     }
     
     let allowedTypes = [SwiftDeclarationKind.Class.rawValue,
-                        SwiftDeclarationKind.ExtensionClass.rawValue,
                         SwiftDeclarationKind.Struct.rawValue]
     guard allowedTypes.contains(type) else { return nil }
     
@@ -123,6 +126,8 @@ public class Extractor {
         return .Class(extractFields(typeDict))
       case .Enum:
         return .Enum([])
+      case .Unknown:
+        fatalError()
       }
     }() as Kind
     
@@ -131,7 +136,7 @@ public class Extractor {
     return Type(accessibility: typeDict.accessibility?.description, name: name, extensions: extensions, kind: kind)
   }
   
-  private static func extractExtensionTypes(source: SourceKitRepresentable, nesting: [Name]) -> [ExtensionType] {
+  private static func extractExtensionTypes(source: SourceKitRepresentable, nesting: [Name]) -> [Type] {
     guard let typeDict = source.asDictionary,
           let type = typeDict.kind,
           let unqualifiedName = typeDict.name else {
@@ -140,6 +145,7 @@ public class Extractor {
     
     let allowedTypes = [SwiftDeclarationKind.ExtensionStruct.rawValue,
                         SwiftDeclarationKind.Extension.rawValue,
+                        SwiftDeclarationKind.ExtensionClass.rawValue,
                         SwiftDeclarationKind.ExtensionEnum.rawValue]
     guard allowedTypes.contains(type) else {
       return typeDict
@@ -149,7 +155,8 @@ public class Extractor {
     
     let name = (nesting + unqualifiedName).joinWithSeparator(".")
     
-    return extractExtensions(typeDict).map { ExtensionType(name: name, inheritedType: $0) }
+    return extractExtensions(typeDict)
+      .map { Type(accessibility: nil, name: name, extensions: [$0], kind: Kind(rawValue: type)) }
   }
   
   
@@ -200,7 +207,7 @@ public class Extractor {
     let allImports = files.reduce([Import]()) { imports, file in
       return imports + extractImports(file)
     }
-    return [Import](Set(allImports))
+    return allImports.unique
   }
 
   static func extractTypes(file: File) -> [Name:Type] {
@@ -209,27 +216,41 @@ public class Extractor {
     let structure: Structure = Structure(file: file)
     guard let substructures = structure.dictionary.substructures else { return [:] }
     
+    let extractedTypes = extractTypes(substructures, nesting: [])
+
+    // extracting out the structs and classes was easy, now the fun part - enums!
+    
     let indexed = Request.Index(file: file.path!).send()
     
-    let enumsFromStructure = substructures
-      .flatMap { extractEnumFromStructure($0, nesting: []) }
-      .map(typeToTuple)
-    
+ 
+    // the associated values that enum cases hold only appear in the output of the Index command
     let enumsFromIndex = indexed.entities?
       .flatMap { extractEnumFromIndex($0, nesting: []) }
       .map(typeToTuple) ?? []
     
+    // but we still need the output of the structure to extract out accessiblity and other relevant information
+    let enumsFromStructure = substructures
+      .flatMap { extractEnumFromStructure($0, nesting: []) }
+      .map(typeToTuple)
     
-    
+    // we have to extract out extensions separately for the enums, since they appear completely inconsistently throughout the structure output (not like with classes and structs, where they're nested)
     let extensions = substructures
       .flatMap { extractExtensionTypes($0, nesting: []) }
-    
+      .map(typeToTuple)
 
     let enumsFromStructureDic = Dictionary(tupleArray: enumsFromStructure, mergeFn: +)
     let enumsFromIndexDic = Dictionary(tupleArray: enumsFromIndex, mergeFn: +)
-
     
-    return extractTypes(substructures, nesting: [])
+    let extensionTypesDic = Dictionary(tupleArray: extensions, mergeFn: +)
+
+
+    let enums = enumsFromStructureDic
+      .mergeWith(enumsFromIndexDic, mergeFn: +)
+      .mergeWith(extensionTypesDic, mergeFn: +)
+    
+    
+    
+    return extractedTypes + enums
   }
   
   static func extractTypes(files: [File]) -> [Name:Type] {
@@ -242,3 +263,7 @@ public class Extractor {
 private func typeToTuple(type: Type) -> (Name, Type) {
   return (type.name, type)
 }
+
+//private func extensionTypeToTuple(extensionType: ExtensionType) -> (Name, ExtensionType) {
+//  return (extensionType.name, extensionType)
+//}
