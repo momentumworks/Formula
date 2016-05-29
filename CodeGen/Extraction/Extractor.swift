@@ -76,7 +76,7 @@ public class Extractor {
     
     let associatedTypes = entitiesDict
       .entities?
-      .flatMap { Kind(rawValue :$0.asDictionary?.kind?.drop("source.lang.swift.ref.")) } ?? []
+      .flatMap { $0.asDictionary?.name } ?? []
     
     return EnumCase(name: name, associatedValues: associatedTypes)
   }
@@ -96,7 +96,7 @@ public class Extractor {
     }
 
     return fields.flatMap { field in
-      guard let fieldData = field as? [String: SourceKitRepresentable],
+      guard let fieldData = field.asDictionary,
         let accessibility = fieldData.accessibility,
         let fieldName = fieldData.name,
         let fieldType = fieldData.kind
@@ -223,7 +223,7 @@ public class Extractor {
 
     let enumsAndTypes = enumsFromStructure.mergeWith(enumsFromIndex, mergeFn: +) + extractedTypes
 
-    return merge(enumsAndTypes, extensions)
+    return mergeTypesAndExtensions(enumsAndTypes, extensions)
   }
   
   static func extractTypes(files: [File]) -> [Name:Type] {
@@ -243,7 +243,7 @@ private func extract<T where T: TupleConvertible>(input: [SourceKitRepresentable
   return Dictionary(tupleArray: tuples)
 }
 
-private func merge(lhs: [Name: Type], _ rhs: [Name: ExtensionType]) -> [Name: Type] {
+private func mergeTypesAndExtensions(lhs: [Name: Type], _ rhs: [Name: ExtensionType]) -> [Name: Type] {
   var merged = lhs
   for (k, v) in rhs {
     if let existing = merged[k] {

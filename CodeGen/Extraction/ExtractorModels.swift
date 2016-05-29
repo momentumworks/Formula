@@ -142,10 +142,10 @@ public func +(lhs: Type, rhs: Type) -> Type {
 
 public struct Field {
   public let accessibility : String
-  public let name : String
+  public let name : Name
   public let type : String
     
-  public init(accessibility: Accessibility, name: String, type: String) {
+  public init(accessibility: Accessibility, name: String, type: Name) {
     self.accessibility = accessibility.description
     self.name = name
     self.type = type
@@ -169,7 +169,7 @@ public enum Accessibility : String, CustomStringConvertible {
 public struct EnumCase {
   
   public let name: Name
-  public let associatedValues: [Kind]
+  public let associatedValues: [Name]
   
 }
 
@@ -191,12 +191,6 @@ public func +(lhs: ExtensionType, rhs: ExtensionType) -> ExtensionType {
   return ExtensionType(name: lhs.name, extensions: lhs.extensions + rhs.extensions)
 }
 
-public func +(lhs: Type, rhs: ExtensionType) -> Type {
-  guard lhs.name == rhs.name else {
-    return lhs
-  }
-  return Type(accessibility: lhs.accessibility, name: lhs.name, extensions: lhs.extensions + rhs.extensions, kind: lhs.kind)
-}
 
 public func +(lhs: ExtensionType, rhs: Type) -> Type {
   guard lhs.name == rhs.name else {
