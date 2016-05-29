@@ -27,33 +27,31 @@ class CodeGenerator {
   }
 
   func generateForFiles(files: [File]) -> String {
-    let extractedTypes = Extractor.extractTypes(files)
+    let extractedTypes = Extractor.extractTypes(files).mapTuples { ($0.0, StencilType(type: $0.1)) }
     let extractedImports = Extractor.extractImports(files).sort()
 
-    let types = [Type](extractedTypes.values).sort(sortByName)
-    let extensions = types.reduce([Extension:[Type]]()) { acc, type in
-      var newAcc = acc
-      type.extensions.forEach { ext in
+    let types = [StencilType](extractedTypes.values).sort(sortByName)
+    let extensions = types.reduce([Extension:[StencilType]]()) { acc, type in
+        var newAcc = acc
+        type.extensions.forEach { ext in
 
-        if let oldValue = newAcc[ext] {
-          newAcc[ext] = oldValue + [type]
-        } else {
-          newAcc[ext] = [type]
+          if let oldValue = newAcc[ext] {
+            newAcc[ext] = oldValue + [type]
+          } else {
+            newAcc[ext] = [type]
+          }
         }
-      }
 
-      return newAcc
-    }
+        return newAcc
+      }
+      .mapValues { $0.sort(sortByName) }
     
-    var sortedExtension = [Extension: [Type]]()
-    extensions.forEach { value in
-        sortedExtension[value.0] = value.1.sort { $0.name < $1.name }
-    }
 
     let context = Context(dictionary: [
         "types": types,
-        "structs": types.filter(onlyStructs),
-        "extensions": sortedExtension
+        "structs": types.filter { $0.type == "struct" },
+        "enums" : types.filter { $0.type == "enum" },
+        "extensions": extensions
     ])
 
     let generated = templates.reduce("") { accumulated, template in
@@ -81,14 +79,7 @@ class CodeGenerator {
   }
 }
 
-private func onlyStructs(type: Type) -> Bool {
-  if case .Struct(_) = type.kind {
-    return true
-  } else {
-    return false
-  }
-}
 
-private func sortByName(lhs: Type, rhs: Type) -> Bool {
+private func sortByName(lhs: StencilType, rhs: StencilType) -> Bool {
   return lhs.name < rhs.name
 }

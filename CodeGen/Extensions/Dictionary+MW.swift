@@ -23,7 +23,8 @@ public extension Dictionary {
       }
     }
   }
-
+  
+  @warn_unused_result
   public func mergeWith(other: Dictionary<Key, Value>, mergeFn: (Value, Value) -> Value) -> Dictionary<Key, Value> {
     var merged = self
     for (k, v) in other {
@@ -35,6 +36,22 @@ public extension Dictionary {
     }
     return merged
   }
+  
+  @warn_unused_result
+  func mapTuples<OutKey: Hashable, OutValue>(@noescape transform: Element throws -> (OutKey, OutValue)) rethrows -> [OutKey: OutValue] {
+    return Dictionary<OutKey, OutValue>(tupleArray: try map(transform))
+  }
+  
+  @warn_unused_result
+  func mapValues<OutValue>(@noescape transform: Value throws -> OutValue) rethrows -> [Key: OutValue] {
+    return Dictionary<Key, OutValue>(tupleArray: try map { (k, v) in (k, try transform(v)) })
+  }
+  
+  @warn_unused_result
+  func filterTuples(@noescape includeElement: Element throws -> Bool) rethrows -> [Key: Value] {
+    return Dictionary(tupleArray: try filter(includeElement))
+  }
+  
 }
 
 public func +<K, V>(left: [K:V], right: [K:V]) -> [K:V] {

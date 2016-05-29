@@ -24,32 +24,25 @@ class CodeGenTests: XCTestCase {
   override func tearDown() {
     super.tearDown()
   }
-  func testSimpleGeneration() {
-    let fixture = File(path: testBundle.pathForResource("ComplexEnumSource", ofType: "fixture")!)!
-    
-    let generator = CodeGenerator(templates: [template], infoHeader: nil)
-    let output = generator.generateForFiles([fixture])
-    
-  }
 
   
-//  func testSimpleGeneration() {
-//    let fixture = File(path: testBundle.pathForResource("SimpleSource", ofType: "fixture")!)!
-//    let expected = File(path: testBundle.pathForResource("SimpleResult", ofType: "fixture")!)!.contents
-//
-//    let generator = CodeGenerator(templates: [template], infoHeader: nil)
-//    let output = generator.generateForFiles([fixture])
-//
-//    XCTAssertEqual(output, expected, "Generated code wasn't as expected")
-//  }
-//
-//  func testComplexGeneration() {
-//    let fixture = File(path: testBundle.pathForResource("ComplexSource", ofType: "fixture")!)!
-//    let expected = File(path: testBundle.pathForResource("ComplexResult", ofType: "fixture")!)!.contents
-//
-//    let generator = CodeGenerator(templates: [template], infoHeader: nil)
-//    let output = generator.generateForFiles([fixture])
-//
-//    XCTAssertEqual(output, expected, "Generated code wasn't as expected")
-//  }
+  func testSimpleGeneration() {
+    let fixture = File(path: testBundle.pathForResource("SimpleSource", ofType: "fixture")!)!
+    let expected = File(path: testBundle.pathForResource("SimpleResult", ofType: "fixture")!)!.contents
+
+    let generator = CodeGenerator(templates: [template], infoHeader: nil)
+    let output = generator.generateForFiles([fixture])
+
+    XCTAssertEqual(output, expected, "Generated code wasn't as expected")
+  }
+
+  func testComplexGeneration() {
+    let fixture = File(path: testBundle.pathForResource("ComplexSource", ofType: "fixture")!)!
+    let expected = File(path: testBundle.pathForResource("ComplexResult", ofType: "fixture")!)!.contents
+
+    let generator = CodeGenerator(templates: [template], infoHeader: nil)
+    let output = generator.generateForFiles([fixture])
+
+    XCTAssertEqual(output, expected, "Generated code wasn't as expected")
+  }
 }

@@ -16,6 +16,8 @@ public enum Kind {
   case Struct([Field])
   case Class([Field])
   case Enum([EnumCase])
+  
+  // there's a possiblity that we can't infer the Kind properly, when dealing with extensions. so we'll need an option to allow this temporarily, before merging all types with the same name.
   case Unknown
   
   init(rawValue: String?) {
@@ -30,7 +32,55 @@ public enum Kind {
     case SwiftDeclarationKind.Extension.rawValue:
       self = .Unknown
     default:
-      fatalError()
+      fatalError("type can't be inferred")
+    }
+  }
+  
+}
+
+public extension Kind {
+  var stringValue: String {
+    switch self {
+    case .Struct:   return "struct"
+    case .Enum:     return "enum"
+    case .Class:    return "class"
+    case .Unknown:  return "unkown"
+    }
+  }
+  
+  var fields: [Field]? {
+    switch self {
+    case let .Class(fields):  return fields
+    case let .Struct(fields): return fields
+    default:                   return nil
+    }
+  }
+  
+  var enumCases: [EnumCase]? {
+    switch self {
+    case let .Enum(cases):  return cases
+    default:                return nil
+    }
+  }
+  
+  var isEnum: Bool {
+    switch self {
+    case .Enum: return true
+    default:    return false
+    }
+  }
+  
+  var isStruct: Bool {
+    switch self {
+    case .Struct: return true
+    default:    return false
+    }
+  }
+
+  var isClass: Bool {
+    switch self {
+    case .Class: return true
+    default:    return false
     }
   }
 }

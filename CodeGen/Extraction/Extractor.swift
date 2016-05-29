@@ -22,7 +22,9 @@ public class Extractor {
     }
     
     guard type == SwiftDeclarationKind.Enum.rawValue else {
-      return entitiesDict.entities?
+      // if fails, recurisvely call this function again, one level deeper, to see if there's a valid type in there
+      return entitiesDict
+        .entities?
         .flatMap { extractEnumFromIndex($0, nesting: nesting + name) } ?? []
     }
     
@@ -43,6 +45,7 @@ public class Extractor {
     }
     
     guard type == SwiftDeclarationKind.Enum.rawValue else {
+      // if fails, recurisvely call this function again, one level deeper, to see if there's a valid type in there
       return substructuresDict
         .substructures?
         .flatMap { extractEnumFromStructure($0, nesting: nesting + name) } ?? []
@@ -71,7 +74,8 @@ public class Extractor {
         return nil
     }
     
-    let associatedTypes = entitiesDict.entities?
+    let associatedTypes = entitiesDict
+      .entities?
       .flatMap { Kind(rawValue :$0.asDictionary?.kind?.drop("source.lang.swift.ref.")) } ?? []
     
     return EnumCase(name: name, associatedValues: associatedTypes)
@@ -116,7 +120,7 @@ public class Extractor {
     let allowedTypes = [SwiftDeclarationKind.Class.rawValue,
                         SwiftDeclarationKind.Struct.rawValue]
     guard allowedTypes.contains(type) else {
-      // if
+      // if fails, recurisvely call this function again, one level deeper, to see if there's a valid type in there
       return type
         .substructures?
         .flatMap { extractClassOrStruct($0, nesting: nesting + unqualifiedName) } ?? []
@@ -206,22 +210,24 @@ public class Extractor {
       return [:]
     }
     
-    let extractedTypes = extract(substructures, extractFuntion: extractClassOrStruct)
+    let extractedTypes = extract(substructures, function: extractClassOrStruct)
     
     // the associated values that enum cases hold only appear in the output of the Index command
-    let enumsFromIndex = extract(entities, extractFuntion: extractEnumFromIndex)
+    let enumsFromIndex = extract(entities, function: extractEnumFromIndex)
     
     // but we still need the output of the structure to extract out accessiblity and other relevant information
-    let enumsFromStructure = extract(substructures, extractFuntion: extractEnumFromStructure)
+    let enumsFromStructure = extract(substructures, function: extractEnumFromStructure)
 
     // we have to extract out extensions separately for the enums, since they appear completely inconsistently throughout the structure output (not like with classes and structs, where they're nested)
-    let extensions = extract(substructures, extractFuntion: extractExtensionTypes)
+    let enumExtensions = extract(substructures, function: extractExtensionTypes).filterTuples { $0.1.kind.isEnum }
 
     let enums = enumsFromStructure
       .mergeWith(enumsFromIndex, mergeFn: +)
-      .mergeWith(extensions, mergeFn: +)
+      .mergeWith(enumExtensions, mergeFn: +)
     
-    return extractedTypes + enums
+    let all = extractedTypes + enums
+    
+    return all
   }
   
   static func extractTypes(files: [File]) -> [Name:Type] {
@@ -237,9 +243,10 @@ private func typeToTuple(type: Type) -> (Name, Type) {
 }
 
 
-private func extract(input: [SourceKitRepresentable], extractFuntion: (source: SourceKitRepresentable, nesting: [Name]) -> [Type]) -> [Name: Type] {
+private func extract(input: [SourceKitRepresentable],
+                     function: (source: SourceKitRepresentable, nesting: [Name]) -> [Type]) -> [Name: Type] {
   let tuples = input
-    .flatMap { extractFuntion(source: $0, nesting: []) }
+    .flatMap { function(source: $0, nesting: []) }
     .map(typeToTuple)
 
   return Dictionary(tupleArray: tuples, mergeFn: +)
