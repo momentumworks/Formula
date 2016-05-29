@@ -54,6 +54,7 @@ public extension Dictionary {
   
 }
 
+
 public func +<K, V>(left: [K:V], right: [K:V]) -> [K:V] {
   var map = [K: V]()
   for (k, v) in left {

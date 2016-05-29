@@ -12,6 +12,11 @@ public typealias Name = String
 public typealias SourceString = String
 public typealias Import = String
 
+protocol TupleConvertible {
+  var name: Name { get }
+  func toTuple() -> (Name, Self)
+}
+
 public enum Kind {
   case Struct([Field])
   case Class([Field])
@@ -29,8 +34,6 @@ public enum Kind {
       self = .Enum([])
     case "class", SwiftDeclarationKind.ExtensionClass.rawValue:
       self = .Class([])
-    case SwiftDeclarationKind.Extension.rawValue:
-      self = .Unknown
     default:
       fatalError("type can't be inferred")
     }
@@ -107,6 +110,11 @@ public struct Type {
   }
 }
 
+extension Type: TupleConvertible {
+  public func toTuple() -> (Name, Type) {
+    return (self.name, self)
+  }
+}
 
 public func +(lhs: Type, rhs: Type) -> Type {
   guard lhs.name == rhs.name else {
@@ -124,10 +132,6 @@ public func +(lhs: Type, rhs: Type) -> Type {
       return .Enum(lhsValue + rhsValue)
     case let (.Class(lhsValue), .Class(rhsValue)):
       return .Class(lhsValue + rhsValue)
-    case (.Unknown, _):
-      return rhs.kind
-    case (_, .Unknown):
-      return lhs.kind
     default:
       fatalError()
     }
@@ -168,3 +172,38 @@ public struct EnumCase {
   public let associatedValues: [Kind]
   
 }
+
+public struct ExtensionType {
+  public let name : String
+  public let extensions : Set<Extension>
+}
+
+extension ExtensionType: TupleConvertible {
+  public func toTuple() -> (Name, ExtensionType) {
+    return (self.name, self)
+  }
+}
+
+public func +(lhs: ExtensionType, rhs: ExtensionType) -> ExtensionType {
+  guard lhs.name == rhs.name else {
+    return lhs
+  }
+  return ExtensionType(name: lhs.name, extensions: lhs.extensions + rhs.extensions)
+}
+
+public func +(lhs: Type, rhs: ExtensionType) -> Type {
+  guard lhs.name == rhs.name else {
+    return lhs
+  }
+  return Type(accessibility: lhs.accessibility, name: lhs.name, extensions: lhs.extensions + rhs.extensions, kind: lhs.kind)
+}
+
+public func +(lhs: ExtensionType, rhs: Type) -> Type {
+  guard lhs.name == rhs.name else {
+    return rhs
+  }
+  return Type(accessibility: rhs.accessibility, name: rhs.name, extensions: lhs.extensions + rhs.extensions, kind: rhs.kind)
+}
+
+
+

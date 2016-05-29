@@ -148,7 +148,7 @@ public class Extractor {
   }
   
   // this only works with the output of the "structure" command of SourceKit(ten)
-  private static func extractExtensionTypes(source: SourceKitRepresentable, nesting: [Name]) -> [Type] {
+  private static func extractExtensionTypes(source: SourceKitRepresentable, nesting: [Name]) -> [ExtensionType] {
     guard let typeDict = source.asDictionary,
           let type = typeDict.kind,
           let unqualifiedName = typeDict.name else {
@@ -169,7 +169,7 @@ public class Extractor {
     let name = (nesting + unqualifiedName).joinWithSeparator(".")
     
     return extractExtensions(typeDict)
-      .map { Type(accessibility: nil, name: name, extensions: [$0], kind: Kind(rawValue: type)) }
+      .map { ExtensionType(name: name, extensions: [$0]) }
   }
   
   
@@ -219,15 +219,11 @@ public class Extractor {
     let enumsFromStructure = extract(substructures, function: extractEnumFromStructure)
 
     // we have to extract out extensions separately for the enums, since they appear completely inconsistently throughout the structure output (not like with classes and structs, where they're nested)
-    let enumExtensions = extract(substructures, function: extractExtensionTypes).filterTuples { $0.1.kind.isEnum }
+    let extensions = extract(substructures, function: extractExtensionTypes)
 
-    let enums = enumsFromStructure
-      .mergeWith(enumsFromIndex, mergeFn: +)
-      .mergeWith(enumExtensions, mergeFn: +)
-    
-    let all = extractedTypes + enums
-    
-    return all
+    let enumsAndTypes = enumsFromStructure.mergeWith(enumsFromIndex, mergeFn: +) + extractedTypes
+
+    return merge(enumsAndTypes, extensions)
   }
   
   static func extractTypes(files: [File]) -> [Name:Type] {
@@ -238,16 +234,21 @@ public class Extractor {
   
 }
 
-private func typeToTuple(type: Type) -> (Name, Type) {
-  return (type.name, type)
-}
-
-
-private func extract(input: [SourceKitRepresentable],
-                     function: (source: SourceKitRepresentable, nesting: [Name]) -> [Type]) -> [Name: Type] {
+private func extract<T where T: TupleConvertible>(input: [SourceKitRepresentable],
+                     function: (source: SourceKitRepresentable, nesting: [Name]) -> [T]) -> [Name: T] {
   let tuples = input
     .flatMap { function(source: $0, nesting: []) }
-    .map(typeToTuple)
+    .map { $0.toTuple() }
 
-  return Dictionary(tupleArray: tuples, mergeFn: +)
+  return Dictionary(tupleArray: tuples)
+}
+
+private func merge(lhs: [Name: Type], _ rhs: [Name: ExtensionType]) -> [Name: Type] {
+  var merged = lhs
+  for (k, v) in rhs {
+    if let existing = merged[k] {
+      merged[k] = v + existing
+    }
+  }
+  return merged
 }
