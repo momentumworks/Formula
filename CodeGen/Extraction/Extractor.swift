@@ -99,7 +99,7 @@ public class Extractor {
       guard let fieldData = field.asDictionary,
         let accessibility = fieldData.accessibility,
         let fieldName = fieldData.name,
-        let fieldType = fieldData.kind
+        let fieldType = fieldData.typeName
         where fieldIsntCalculated(fieldData) &&
         fieldIsntStatic(fieldData) else {
           return nil

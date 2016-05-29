@@ -35,6 +35,11 @@ extension SourceKitRepresentable {
     return self.asDictionary?["key.kind"] as? String
   }
   
+  var typeName: Name? {
+    return self.asDictionary?["key.typename"] as? Name
+  }
+  
+  
   var accessibility: Accessibility? {
     guard let string = self.asDictionary?["key.accessibility"] as? String else { return nil }
     return Accessibility(rawValue: string)
