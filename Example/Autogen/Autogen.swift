@@ -5,12 +5,11 @@ import MomentumCore
 
 extension FifthThing: Equatable {}
  func ==(lhs: FifthThing, rhs: FifthThing) -> Bool {
-
   
   switch (lhs, rhs) {
-  case let (.One(lhsValue1), .One(rhsValue1)):
+  case let (.One(lhsValue1), .One(rhsValue1)) where lhsValue1 == rhsValue1 && true :
     return true
-  case let (.Two(lhsValue1), .Two(rhsValue1)):
+  case let (.Two(lhsValue1), .Two(rhsValue1)) where lhsValue1 == rhsValue1 && true :
     return true
   case let (.Three, .Three):
     return true
@@ -23,7 +22,6 @@ extension FifthThing: Equatable {}
   
   default: return false
   }
-
   
 }
 
