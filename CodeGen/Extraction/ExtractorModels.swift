@@ -169,6 +169,9 @@ public struct EnumCase {
   
 }
 
+// this is an incomplete type that is required because some extensions (especially for enums) only appear in the output
+// of the index command, without additional type information.
+// this is used to record all (name : extension) pairs, so later they can get merged back into the "complete" Type with the same name.
 public struct ExtensionType {
   public let name : String
   public let extensions : Set<Extension>
@@ -187,7 +190,8 @@ public func +(lhs: ExtensionType, rhs: ExtensionType) -> ExtensionType {
   return ExtensionType(name: lhs.name, extensions: lhs.extensions + rhs.extensions)
 }
 
-
+// this is here so we can merge an ExtensionType with a Type. this means that all of the additional Extensions
+// the ExtensionType holds will get added to the Type.
 public func +(lhs: ExtensionType, rhs: Type) -> Type {
   guard lhs.name == rhs.name else {
     return rhs

@@ -27,6 +27,8 @@ public class Extractor {
   
   
   // this only works with the output of the "index" command of SourceKit(ten)
+  // this is a recrusive function
+  // this won't extract accessibility info, because that's unfortunately can't be find in the output of "index"
   private static func extractEnumFromIndex(entities: SourceKitRepresentable, nesting: [Name] = []) -> [Type] {
     guard let entitiesDict = entities.asDictionary,
           let type = entitiesDict.kind,
@@ -51,7 +53,7 @@ public class Extractor {
   
   // this only works with the output of the "structure" command of SourceKit(ten)
   // this is a recrusive function
-  // this won't extract out the enum cases (that's done from the output of the index command)
+  // this won't extract out the enum cases (that's done from the output of the index command), since it's not exposed by SourceKit
   private static func extractEnumFromStructure(substructure: SourceKitRepresentable, nesting: [Name]) -> [Type] {
     guard let substructuresDict = substructure.asDictionary,
           let type = substructuresDict.kind,
