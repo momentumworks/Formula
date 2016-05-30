@@ -30,22 +30,11 @@ class CodeGenerator {
     let extractedTypes = Extractor.extractTypes(files).mapTuples { ($0.0, StencilType(type: $0.1)) }
     let extractedImports = Extractor.extractImports(files).sort()
 
-    let types = [StencilType](extractedTypes.values).sort(sortByName)
-    let extensions = types.reduce([Extension:[StencilType]]()) { acc, type in
-        var newAcc = acc
-        type.extensions.forEach { ext in
-
-          if let oldValue = newAcc[ext] {
-            newAcc[ext] = oldValue + [type]
-          } else {
-            newAcc[ext] = [type]
-          }
-        }
-
-        return newAcc
-      }
-      .mapValues { $0.sort(sortByName) }
+    let types = extractedTypes.values.array.sort(sortByName)
     
+    let extensions = types
+      .splitBy { $0.extensions }
+      .mapValues { $0.sort(sortByName) }
 
     let context = Context(dictionary: [
         "types": types,
@@ -55,17 +44,17 @@ class CodeGenerator {
     ])
 
     let generated = templates.reduce("") { accumulated, template in
-      var result = ""
       do {
-        result = try template.render(context)
+        let result = try template.render(context)
+        return accumulated + result
       } catch {
         print("Failed to render template \(error)")
+        return accumulated
       }
-
-      return accumulated + result
     }
 
     var header = infoHeader + extractedImports.map { "import \($0)" }.joinWithSeparator("\n")
+    
     if !header.isEmpty {
         header += "\n"
     }

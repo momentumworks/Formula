@@ -20,27 +20,27 @@ extension SourceKitRepresentable {
   }
   
   var substructures: [SourceKitRepresentable]? {
-    return self.asDictionary?["key.substructure"] as? [SourceKitRepresentable]
+    return asDictionary?["key.substructure"] as? [SourceKitRepresentable]
   }
   
   var entities: [SourceKitRepresentable]? {
-    return self.asDictionary?["key.entities"] as? [SourceKitRepresentable]
+    return asDictionary?["key.entities"] as? [SourceKitRepresentable]
   }
   
   var dependencies: [SourceKitRepresentable]? {
-    return self.asDictionary?["key.dependencies"] as? [SourceKitRepresentable]
+    return asDictionary?["key.dependencies"] as? [SourceKitRepresentable]
   }
   
   var name: Name? {
-    return self.asDictionary?["key.name"] as? Name
+    return asDictionary?["key.name"] as? Name
   }
   
   var kind: String? {
-    return self.asDictionary?["key.kind"] as? String
+    return asDictionary?["key.kind"] as? String
   }
   
   var typeName: Name? {
-    return self.asDictionary?["key.typename"] as? Name
+    return asDictionary?["key.typename"] as? Name
   }
   
   
@@ -50,7 +50,18 @@ extension SourceKitRepresentable {
   }
   
   var inheritedTypes: [SourceKitRepresentable]? {
-    return self.asDictionary?["key.inheritedtypes"] as? [SourceKitRepresentable] ?? []
+    return asDictionary?["key.inheritedtypes"] as? [SourceKitRepresentable] ?? []
   }
+  
+  var fieldIsntCalculated: Bool {
+    return asDictionary?["key.bodylength"] == nil
+  }
+  
+  var fieldIsntStatic: Bool {
+    return asDictionary?.kind != SwiftDeclarationKind.VarStatic.rawValue
+//    // This feels dangerous...
+//    return field.kind.flatMap{ $0 } != Optional(SwiftDeclarationKind.VarStatic.rawValue)
+  }
+
   
 }
