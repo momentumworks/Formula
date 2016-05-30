@@ -13,6 +13,20 @@ public class Extractor {
   }
   
   // this only works with the output of the "index" command of SourceKit(ten)
+  private static func extractImportsFromIndex(entities: SourceKitRepresentable) -> Import? {
+    guard let entitiesDict = entities.asDictionary,
+          let type = entitiesDict.kind,
+          let name = entitiesDict.name
+          where type == "source.lang.swift.import.module.swift"
+      else {
+        return nil
+    }
+    
+    return name
+  }
+  
+  
+  // this only works with the output of the "index" command of SourceKit(ten)
   private static func extractEnumFromIndex(entities: SourceKitRepresentable, nesting: [Name] = []) -> [Type] {
     guard let entitiesDict = entities.asDictionary,
           let type = entitiesDict.kind,
@@ -38,10 +52,10 @@ public class Extractor {
   // this only works with the output of the "structure" command of SourceKit(ten)
   // this is a recrusive function
   // this won't extract out the enum cases (that's done from the output of the index command)
-  private static func extractEnumFromStructure(substructures: SourceKitRepresentable, nesting: [Name]) -> [Type] {
-    guard let substructuresDict = substructures.asDictionary,
-      let type = substructuresDict.kind,
-      let name = substructuresDict.name
+  private static func extractEnumFromStructure(substructure: SourceKitRepresentable, nesting: [Name]) -> [Type] {
+    guard let substructuresDict = substructure.asDictionary,
+          let type = substructuresDict.kind,
+          let name = substructuresDict.name
       else {
         return []
     }
@@ -93,13 +107,14 @@ public class Extractor {
 
     return fields.flatMap { field in
       guard let fieldData = field.asDictionary,
-        let accessibility = fieldData.accessibility,
-        let fieldName = fieldData.name,
-        let fieldType = fieldData.typeName
-        where fieldIsntCalculated(fieldData) &&
-        fieldIsntStatic(fieldData) else {
+            let accessibility = fieldData.accessibility,
+            let fieldName = fieldData.name,
+            let fieldType = fieldData.typeName
+            where fieldIsntCalculated(fieldData) &&
+            fieldIsntStatic(fieldData)
+        else {
           return nil
-        }
+      }
       
       return Field(accessibility: accessibility, name: fieldName, type: fieldType)
     }
@@ -109,8 +124,9 @@ public class Extractor {
   private static func extractClassOrStruct(source: SourceKitRepresentable, nesting: [Name]) -> [Type] {
     guard let typeDict = source.asDictionary,
           let type = typeDict.kind,
-          let unqualifiedName = typeDict.name else {
-      return []
+          let unqualifiedName = typeDict.name
+      else {
+        return []
     }
     
     let allowedTypes = [SwiftDeclarationKind.Class.rawValue,
@@ -133,8 +149,6 @@ public class Extractor {
         return .Class(extractFields(typeDict))
       case .Enum:
         return .Enum([])
-      case .Unknown:
-        fatalError()
       }
     }() as Kind
     
@@ -169,29 +183,17 @@ public class Extractor {
   }
   
   
-  static func extractImports(lines: [String]) -> [Import] {
-    // SourceKitten doesn't give us info about the import statements, and
-    // altering it to support that would be way more work than this, so...
-    
-    // TODO: this can be done using the Indexing feature of SourceKit/SourceKitten
-    
-    return lines.filter {
-        $0.trim().hasPrefix("import")
-      }
-      .map {
-        $0.trim().split("import")[1].trim()
-      }
-  }
-  
   static func extractImports(file: File) -> [Import] {
-    return extractImports(file.lines.map{ $0.content })
+    return Request.Index(file: file.path!).send()
+      .dependencies?
+      .flatMap(extractImportsFromIndex) ?? []
   }
   
   static func extractImports(files: [File]) -> [Import] {
-    let allImports = files.reduce([Import]()) { imports, file in
-      return imports + extractImports(file)
-    }
-    return allImports.unique
+    return files
+      .flatMap(extractImports)
+      .unique
+      .filter { $0 != "Swift" }
   }
 
   static func extractTypes(file: File) -> [Name:Type] {

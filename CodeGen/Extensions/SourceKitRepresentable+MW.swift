@@ -27,6 +27,10 @@ extension SourceKitRepresentable {
     return self.asDictionary?["key.entities"] as? [SourceKitRepresentable]
   }
   
+  var dependencies: [SourceKitRepresentable]? {
+    return self.asDictionary?["key.dependencies"] as? [SourceKitRepresentable]
+  }
+  
   var name: Name? {
     return self.asDictionary?["key.name"] as? Name
   }

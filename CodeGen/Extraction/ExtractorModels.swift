@@ -22,9 +22,6 @@ public enum Kind {
   case Class([Field])
   case Enum([EnumCase])
   
-  // there's a possiblity that we can't infer the Kind properly, when dealing with extensions. so we'll need an option to allow this temporarily, before merging all types with the same name.
-  case Unknown
-  
   init(rawValue: String?) {
     guard let rawValue = rawValue else { fatalError() }
     switch rawValue {
@@ -47,7 +44,6 @@ public extension Kind {
     case .Struct:   return "struct"
     case .Enum:     return "enum"
     case .Class:    return "class"
-    case .Unknown:  return "unkown"
     }
   }
   
