@@ -13,12 +13,6 @@ extension FifthThing: Equatable {}
     return true
   case let (.Three, .Three):
     return true
-  case let (.One, .One):
-    return true
-  case let (.Two, .Two):
-    return true
-  case let (.Three, .Three):
-    return true
   
   default: return false
   }

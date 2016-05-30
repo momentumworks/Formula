@@ -36,6 +36,8 @@ public class Extractor {
   }
   
   // this only works with the output of the "structure" command of SourceKit(ten)
+  // this is a recrusive function
+  // this won't extract out the enum cases (that's done from the output of the index command)
   private static func extractEnumFromStructure(substructures: SourceKitRepresentable, nesting: [Name]) -> [Type] {
     guard let substructuresDict = substructures.asDictionary,
       let type = substructuresDict.kind,
@@ -51,16 +53,10 @@ public class Extractor {
         .flatMap { extractEnumFromStructure($0, nesting: nesting + name) } ?? []
     }
     
-    let cases = substructuresDict
-      .substructures?
-      .first?
-      .substructures?
-      .flatMap(extractEnumCase) ?? []
-    
     return [Type(accessibility: substructuresDict.accessibility?.description,
       name: (nesting + name).joinWithSeparator("."),
       extensions: [],
-      kind: .Enum(cases)
+      kind: .Enum([])
     )]
   }
   
