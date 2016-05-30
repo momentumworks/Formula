@@ -200,16 +200,16 @@ public class Extractor {
       return [:]
     }
     
-    let extractedTypes = extract(substructures, function: extractClassOrStruct)
+    let extractedTypes = extract(from: substructures, function: extractClassOrStruct)
     
     // the associated values that enum cases hold only appear in the output of the Index command
-    let enumsFromIndex = extract(entities, function: extractEnumFromIndex)
+    let enumsFromIndex = extract(from: entities, function: extractEnumFromIndex)
     
     // but we still need the output of the structure to extract out accessiblity and other relevant information
-    let enumsFromStructure = extract(substructures, function: extractEnumFromStructure)
+    let enumsFromStructure = extract(from: substructures, function: extractEnumFromStructure)
 
     // we have to extract out extensions separately for the enums, since they appear completely inconsistently throughout the structure output (not like with classes and structs, where they're nested)
-    let extensions = extract(substructures, function: extractExtensionTypes)
+    let extensions = extract(from: substructures, function: extractExtensionTypes)
 
     let enumsAndTypes = enumsFromStructure.mergeWith(enumsFromIndex, mergeFn: +) + extractedTypes
 
@@ -224,7 +224,7 @@ public class Extractor {
   
 }
 
-private func extract<T where T: TupleConvertible>(input: [SourceKitRepresentable],
+private func extract<T where T: TupleConvertible>(from input: [SourceKitRepresentable],
                      function: (source: SourceKitRepresentable, nesting: [Name]) -> [T]) -> [Name: T] {
   let tuples = input
     .flatMap { function(source: $0, nesting: []) }
