@@ -8,17 +8,7 @@ PODS:
 DEPENDENCIES:
   - Nimble
   - Quick
-  - Stencil (from `https://github.com/itchingpixels/Stencil`, branch `feature/advanced-if-usage`)
-
-EXTERNAL SOURCES:
-  Stencil:
-    :branch: feature/advanced-if-usage
-    :git: https://github.com/itchingpixels/Stencil
-
-CHECKOUT OPTIONS:
-  Stencil:
-    :commit: a5ff8507bca22cf14fb3cc6f94f23fe63f630a38
-    :git: https://github.com/itchingpixels/Stencil
+  - Stencil
 
 SPEC CHECKSUMS:
   Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
@@ -26,6 +16,6 @@ SPEC CHECKSUMS:
   Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
   Stencil: f557adc65f8352122824d63963ac77af384e4214
 
-PODFILE CHECKSUM: 28d1bf23528013e7f898b4b57ab80c195308f543
+PODFILE CHECKSUM: 59da9748c59616a64bd1bd87477354c912399f8f
 
 COCOAPODS: 1.0.0

@@ -247,8 +247,6 @@ public class IfNode : NodeType {
       truthy = !result.isEmpty
     } else if let result = result as? [String:Any] {
       truthy = !result.isEmpty
-    } else if let result = result as? Bool {
-      truthy = result
     } else if result != nil {
       truthy = true
     }

@@ -5,7 +5,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 
-pod 'Stencil', :git => 'https://github.com/itchingpixels/Stencil', :branch => 'feature/advanced-if-usage'
+pod 'Stencil'
 
 target 'CodeGen' do
 end
