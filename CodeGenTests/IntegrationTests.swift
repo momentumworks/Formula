@@ -18,7 +18,7 @@ class CodeGenTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-    template = try! Template(named: "Immutable.stencil", inBundle: testBundle)
+    template = try! Template(named: "Immutable.stencil", inBundle: self.testBundle)
   }
 
   override func tearDown() {

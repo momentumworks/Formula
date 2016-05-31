@@ -9,10 +9,11 @@
 import Foundation
 import Quick
 
-extension QuickSpec {
+
+extension XCTestCase {
   
   var testBundle: NSBundle {
     return NSBundle(forClass: self.dynamicType)
   }
-
+  
 }

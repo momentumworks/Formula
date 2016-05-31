@@ -5,17 +5,40 @@ import AppKit
 extension FifthThing: Equatable {}
  func ==(lhs: FifthThing, rhs: FifthThing) -> Bool {
   
+  
+  
   switch (lhs, rhs) {
+  
   case let (.One(lhsValue1), .One(rhsValue1)) where lhsValue1 == rhsValue1 && true :
     return true
+  
+     default: return false
+  }
+  
+  
+  
+  switch (lhs, rhs) {
+  
   case let (.Two(lhsValue1), .Two(rhsValue1)) where lhsValue1 == rhsValue1 && true :
     return true
+  
+     default: return false
+  }
+  
+  
+  
+  switch (lhs, rhs) {
+  
   case let (.Three, .Three):
     return true
   
-  default: return false
+     default: return false
   }
   
+  
+
+  
+
 }
 
 // MARK: -
