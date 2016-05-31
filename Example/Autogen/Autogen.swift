@@ -46,6 +46,26 @@ extension FifthThing: Equatable {}
   
 }
 
+extension Kind: Equatable {}
+public func ==(lhs: Kind, rhs: Kind) -> Bool {
+
+  
+  switch (lhs, rhs) {
+  
+  case let (.Struct(lhsValue1), .Struct(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+    return true
+  
+  case let (.Class(lhsValue1), .Class(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+    return true
+  
+  case let (.Enum(lhsValue1), .Enum(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+    return true
+  
+  default: return false
+  }
+  
+}
+
 extension Type: Equatable {}
 public func ==(lhs: Type, rhs: Type) -> Bool {
 

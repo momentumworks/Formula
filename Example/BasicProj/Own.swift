@@ -1,5 +1,5 @@
 
-public enum Kind :AutoEquatable  {
+public enum Kind : AutoEquatable  {
   case Struct([Field])
   case Class([Field])
   case Enum([EnumCase])
