@@ -1,5 +1,0 @@
-enum Anenum {
-case One(Int)
-case Two(String)
-case Three
-}

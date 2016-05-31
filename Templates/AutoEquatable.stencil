@@ -2,7 +2,7 @@
 {% for type in extensions.AutoEquatable %}
 extension {{ type.name }}: Equatable {}
 {{ type.accessibility }} func ==(lhs: {{ type.name }}, rhs: {{ type.name }}) -> Bool {
-  {% if type.enumCases %}
+  {% if type.isEnum %}
   switch (lhs, rhs) {
   {% for enumCase in type.enumCases %}case let (.{{ enumCase.name }}{% for associatedValue in enumCase.associatedValues %}{{ if forloop.first }}({{ endif }}lhsValue{{ forloop.counter }}{{ if forloop.last }}){{ endif }}{% endfor %}, .{{ enumCase.name }}{% for associatedValue in enumCase.associatedValues %}{{ if forloop.first }}({{ endif }}rhsValue{{ forloop.counter }}{{ if forloop.last }}){{ endif }}{% endfor %}){% if enumCase.associatedValues %} where {% for associatedValue in enumCase.associatedValues %}lhsValue{{ forloop.counter }} == rhsValue{{ forloop.counter }} && {% endfor %}true {% endif %}:
     return true

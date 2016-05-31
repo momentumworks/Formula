@@ -22,6 +22,7 @@ extension FifthThing: Equatable {}
 
 // MARK: - Immutable
 
+	
 	extension FourthThing {
 		
 			private func set(s s: String -> FourthThing {
@@ -37,7 +38,9 @@ extension FifthThing: Equatable {}
 			}
 		
 	}
+	
 
+	
 	extension Simple {
 		
 			 func set(s s: String -> Simple {
@@ -45,9 +48,12 @@ extension FifthThing: Equatable {}
 			}
 		
 	}
+	
 
+	
 	extension Thing {
 		
 	}
+	
 
 // MARK: -

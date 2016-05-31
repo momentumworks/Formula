@@ -32,7 +32,6 @@
 		4D757F111CFAE9A40053A20A /* GeneratorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D757F101CFAE9A40053A20A /* GeneratorModels.swift */; };
 		4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */; };
 		4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */; };
-		4DCBD0EB1CF278F70089BBE8 /* ComplexEnumSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4DCBD0EA1CF278F70089BBE8 /* ComplexEnumSource.fixture */; };
 		50C4F41BD66B6DDB1343F125 /* Pods_CodeGenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AE0A4AA598B898AA2FE8F8 /* Pods_CodeGenTests.framework */; };
 		6C553C77EAB3DE3B721902F0 /* Pods_CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD243D9A3A8ECECCEDE236D /* Pods_CodeGen.framework */; };
 		CDC6B28F1CA3FE1F0041517A /* ComplexResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = CDC6B28D1CA3FE1F0041517A /* ComplexResult.fixture */; };
@@ -102,7 +101,6 @@
 		4D757F101CFAE9A40053A20A /* GeneratorModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorModels.swift; sourceTree = "<group>"; };
 		4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SourceKitRepresentable+MW.swift"; sourceTree = "<group>"; };
 		4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Set+MW.swift"; sourceTree = "<group>"; };
-		4DCBD0EA1CF278F70089BBE8 /* ComplexEnumSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ComplexEnumSource.fixture; sourceTree = "<group>"; };
 		6AD243D9A3A8ECECCEDE236D /* Pods_CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EAD3536D2CA9821BC529B90 /* Pods-CodeGen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.debug.xcconfig"; sourceTree = "<group>"; };
 		C34B52AA629FE032BEDC02F5 /* Pods-CodeGenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGenTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -253,7 +251,6 @@
 			children = (
 				CDC6B28D1CA3FE1F0041517A /* ComplexResult.fixture */,
 				CDC6B28E1CA3FE1F0041517A /* ComplexSource.fixture */,
-				4DCBD0EA1CF278F70089BBE8 /* ComplexEnumSource.fixture */,
 				E291D5B4287FCB20AD2B99AC /* Immutable.stencil */,
 				E291D14C28192A1DF846A7EA /* SimpleResult.fixture */,
 				E291DA17BA08E486EE4C788A /* SimpleSource.fixture */,
@@ -357,7 +354,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */,
-				4DCBD0EB1CF278F70089BBE8 /* ComplexEnumSource.fixture in Resources */,
 				CDC6B2901CA3FE1F0041517A /* ComplexSource.fixture in Resources */,
 				E291D0AB963A667D153A6800 /* Immutable.stencil in Resources */,
 				E291DE4021C50D4D1B73DBC5 /* SimpleResult.fixture in Resources */,

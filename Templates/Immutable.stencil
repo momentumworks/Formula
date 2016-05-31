@@ -1,6 +1,7 @@
 
 // MARK: - Immutable
 {% for object in extensions.Immutable %}
+	{% if object.isStruct %}
 	extension {{ object.name }} {
 		{% for field in object.fields %}
 			{{ field.accessibility }} func set({{ field.name }} {{ field.name }}: {{ field.type }} -> {{ object.name }} {
@@ -8,5 +9,6 @@
 			}
 		{% endfor %}
 	}
+	{% endif %}
 {% endfor %}
 // MARK: -

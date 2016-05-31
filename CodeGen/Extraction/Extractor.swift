@@ -200,7 +200,7 @@ public class Extractor {
       return [:]
     }
     
-    let extractedTypes = extract(from: substructures, function: extractClassOrStruct)
+    let extractedClassesStructs = extract(from: substructures, function: extractClassOrStruct)
     
     // the associated values that enum cases hold only appear in the output of the Index command
     let enumsFromIndex = extract(from: entities, function: extractEnumFromIndex)
@@ -211,9 +211,9 @@ public class Extractor {
     // we have to extract out extensions separately for the enums, since they appear completely inconsistently throughout the structure output (not like with classes and structs, where they're nested)
     let extensions = extract(from: substructures, function: extractExtensionTypes)
 
-    let enumsAndTypes = enumsFromStructure.mergeWith(enumsFromIndex, mergeFn: +) + extractedTypes
+    let allTypes = enumsFromStructure.mergeWith(enumsFromIndex, mergeFn: +) + extractedClassesStructs
 
-    return mergeTypesAndExtensions(enumsAndTypes, extensions)
+    return mergeTypesAndExtensions(allTypes, extensions)
   }
   
   static func extractTypes(files: [File]) -> [Name:Type] {
