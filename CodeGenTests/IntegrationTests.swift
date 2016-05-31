@@ -10,14 +10,14 @@ import XCTest
 @testable import CodeGen
 import Stencil
 import SourceKittenFramework
+import Quick
+import Nimble
 
 class CodeGenTests: XCTestCase {
-  var testBundle: NSBundle!
   var template: Template!
 
   override func setUp() {
     super.setUp()
-    testBundle = NSBundle(forClass: self.dynamicType)
     template = try! Template(named: "Immutable.stencil", inBundle: testBundle)
   }
 

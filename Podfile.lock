@@ -1,15 +1,31 @@
 PODS:
+  - Nimble (4.0.1)
   - PathKit (0.6.0)
+  - Quick (0.9.2)
   - Stencil (0.5.3):
     - PathKit (~> 0.6.0)
 
 DEPENDENCIES:
-  - Stencil
+  - Nimble
+  - Quick
+  - Stencil (from `https://github.com/itchingpixels/Stencil`, branch `feature/advanced-if-usage`)
+
+EXTERNAL SOURCES:
+  Stencil:
+    :branch: feature/advanced-if-usage
+    :git: https://github.com/itchingpixels/Stencil
+
+CHECKOUT OPTIONS:
+  Stencil:
+    :commit: a5ff8507bca22cf14fb3cc6f94f23fe63f630a38
+    :git: https://github.com/itchingpixels/Stencil
 
 SPEC CHECKSUMS:
+  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   PathKit: b224b6d2c4e75b87f08f45e1c0c610a3195c94e5
+  Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
   Stencil: f557adc65f8352122824d63963ac77af384e4214
 
-PODFILE CHECKSUM: 0c6f7f0105e35c947ed19241919cb2fca80141f9
+PODFILE CHECKSUM: 28d1bf23528013e7f898b4b57ab80c195308f543
 
-COCOAPODS: 1.0.0.beta.6
+COCOAPODS: 1.0.0

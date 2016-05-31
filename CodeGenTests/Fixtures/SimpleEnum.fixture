@@ -1,0 +1,5 @@
+enum Anenum {
+  case One
+  case Tow
+  case Three
+}
