@@ -71,7 +71,7 @@ public class Extractor {
     
     return [Type(accessibility: substructuresDict.accessibility?.description,
       name: (nesting + name).joinWithSeparator("."),
-      extensions: [],
+      extensions: Set(extractExtensions(substructuresDict)),
       kind: .Enum([])
     )]
   }
