@@ -59,9 +59,11 @@ extension SourceKitRepresentable {
   
   var fieldIsntStatic: Bool {
     return asDictionary?.kind != SwiftDeclarationKind.VarStatic.rawValue
-//    // This feels dangerous...
-//    return field.kind.flatMap{ $0 } != Optional(SwiftDeclarationKind.VarStatic.rawValue)
   }
 
+  var extensions: [Extension]? {
+    return asDictionary?.inheritedTypes?.flatMap { $0.asDictionary?.name }
+  }
+  
   
 }
