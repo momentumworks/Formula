@@ -12,20 +12,6 @@ import SourceKittenFramework
 struct IndexExtractor {
   
   // this only works with the output of the "index" command of SourceKit(ten)
-  static func extractImports(entities: SourceKitRepresentable) -> Import? {
-    guard let entitiesDict = entities.asDictionary,
-      let type = entitiesDict.kind,
-      let name = entitiesDict.name
-      where type == "source.lang.swift.import.module.swift"
-      else {
-        return nil
-    }
-    
-    return name
-  }
-  
-  
-  // this only works with the output of the "index" command of SourceKit(ten)
   // this is a recrusive function
   // this won't extract accessibility info, because that's unfortunately can't be find in the output of "index"
   static func extractEnum(entities: SourceKitRepresentable, nesting: [Name] = []) -> [Type] {

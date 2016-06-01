@@ -8,17 +8,10 @@ import SourceKittenFramework
 
 public class Extractor {
 
-  static func extractImports(file: File) -> [Import] {
-    return Request.Index(file: file.path!).send()
-      .dependencies?
-      .flatMap(IndexExtractor.extractImports) ?? []
-  }
-  
   static func extractImports(files: [File]) -> [Import] {
     return files
-      .flatMap(extractImports)
+      .flatMap(FileExtractor.extractImports)
       .unique
-      .filter { $0 != "Swift" }
   }
 
   static func extractTypes(file: File) -> [Name:Type] {
