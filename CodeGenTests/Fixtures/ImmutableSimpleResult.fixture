@@ -4,7 +4,7 @@
 
 extension Simple {
 	
-	 func set(s s: String -> Simple {
+	 func set(s s: String) -> Simple {
 		return Simple(s: s)
 	}
 	
