@@ -75,6 +75,30 @@ class ExtractorTests: QuickSpec {
       }
       
     }
+    
+    describe("when extracting complex nested types") {
+      
+      let file = File(path: self.testBundle.pathForResource("NestedTypes", ofType: "fixture")!)!
+      let metaData = Extractor.extractTypes([file])
+      
+      it("should recognize the parent type") {
+        expect(metaData["Parent"]).toNot(beNil())
+        expect(metaData["Parent"]?.kind.isClass).to(equal(true))
+      }
+      
+      it("should recognize the nested type") {
+        expect(metaData["Parent.Children"]).toNot(beNil())
+        expect(metaData["Parent.Children"]?.kind.isStruct).to(equal(true))
+      }
+      
+      it("should recognize the doubly nested type") {
+        expect(metaData["Parent.Children.Grandchildren"]).toNot(beNil())
+        expect(metaData["Parent.Children.Grandchildren"]?.kind.isStruct).to(equal(true))
+      }
+      
+      
+    }
+
 
   
   }

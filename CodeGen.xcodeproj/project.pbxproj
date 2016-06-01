@@ -31,6 +31,7 @@
 		317D2D9F1CA3066300305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		4D0DFE911CFF32F10036E336 /* FileExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0DFE901CFF32F10036E336 /* FileExtractor.swift */; };
+		4D0DFE931CFF3EF20036E336 /* NestedTypes.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */; };
 		4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */; };
 		4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */; };
 		4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */; };
@@ -109,6 +110,7 @@
 		317D2D9E1CA3066300305424 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		379E1AFE4C92D4DC50969364 /* Pods-CodeGen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.release.xcconfig"; sourceTree = "<group>"; };
 		4D0DFE901CFF32F10036E336 /* FileExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileExtractor.swift; sourceTree = "<group>"; };
+		4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NestedTypes.fixture; sourceTree = "<group>"; };
 		4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ComplexEnum.fixture; path = Fixtures/ComplexEnum.fixture; sourceTree = "<group>"; };
 		4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatable.stencil; sourceTree = "<group>"; };
 		4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableSimpleResult.fixture; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			children = (
 				4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */,
 				4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */,
+				4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */,
 			);
 			name = UnitTestFixtures;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */,
 				E291D17344B4163D9A5100F4 /* ImmutableSimpleSource.fixture in Resources */,
 				4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */,
+				4D0DFE931CFF3EF20036E336 /* NestedTypes.fixture in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

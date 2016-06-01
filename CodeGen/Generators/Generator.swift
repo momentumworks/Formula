@@ -60,7 +60,6 @@ class CodeGenerator {
     let generated = templates.reduce("") { accumulated, template in
       do {
         let result = try template.render(context, namespace: namespace)
-        
         return accumulated + result
       } catch {
         print("Failed to render template \(error)")

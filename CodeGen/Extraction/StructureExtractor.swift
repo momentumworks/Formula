@@ -32,11 +32,9 @@ struct StructureExtractor {
     
     let name = (nesting + unqualifiedName).joinWithSeparator(".")
     
-    let extensions = typeDict
+    return typeDict
       .extensions?
       .map { ExtensionType(name: name, extensions: [$0]) } ?? []
-    
-    return extensions
   }
   
   // this only works with the output of the "structure" command of SourceKit(ten)
@@ -71,11 +69,14 @@ struct StructureExtractor {
       }
       }() as Kind
     
-    return [Type(accessibility: typeDict.accessibility?.description,
+    let nestedTypes = typeDict
+      .substructures?
+      .flatMap { extractClassOrStruct($0, nesting: nesting + unqualifiedName) } ?? []
+    
+    return nestedTypes + Type(accessibility: typeDict.accessibility?.description,
       name: name,
       extensions: Set(typeDict.extensions ?? []),
       kind: kind)
-    ]
   }
   
   

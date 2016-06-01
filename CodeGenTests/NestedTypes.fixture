@@ -1,0 +1,11 @@
+class Parent {
+  let a: String
+
+  struct Children {
+    let b: String
+
+    struct GrandChildren {
+      let c: String
+    }
+  }
+}
