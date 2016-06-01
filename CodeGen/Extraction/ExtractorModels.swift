@@ -17,6 +17,10 @@ protocol TupleConvertible {
   func toTuple() -> (Name, Self)
 }
 
+protocol Mergeable {
+  static func merge(lhs: Self, rhs: Self) -> Self
+}
+
 public enum Kind {
   case Struct([Field])
   case Class([Field])
@@ -112,29 +116,32 @@ extension Type: TupleConvertible {
   }
 }
 
-public func +(lhs: Type, rhs: Type) -> Type {
-  guard lhs.name == rhs.name else {
-    return lhs
-  }
-  
-  // not proud of this, but it's to allow us to remove optionals
-  let accessibility = lhs.accessibility == "" ? rhs.accessibility : lhs.accessibility
-  let extensions = lhs.extensions + rhs.extensions
-  let kind = {
-    switch (lhs.kind, rhs.kind) {
-    case let (.Struct(lhsValue), .Struct(rhsValue)):
-      return .Struct(lhsValue + rhsValue)
-    case let (.Enum(lhsValue), .Enum(rhsValue)):
-      return .Enum(lhsValue + rhsValue)
-    case let (.Class(lhsValue), .Class(rhsValue)):
-      return .Class(lhsValue + rhsValue)
-    default:
-      fatalError()
+extension Type: Mergeable {
+  static func merge(lhs: Type, rhs: Type) -> Type {
+    guard lhs.name == rhs.name else {
+      return lhs
     }
-  }() as Kind
-  
-  return Type(accessibility: accessibility, name: lhs.name, extensions: extensions, kind: kind)
+    
+    // not proud of this, but it's to allow us to remove optionals
+    let accessibility = lhs.accessibility == "" ? rhs.accessibility : lhs.accessibility
+    let extensions = lhs.extensions + rhs.extensions
+    let kind = {
+      switch (lhs.kind, rhs.kind) {
+      case let (.Struct(lhsValue), .Struct(rhsValue)):
+        return .Struct(lhsValue + rhsValue)
+      case let (.Enum(lhsValue), .Enum(rhsValue)):
+        return .Enum(lhsValue + rhsValue)
+      case let (.Class(lhsValue), .Class(rhsValue)):
+        return .Class(lhsValue + rhsValue)
+      default:
+        fatalError()
+      }
+      }() as Kind
+    
+    return Type(accessibility: accessibility, name: lhs.name, extensions: extensions, kind: kind)
+  }
 }
+
 
 public struct Field {
   public let accessibility : String
@@ -183,12 +190,15 @@ extension ExtensionType: TupleConvertible {
   }
 }
 
-public func +(lhs: ExtensionType, rhs: ExtensionType) -> ExtensionType {
-  guard lhs.name == rhs.name else {
-    return lhs
+extension ExtensionType: Mergeable {
+  static func merge(lhs: ExtensionType, rhs: ExtensionType) -> ExtensionType {
+    guard lhs.name == rhs.name else {
+      return lhs
+    }
+    return ExtensionType(name: lhs.name, extensions: lhs.extensions + rhs.extensions)
   }
-  return ExtensionType(name: lhs.name, extensions: lhs.extensions + rhs.extensions)
 }
+
 
 // this is here so we can merge an ExtensionType with a Type. this means that all of the additional Extensions
 // the ExtensionType holds will get added to the Type.

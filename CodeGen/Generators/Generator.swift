@@ -27,10 +27,8 @@ class CodeGenerator {
   }
 
   func generateForFiles(files: [File]) -> String {
-    let extractedTypes = Extractor.extractTypes(files).mapTuples { ($0.0, StencilType(type: $0.1)) }
-    let extractedImports = Extractor.extractImports(files).sort()
-
-    let types = extractedTypes.values.array.sort(sortByName)
+    let types = Extractor.extractTypes(files).values.map(StencilType.init).sort(sortByName)
+    let imports = Extractor.extractImports(files).sort()
     
     let extensions = types
       .splitBy { $0.extensions }
@@ -38,8 +36,9 @@ class CodeGenerator {
 
     let context = Context(dictionary: [
         "types": types,
-        "structs": types.filter { $0.type == "struct" },
-        "enums" : types.filter { $0.type == "enum" },
+        "structs": types.filter { $0.isStruct },
+        "enums" : types.filter { $0.isEnum },
+        "classes" : types.filter { $0.isClass },
         "extensions": extensions
     ])
 
@@ -69,7 +68,7 @@ class CodeGenerator {
       }
     }
 
-    var header = infoHeader + extractedImports.map { "import \($0)" }.joinWithSeparator("\n")
+    var header = infoHeader + imports.map { "import \($0)" }.joinWithSeparator("\n")
     
     if !header.isEmpty {
         header += "\n"

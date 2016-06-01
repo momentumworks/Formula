@@ -50,15 +50,15 @@ public func ==(lhs: Type, rhs: Type) -> Bool {
 
 extension FourthThing {
 	
-	private func set(s s: String -> FourthThing {
+	private func set(s s: String) -> FourthThing {
 		return FourthThing(s: s, f: f, i: i)
 	}
 	
-	 func set(f f: Float -> FourthThing {
+	 func set(f f: Float) -> FourthThing {
 		return FourthThing(s: s, f: f, i: i)
 	}
 	
-	public func set(i i: Int -> FourthThing {
+	public func set(i i: Int) -> FourthThing {
 		return FourthThing(s: s, f: f, i: i)
 	}
 	
@@ -68,7 +68,7 @@ extension FourthThing {
 
 extension Simple {
 	
-	 func set(s s: String -> Simple {
+	 func set(s s: String) -> Simple {
 		return Simple(s: s)
 	}
 	

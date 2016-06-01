@@ -44,7 +44,7 @@ public class Extractor {
     // we have to extract out extensions separately for the enums, since they appear completely inconsistently throughout the structure output (not like with classes and structs, where they're nested)
     let extensions = extract(from: substructures, function: StructureExtractor.extractExtensionTypes)
 
-    let allTypes = enumsFromStructure.mergeWith(enumsFromIndex, mergeFn: +) + extractedClassesStructs
+    let allTypes = enumsFromStructure.mergeWith(enumsFromIndex, mergeFn: Type.merge) + extractedClassesStructs
 
     return mergeTypesAndExtensions(allTypes, extensions)
   }
@@ -57,13 +57,13 @@ public class Extractor {
   
 }
 
-private func extract<T where T: TupleConvertible>(from input: [SourceKitRepresentable],
+private func extract<T where T: TupleConvertible, T: Mergeable>(from input: [SourceKitRepresentable],
                      function: (source: SourceKitRepresentable, nesting: [Name]) -> [T]) -> [Name: T] {
   let tuples = input
     .flatMap { function(source: $0, nesting: []) }
     .map { $0.toTuple() }
 
-  return Dictionary(tupleArray: tuples)
+  return Dictionary(tupleArray: tuples, mergeFn: T.merge)
 }
 
 private func mergeTypesAndExtensions(lhs: [Name: Type], _ rhs: [Name: ExtensionType]) -> [Name: Type] {
