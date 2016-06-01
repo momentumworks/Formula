@@ -6,8 +6,7 @@ import AppKit
 extension EnumCase: Equatable {}
 public func ==(lhs: EnumCase, rhs: EnumCase) -> Bool {
   
-  return
-    lhs.name == rhs.name && 
+  return    lhs.name == rhs.name && 
     lhs.associatedValues == rhs.associatedValues 
   
 }
@@ -15,24 +14,9 @@ public func ==(lhs: EnumCase, rhs: EnumCase) -> Bool {
 extension Field: Equatable {}
 public func ==(lhs: Field, rhs: Field) -> Bool {
   
-  return
-    lhs.accessibility == rhs.accessibility && 
+  return    lhs.accessibility == rhs.accessibility && 
     lhs.name == rhs.name && 
     lhs.type == rhs.type 
-  
-}
-
-extension FifthThing: Equatable {}
- func ==(lhs: FifthThing, rhs: FifthThing) -> Bool {
-  switch (lhs, rhs) { 
-  case (.One(let lhsValue1), .One(let rhsValue1 )) where lhsValue1 == rhsValue1 :
-    return true
-  case (.Two(let lhsValue1), .Two(let rhsValue1 )) where lhsValue1 == rhsValue1 :
-    return true
-  case (.Three, .Three):
-    return true
-  default: return false
-  }
   
 }
 
@@ -53,49 +37,39 @@ public func ==(lhs: Kind, rhs: Kind) -> Bool {
 extension Type: Equatable {}
 public func ==(lhs: Type, rhs: Type) -> Bool {
   
-  return
-    lhs.accessibility == rhs.accessibility && 
+  return    lhs.accessibility == rhs.accessibility && 
     lhs.name == rhs.name && 
     lhs.extensions == rhs.extensions && 
     lhs.kind == rhs.kind 
   
 }
 
-
 // MARK: - Immutable
 
+
+
+extension FourthThing {
 	
-	extension FourthThing {
-		
-			private func set(s s: String -> FourthThing {
-				return FourthThing(s: s, f: f, i: i)
-			}
-		
-			 func set(f f: Float -> FourthThing {
-				return FourthThing(s: s, f: f, i: i)
-			}
-		
-			public func set(i i: Int -> FourthThing {
-				return FourthThing(s: s, f: f, i: i)
-			}
-		
+	private func set(s s: String -> FourthThing {
+		return FourthThing(s: s, f: f, i: i)
 	}
 	
-
-	
-	extension Simple {
-		
-			 func set(s s: String -> Simple {
-				return Simple(s: s)
-			}
-		
+	 func set(f f: Float -> FourthThing {
+		return FourthThing(s: s, f: f, i: i)
 	}
 	
-
-	
-	extension Thing {
-		
+	public func set(i i: Int -> FourthThing {
+		return FourthThing(s: s, f: f, i: i)
 	}
 	
+}
 
-// MARK: -
+
+
+extension Simple {
+	
+	 func set(s s: String -> Simple {
+		return Simple(s: s)
+	}
+	
+}

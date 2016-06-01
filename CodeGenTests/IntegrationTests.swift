@@ -28,6 +28,11 @@ class CodeGenTests: QuickSpec {
         expect(result).to(be(true))
       }
       
+      it("when using AutoEquatable stencil with complex source") {
+        let result = self.loadInputAndGenerate(templateName: "AutoEquatable", input: "AutoEquatableComplexSource", expectedOutput: "AutoEquatableComplexResult")
+        expect(result).to(be(true))
+      }
+      
     }
     
   }

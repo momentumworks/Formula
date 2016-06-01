@@ -1,0 +1,45 @@
+enum Anenum {
+  case One
+  case Two
+  case Three
+}
+
+extension Anenum: AutoEquatable { }
+
+enum Anenum2 {
+  case One
+  case Two
+  case Three
+}
+
+enum AComplexEnum {
+  case One(Int)
+  case Two(Int, Int)
+  case Three(String, Int, String)
+  case Four
+}
+
+extension AComplexEnum: AutoEquatable { }
+
+struct OtherThing : AutoEquatable {
+  let s : String
+}
+
+struct ThirdThing {
+  let i : Int
+}
+
+public class FourthThing: Equatable {
+  private let s: String
+  let f: Float
+  public let i: Int
+}
+
+
+extension FourthThing: AutoEquatable { }
+
+public class FifthThing: Equatable {
+  private let s: String
+  let f: Float
+  public let i: Int
+}
