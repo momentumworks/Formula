@@ -203,35 +203,46 @@ public func +(lhs: ExtensionType, rhs: Type) -> Type {
 
 extension EnumCase: Equatable {}
 public func ==(lhs: EnumCase, rhs: EnumCase) -> Bool {
-  return lhs.name == rhs.name &&
-    lhs.associatedValues == rhs.associatedValues
+  
+  return
+    lhs.name == rhs.name &&
+      lhs.associatedValues == rhs.associatedValues
+  
 }
 
 extension Field: Equatable {}
 public func ==(lhs: Field, rhs: Field) -> Bool {
-  return lhs.accessibility == rhs.accessibility &&
-    lhs.name == rhs.name &&
-    lhs.type == rhs.type
-}
-
-extension Type: Equatable {}
-public func ==(lhs: Type, rhs: Type) -> Bool {
-  return lhs.accessibility == rhs.accessibility &&
-    lhs.name == rhs.name &&
-    lhs.extensions == rhs.extensions &&
-    lhs.kind == rhs.kind
+  
+  return
+    lhs.accessibility == rhs.accessibility &&
+      lhs.name == rhs.name &&
+      lhs.type == rhs.type
+  
 }
 
 
 extension Kind: Equatable {}
 public func ==(lhs: Kind, rhs: Kind) -> Bool {
   switch (lhs, rhs) {
-  case let (.Struct(lhsValue1), .Struct(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+  case (.Struct(let lhsValue1), .Struct(let rhsValue1 )) where lhsValue1 == rhsValue1 :
     return true
-  case let (.Class(lhsValue1), .Class(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+  case (.Class(let lhsValue1), .Class(let rhsValue1 )) where lhsValue1 == rhsValue1 :
     return true
-  case let (.Enum(lhsValue1), .Enum(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+  case (.Enum(let lhsValue1), .Enum(let rhsValue1 )) where lhsValue1 == rhsValue1 :
     return true
   default: return false
   }
+  
 }
+
+extension Type: Equatable {}
+public func ==(lhs: Type, rhs: Type) -> Bool {
+  
+  return
+    lhs.accessibility == rhs.accessibility &&
+      lhs.name == rhs.name &&
+      lhs.extensions == rhs.extensions &&
+      lhs.kind == rhs.kind
+  
+}
+

@@ -5,42 +5,32 @@ import AppKit
 
 extension EnumCase: Equatable {}
 public func ==(lhs: EnumCase, rhs: EnumCase) -> Bool {
-
   
-
-  return lhs.name == rhs.name &&
-  lhs.associatedValues == rhs.associatedValues &&
-   true
+  return
+    lhs.name == rhs.name && 
+    lhs.associatedValues == rhs.associatedValues 
   
 }
 
 extension Field: Equatable {}
 public func ==(lhs: Field, rhs: Field) -> Bool {
-
   
-
-  return lhs.accessibility == rhs.accessibility &&
-  lhs.name == rhs.name &&
-  lhs.type == rhs.type &&
-   true
+  return
+    lhs.accessibility == rhs.accessibility && 
+    lhs.name == rhs.name && 
+    lhs.type == rhs.type 
   
 }
 
 extension FifthThing: Equatable {}
  func ==(lhs: FifthThing, rhs: FifthThing) -> Bool {
-
-  
-  switch (lhs, rhs) {
-  
-  case let (.One(lhsValue1), .One(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+  switch (lhs, rhs) { 
+  case (.One(let lhsValue1), .One(let rhsValue1 )) where lhsValue1 == rhsValue1 :
     return true
-  
-  case let (.Two(lhsValue1), .Two(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+  case (.Two(let lhsValue1), .Two(let rhsValue1 )) where lhsValue1 == rhsValue1 :
     return true
-  
-  case let (.Three, .Three):
+  case (.Three, .Three):
     return true
-  
   default: return false
   }
   
@@ -48,19 +38,13 @@ extension FifthThing: Equatable {}
 
 extension Kind: Equatable {}
 public func ==(lhs: Kind, rhs: Kind) -> Bool {
-
-  
-  switch (lhs, rhs) {
-  
-  case let (.Struct(lhsValue1), .Struct(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+  switch (lhs, rhs) { 
+  case (.Struct(let lhsValue1), .Struct(let rhsValue1 )) where lhsValue1 == rhsValue1 :
     return true
-  
-  case let (.Class(lhsValue1), .Class(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+  case (.Class(let lhsValue1), .Class(let rhsValue1 )) where lhsValue1 == rhsValue1 :
     return true
-  
-  case let (.Enum(lhsValue1), .Enum(rhsValue1)) where lhsValue1 == rhsValue1 && true :
+  case (.Enum(let lhsValue1), .Enum(let rhsValue1 )) where lhsValue1 == rhsValue1 :
     return true
-  
   default: return false
   }
   
@@ -68,14 +52,12 @@ public func ==(lhs: Kind, rhs: Kind) -> Bool {
 
 extension Type: Equatable {}
 public func ==(lhs: Type, rhs: Type) -> Bool {
-
   
-
-  return lhs.accessibility == rhs.accessibility &&
-  lhs.name == rhs.name &&
-  lhs.extensions == rhs.extensions &&
-  lhs.kind == rhs.kind &&
-   true
+  return
+    lhs.accessibility == rhs.accessibility && 
+    lhs.name == rhs.name && 
+    lhs.extensions == rhs.extensions && 
+    lhs.kind == rhs.kind 
   
 }
 

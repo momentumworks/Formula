@@ -43,9 +43,25 @@ class CodeGenerator {
         "extensions": extensions
     ])
 
+    let namespace = Namespace()
+    namespace.registerSimpleTag("comma", handler: { context in
+      guard let last = (context["forloop"] as? [String: Any])?["last"] as? Bool else {
+        return ""
+      }
+      return last ? "" : ", "
+    })
+    
+    namespace.registerSimpleTag("andSymbol", handler: { context in
+      guard let last = (context["forloop"] as? [String: Any])?["last"] as? Bool else {
+        return ""
+      }
+      return last ? "" : "&& "
+    })
+    
     let generated = templates.reduce("") { accumulated, template in
       do {
-        let result = try template.render(context)
+        let result = try template.render(context, namespace: namespace)
+        
         return accumulated + result
       } catch {
         print("Failed to render template \(error)")
