@@ -44,13 +44,22 @@ public func +<T>(left: [T], right: T) -> [T] {
   return newArray
 }
 
-public extension Array where Element : Hashable {
+extension SequenceType where Generator.Element: Hashable {
   
-  public var unique: [Element] {
-    return Array(Set(self))
+  var unique: [Generator.Element] {
+    var seen: Set<Generator.Element> = []
+    return filter {
+      if seen.contains($0) {
+        return false
+      } else {
+        seen.insert($0)
+        return true
+      }
+    }
   }
   
 }
+
 
 public extension LazyMapCollection {
   
