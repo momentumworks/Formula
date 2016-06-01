@@ -31,6 +31,10 @@
 		317D2D9F1CA3066300305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */; };
+		4D4800A81CFEF9F20087C474 /* Immutable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A71CFEF9F20087C474 /* Immutable.stencil */; };
+		4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */; };
+		4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */; };
+		4D4800AF1CFEFB6B0087C474 /* ImmutableComplexResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800AE1CFEFB6B0087C474 /* ImmutableComplexResult.fixture */; };
 		4D757F111CFAE9A40053A20A /* GeneratorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D757F101CFAE9A40053A20A /* GeneratorModels.swift */; };
 		4D99867B1CFDD41E00C2BEB8 /* ExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */; };
 		4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */; };
@@ -40,11 +44,8 @@
 		4DCE86681CFEEA0E00A3E238 /* IndexExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */; };
 		4DCE866A1CFEEA1A00A3E238 /* StructureExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */; };
 		CCD966357DA9707527CF5143 /* Pods_CodeGenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1EBF68C2F8803CC9C572D2 /* Pods_CodeGenTests.framework */; };
-		CDC6B28F1CA3FE1F0041517A /* ComplexResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = CDC6B28D1CA3FE1F0041517A /* ComplexResult.fixture */; };
-		CDC6B2901CA3FE1F0041517A /* ComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = CDC6B28E1CA3FE1F0041517A /* ComplexSource.fixture */; };
-		E291D0AB963A667D153A6800 /* Immutable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = E291D5B4287FCB20AD2B99AC /* Immutable.stencil */; };
-		E291D17344B4163D9A5100F4 /* SimpleSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = E291DA17BA08E486EE4C788A /* SimpleSource.fixture */; };
-		E291DE4021C50D4D1B73DBC5 /* SimpleResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = E291D14C28192A1DF846A7EA /* SimpleResult.fixture */; };
+		CDC6B2901CA3FE1F0041517A /* ImmutableComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = CDC6B28E1CA3FE1F0041517A /* ImmutableComplexSource.fixture */; };
+		E291D17344B4163D9A5100F4 /* ImmutableSimpleSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,10 @@
 		317D2D9E1CA3066300305424 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		379E1AFE4C92D4DC50969364 /* Pods-CodeGen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.release.xcconfig"; sourceTree = "<group>"; };
 		4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ComplexEnum.fixture; path = Fixtures/ComplexEnum.fixture; sourceTree = "<group>"; };
+		4D4800A71CFEF9F20087C474 /* Immutable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Immutable.stencil; sourceTree = "<group>"; };
+		4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatable.stencil; sourceTree = "<group>"; };
+		4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableSimpleResult.fixture; sourceTree = "<group>"; };
+		4D4800AE1CFEFB6B0087C474 /* ImmutableComplexResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableComplexResult.fixture; sourceTree = "<group>"; };
 		4D757F101CFAE9A40053A20A /* GeneratorModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorModels.swift; sourceTree = "<group>"; };
 		4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorTests.swift; sourceTree = "<group>"; };
 		4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleEnum.fixture; path = Fixtures/SimpleEnum.fixture; sourceTree = "<group>"; };
@@ -119,11 +124,8 @@
 		AC1EBF68C2F8803CC9C572D2 /* Pods_CodeGenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C443619F8536E838B06875EE /* Pods-CodeGen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.debug.xcconfig"; sourceTree = "<group>"; };
 		CD3D742F1CA2907D0021FC36 /* CodeGen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeGen.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDC6B28D1CA3FE1F0041517A /* ComplexResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ComplexResult.fixture; sourceTree = "<group>"; };
-		CDC6B28E1CA3FE1F0041517A /* ComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ComplexSource.fixture; sourceTree = "<group>"; };
-		E291D14C28192A1DF846A7EA /* SimpleResult.fixture */ = {isa = PBXFileReference; lastKnownFileType = file.fixture; path = SimpleResult.fixture; sourceTree = "<group>"; };
-		E291D5B4287FCB20AD2B99AC /* Immutable.stencil */ = {isa = PBXFileReference; lastKnownFileType = file.stencil; path = Immutable.stencil; sourceTree = "<group>"; };
-		E291DA17BA08E486EE4C788A /* SimpleSource.fixture */ = {isa = PBXFileReference; lastKnownFileType = file.fixture; path = SimpleSource.fixture; sourceTree = "<group>"; };
+		CDC6B28E1CA3FE1F0041517A /* ImmutableComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableComplexSource.fixture; sourceTree = "<group>"; };
+		E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */ = {isa = PBXFileReference; lastKnownFileType = text; path = ImmutableSimpleSource.fixture; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 		3169C1441CA2EC36009828E2 /* CodeGenTests */ = {
 			isa = PBXGroup;
 			children = (
+				4D4800AB1CFEF9FC0087C474 /* Stencils */,
 				4D9986801CFDE44800C2BEB8 /* UnitTestFixtures */,
 				E291D2AC757AA623334D9708 /* IntegrationFixtures */,
 				3169C1701CA2F168009828E2 /* IntegrationTests.swift */,
@@ -232,6 +235,16 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		4D4800AB1CFEF9FC0087C474 /* Stencils */ = {
+			isa = PBXGroup;
+			children = (
+				4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */,
+				4D4800A71CFEF9F20087C474 /* Immutable.stencil */,
+			);
+			name = Stencils;
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
 		4D9986801CFDE44800C2BEB8 /* UnitTestFixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,11 +288,10 @@
 		E291D2AC757AA623334D9708 /* IntegrationFixtures */ = {
 			isa = PBXGroup;
 			children = (
-				CDC6B28D1CA3FE1F0041517A /* ComplexResult.fixture */,
-				CDC6B28E1CA3FE1F0041517A /* ComplexSource.fixture */,
-				E291D5B4287FCB20AD2B99AC /* Immutable.stencil */,
-				E291D14C28192A1DF846A7EA /* SimpleResult.fixture */,
-				E291DA17BA08E486EE4C788A /* SimpleSource.fixture */,
+				E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */,
+				4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */,
+				CDC6B28E1CA3FE1F0041517A /* ImmutableComplexSource.fixture */,
+				4D4800AE1CFEFB6B0087C474 /* ImmutableComplexResult.fixture */,
 			);
 			name = IntegrationFixtures;
 			path = Fixtures;
@@ -381,12 +393,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */,
+				4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */,
+				4D4800A81CFEF9F20087C474 /* Immutable.stencil in Resources */,
 				317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */,
-				CDC6B2901CA3FE1F0041517A /* ComplexSource.fixture in Resources */,
-				E291D0AB963A667D153A6800 /* Immutable.stencil in Resources */,
-				E291DE4021C50D4D1B73DBC5 /* SimpleResult.fixture in Resources */,
-				CDC6B28F1CA3FE1F0041517A /* ComplexResult.fixture in Resources */,
-				E291D17344B4163D9A5100F4 /* SimpleSource.fixture in Resources */,
+				CDC6B2901CA3FE1F0041517A /* ImmutableComplexSource.fixture in Resources */,
+				4D4800AF1CFEFB6B0087C474 /* ImmutableComplexResult.fixture in Resources */,
+				4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */,
+				E291D17344B4163D9A5100F4 /* ImmutableSimpleSource.fixture in Resources */,
 				4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

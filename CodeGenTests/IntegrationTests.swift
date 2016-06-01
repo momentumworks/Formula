@@ -27,8 +27,8 @@ class CodeGenTests: XCTestCase {
 
   
   func testSimpleGeneration() {
-    let fixture = File(path: testBundle.pathForResource("SimpleSource", ofType: "fixture")!)!
-    let expected = File(path: testBundle.pathForResource("SimpleResult", ofType: "fixture")!)!.contents
+    let fixture = File(path: testBundle.pathForResource("ImmutableSimpleSource", ofType: "fixture")!)!
+    let expected = File(path: testBundle.pathForResource("ImmutableSimpleResult", ofType: "fixture")!)!.contents
 
     let generator = CodeGenerator(templates: [template], infoHeader: nil)
     let output = generator.generateForFiles([fixture])
@@ -37,8 +37,8 @@ class CodeGenTests: XCTestCase {
   }
 
   func testComplexGeneration() {
-    let fixture = File(path: testBundle.pathForResource("ComplexSource", ofType: "fixture")!)!
-    let expected = File(path: testBundle.pathForResource("ComplexResult", ofType: "fixture")!)!.contents
+    let fixture = File(path: testBundle.pathForResource("ImmutableComplexSource", ofType: "fixture")!)!
+    let expected = File(path: testBundle.pathForResource("ImmutableComplexResult", ofType: "fixture")!)!.contents
 
     let generator = CodeGenerator(templates: [template], infoHeader: nil)
     let output = generator.generateForFiles([fixture])
