@@ -6,43 +6,42 @@
 //  Copyright © 2016 Momentumworks. All rights reserved.
 //
 
-import XCTest
 @testable import CodeGen
 import Stencil
 import SourceKittenFramework
 import Quick
 import Nimble
 
-class CodeGenTests: XCTestCase {
-  var template: Template!
-
-  override func setUp() {
-    super.setUp()
-    template = try! Template(named: "Immutable.stencil", inBundle: self.testBundle)
-  }
-
-  override func tearDown() {
-    super.tearDown()
-  }
-
+class CodeGenTests: QuickSpec {
   
-  func testSimpleGeneration() {
-    let fixture = File(path: testBundle.pathForResource("ImmutableSimpleSource", ofType: "fixture")!)!
-    let expected = File(path: testBundle.pathForResource("ImmutableSimpleResult", ofType: "fixture")!)!.contents
+  override func spec() {
+    
+    describe("generator should output the correct fixtures") {
 
+      it("when using Immutable stencil with simple source") {
+        let result = self.loadInputAndGenerate(templateName: "Immutable", input: "ImmutableSimpleSource", expectedOutput: "ImmutableSimpleResult")
+        expect(result).to(be(true))
+      }
+      
+      it("when using Immutable stencil with complex source") {
+        let result = self.loadInputAndGenerate(templateName: "Immutable", input: "ImmutableComplexSource", expectedOutput: "ImmutableComplexResult")
+        expect(result).to(be(true))
+      }
+      
+    }
+    
+  }
+  
+  private func loadInputAndGenerate(templateName templateName: String, input: String, expectedOutput: String) -> Bool {
+    let template = try! Template(named: templateName + ".stencil", inBundle: self.testBundle)
+    
+    let fixture = File(path: testBundle.pathForResource(input, ofType: "fixture")!)!
+    let expected = File(path: testBundle.pathForResource(expectedOutput, ofType: "fixture")!)!.contents
+    
     let generator = CodeGenerator(templates: [template], infoHeader: nil)
     let output = generator.generateForFiles([fixture])
-
-    XCTAssertEqual(output, expected, "Generated code wasn't as expected")
+    return output == expected
   }
-
-  func testComplexGeneration() {
-    let fixture = File(path: testBundle.pathForResource("ImmutableComplexSource", ofType: "fixture")!)!
-    let expected = File(path: testBundle.pathForResource("ImmutableComplexResult", ofType: "fixture")!)!.contents
-
-    let generator = CodeGenerator(templates: [template], infoHeader: nil)
-    let output = generator.generateForFiles([fixture])
-
-    XCTAssertEqual(output, expected, "Generated code wasn't as expected")
-  }
+  
 }
+
