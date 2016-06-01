@@ -1,14 +1,13 @@
-
 // MARK: - Immutable
+
 {% for object in extensions.Immutable %}
-	{% if object.isStruct %}
-	extension {{ object.name }} {
-		{% for field in object.fields %}
-			{{ field.accessibility }} func set({{ field.name }} {{ field.name }}: {{ field.type }} -> {{ object.name }} {
-				return {{ object.constructorCall }}
-			}
-		{% endfor %}
+{% if object.fields %}
+extension {{ object.name }} {
+	{% for field in object.fields %}
+	{{ field.accessibility }} func set({{ field.name }} {{ field.name }}: {{ field.type }} -> {{ object.name }} {
+		return {{ object.constructorCall }}
 	}
-	{% endif %}
+	{% endfor %}
+}
+{% endif %}
 {% endfor %}
-// MARK: -

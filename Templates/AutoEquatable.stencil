@@ -9,8 +9,7 @@ extension {{ type.name }}: Equatable {}
   default: return false
   }
   {% else %}
-  return
-  {% for field in type.fields %}  lhs.{{ field.name }} == rhs.{{ field.name }} {% andSymbol %}
+  return  {% for field in type.fields %}  lhs.{{ field.name }} == rhs.{{ field.name }} {% andSymbol %}
   {% endfor %}{% endif %}
 }
 {% endfor %}
