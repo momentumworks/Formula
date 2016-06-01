@@ -1,5 +1,7 @@
-enum Anenum {
+enum Anenum : Protocol1 {
   case One
-  case Tow
+  case Two
   case Three
 }
+
+extension Anenum: Protocol2 { }
