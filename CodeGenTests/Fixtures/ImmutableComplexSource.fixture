@@ -20,4 +20,9 @@ public class FourthThing: Equatable {
   public let i: Int
 }
 
+public enum FifthThing: Immutable {
+  case One
+  case Two
+}
+
 extension FourthThing: Immutable {}

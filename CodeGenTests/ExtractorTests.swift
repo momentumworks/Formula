@@ -6,7 +6,6 @@
 //  Copyright © 2016 Momentumworks. All rights reserved.
 //
 
-import XCTest
 @testable import CodeGen
 import Stencil
 import SourceKittenFramework
