@@ -11,29 +11,21 @@ import SourceKittenFramework
 
 struct IndexExtractor {
   
-  // this only works with the output of the "index" command of SourceKit(ten)
-  // this is a recrusive function
-  // this won't extract accessibility info, because that's unfortunately can't be find in the output of "index"
-  static func extractEnum(entities: SourceKitRepresentable, nesting: [Name] = []) -> [Type] {
-    guard let entitiesDict = entities.asDictionary,
-      let type = entitiesDict.kind,
-      let name = entitiesDict.name
-      else {
-        return []
-    }
+  struct EnumExtractor: ElementExtractor {
     
-    guard type == SwiftDeclarationKind.Enum.rawValue else {
-      // if fails, recurisvely call this function again, one level deeper, to see if there's a valid type in there
-      return entitiesDict
-        .entities?
-        .flatMap { extractEnum($0, nesting: nesting + name) } ?? []
-    }
+    var supportedKinds: Set<String> = [SwiftDeclarationKind.Enum.rawValue]
     
-    return [Type(accessibility: nil,
-      name: (nesting + name).joinWithSeparator("."),
-      extensions: [],
-      kind: .Enum(entitiesDict.entities?.flatMap(extractEnumCase) ?? [])
+    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [PossibleType] {
+      guard let name = input.name else { fatalError() }
+      
+      return [.Complete(
+        Type(accessibility: nil,
+              name: (nesting + name).joinWithSeparator("."),
+              extensions: [],
+              kind: .Enum(input.entities?.flatMap(extractEnumCase) ?? [])
+        )
       )]
+    }
   }
   
 }

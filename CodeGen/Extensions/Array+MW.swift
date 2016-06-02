@@ -35,6 +35,11 @@ extension Array {
     }
   }
 
+  @warn_unused_result
+  public func find(@noescape predicate: Element -> Bool) -> Element? {
+    return self.lazy.filter(predicate).first
+  }
+
   
 }
 
@@ -42,6 +47,18 @@ public func +<T>(left: [T], right: T) -> [T] {
   var newArray = left
   newArray.append(right)
   return newArray
+}
+
+public func +<T>(left: [T], right: T?) -> [T] {
+  guard let right = right else { return left }
+  var newArray = left
+  newArray.append(right)
+  return newArray
+}
+
+public func +<T>(left: [T], right: [T]?) -> [T] {
+  guard let right = right else { return left }
+  return left + right
 }
 
 extension SequenceType where Generator.Element: Hashable {

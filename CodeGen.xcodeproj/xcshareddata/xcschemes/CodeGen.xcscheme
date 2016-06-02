@@ -78,7 +78,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/mark/Dev/momentum-ib/MomentumCore/MomentumCore/Project"
+            argument = "/Users/mark/Dev/momentum-ib/Momentum/"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

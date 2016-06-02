@@ -92,10 +92,14 @@ class ExtractorTests: QuickSpec {
       }
       
       it("should recognize the doubly nested type") {
-        expect(metaData["Parent.Children.Grandchildren"]).toNot(beNil())
-        expect(metaData["Parent.Children.Grandchildren"]?.kind.isStruct).to(equal(true))
+        expect(metaData["Parent.Children.GrandChildren"]).toNot(beNil())
+        expect(metaData["Parent.Children.GrandChildren"]?.kind.isStruct).to(equal(true))
       }
       
+      it("should recognize a nested type when it's in an extension") {
+        expect(metaData["Parent.OtherChildren"]).toNot(beNil())
+        expect(metaData["Parent.OtherChildren"]?.kind.isStruct).to(equal(true))
+      }
       
     }
 

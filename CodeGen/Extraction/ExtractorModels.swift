@@ -12,6 +12,8 @@ public typealias Name = String
 public typealias SourceString = String
 public typealias Import = String
 
+
+
 protocol TupleConvertible {
   var name: Name { get }
   func toTuple() -> (Name, Self)
@@ -20,6 +22,65 @@ protocol TupleConvertible {
 protocol Mergeable {
   static func merge(lhs: Self, rhs: Self) -> Self
 }
+
+public enum PossibleType {
+  case Complete(Type)
+  case PartialExtension(ExtensionType)
+  
+  var getType: Type? {
+    if case .Complete(let type) = self {
+      return type
+    } else {
+      return nil
+    }
+  }
+  
+  var getExtensionType: ExtensionType? {
+    if case .PartialExtension(let type) = self {
+      return type
+    } else {
+      return nil
+    }
+  }
+  
+}
+
+
+extension PossibleType: Mergeable {
+  static func merge(lhs: PossibleType, rhs: PossibleType) -> PossibleType {
+    switch (lhs, rhs) {
+    case (.Complete(let lhsType), .Complete(let rhsType)):
+      return PossibleType.Complete(lhsType + rhsType)
+      
+    case (.Complete(let lhsType), .PartialExtension(let rhsType)):
+      return PossibleType.Complete(rhsType + lhsType)
+    case (.PartialExtension(let lhsType), .Complete(let rhsType)):
+      return PossibleType.Complete(lhsType + rhsType)
+      
+    case (.PartialExtension(let lhsType), .PartialExtension(let rhsType)):
+      return PossibleType.PartialExtension(lhsType + rhsType)
+    }
+  }
+}
+
+extension PossibleType: TupleConvertible {
+  
+  var name: Name {
+    switch self {
+    case .Complete(let type):
+      return type.name
+    case .PartialExtension(let extensionType):
+      return extensionType.name
+    }
+  }
+  
+  func toTuple() -> (Name, PossibleType) {
+    return (self.name, self)
+  }
+  
+}
+
+
 
 public enum Kind {
   case Struct([Field])
@@ -142,6 +203,10 @@ extension Type: Mergeable {
   }
 }
 
+public func +(lhs: Type, rhs: Type) -> Type {
+  return Type.merge(lhs, rhs: rhs)
+}
+
 
 public struct Field {
   public let accessibility : String
@@ -207,6 +272,13 @@ public func +(lhs: ExtensionType, rhs: Type) -> Type {
     return rhs
   }
   return Type(accessibility: rhs.accessibility, name: rhs.name, extensions: lhs.extensions + rhs.extensions, kind: rhs.kind)
+}
+
+public func +(lhs: ExtensionType, rhs: ExtensionType) -> ExtensionType {
+  guard lhs.name == rhs.name else {
+    return lhs
+  }
+  return ExtensionType(name: rhs.name, extensions: lhs.extensions + rhs.extensions)
 }
 
 
