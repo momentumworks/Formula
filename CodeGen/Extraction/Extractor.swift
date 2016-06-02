@@ -17,7 +17,9 @@ public class Extractor {
 
   static func extractImports(files: [File]) -> [Import] {
     return files
-      .flatMap(FileExtractor.extractImports)
+      .parallelMap(FileExtractor.extractImports)
+      .flatten()
+      .array
       .unique
   }
 
@@ -32,6 +34,8 @@ public class Extractor {
           let entities = indexed.entities else {
       return [:]
     }
+    
+    let stuff: Dictionary = ["mamma": StructureExtractor.ClassAndStructExtractor().extract]
     
     let extractedFromStructure = extractFromTree(from: substructures, extractors: [
                                                   StructureExtractor.ClassAndStructExtractor(),
@@ -55,7 +59,7 @@ public class Extractor {
   
   static func extractTypes(files: [File]) -> [Name:Type] {
     return files
-      .map(extractTypes)
+      .parallelMap(extractTypes)
       .reduce([Name:Type](), combine: +)
   }
   
@@ -66,7 +70,7 @@ private func extractFromTree(from input: [SourceKitRepresentable],
                              traverseDeeper: [String: SourceKitRepresentable] -> [SourceKitRepresentable]?,
                              currentNesting: [Name] = []) -> [ExtractorOutput] {
   return input
-    .flatMap { item -> [ExtractorOutput] in
+    .parallelMap { item -> [ExtractorOutput] in
       guard let dict = item.asDictionary,
             let name = dict.name,
             let kind = dict.kind
@@ -81,6 +85,8 @@ private func extractFromTree(from input: [SourceKitRepresentable],
       
       return nested + extractor?.extract(dict, nesting: currentNesting)
     }
+    .flatten()
+    .array
 
 }
 

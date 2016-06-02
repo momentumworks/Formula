@@ -78,10 +78,32 @@ extension SequenceType where Generator.Element: Hashable {
 }
 
 
-public extension LazyMapCollection {
+public extension CollectionType {
   
-  var array: [Element] {
+  var array: [Generator.Element] {
     return Array(self)
   }
   
 }
+
+public extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int {
+  
+  @warn_unused_result
+  public func parallelMap<U>(transform: Self.Generator.Element -> U ) -> [U] {
+    guard !self.isEmpty else { return Array() }
+    
+    let r = transform(self[self.startIndex])
+    var results = Array<U>(count: self.count, repeatedValue:r)
+    
+    results.withUnsafeMutableBufferPointer { (inout buffer: UnsafeMutableBufferPointer<U>) -> UnsafeMutableBufferPointer<U> in
+      dispatch_apply(self.count, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { index in
+        buffer[index] = transform(self[index])
+      })
+      return buffer
+    }
+    
+    return results
+  }
+  
+}
+
