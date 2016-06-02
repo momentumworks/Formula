@@ -11,14 +11,14 @@ import SourceKittenFramework
 
 struct StructureExtractor {
   
-  struct ExtensionsExtractor: ElementExtractor {
+  static let ExtensionExtractor = ElementExtractor<ExtensionType>(
     
-    var supportedKinds: Set<String> = [SwiftDeclarationKind.ExtensionStruct.rawValue,
-                                       SwiftDeclarationKind.Extension.rawValue,
-                                       SwiftDeclarationKind.ExtensionClass.rawValue,
-                                       SwiftDeclarationKind.ExtensionEnum.rawValue]
+    supportedKinds: [SwiftDeclarationKind.ExtensionStruct.rawValue,
+      SwiftDeclarationKind.Extension.rawValue,
+      SwiftDeclarationKind.ExtensionClass.rawValue,
+      SwiftDeclarationKind.ExtensionEnum.rawValue],
     
-    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput] {
+    extract: { input, nesting in
       guard let name = input.name else { fatalError() }
       let fullName = (nesting + name).joinWithSeparator(".")
       
@@ -26,23 +26,22 @@ struct StructureExtractor {
         .extensions?
         .map { ExtensionType(name: fullName, extensions: [$0])  } ?? []
     }
-  }
+  )
   
-  
-  struct ClassAndStructExtractor: ElementExtractor {
+  static let ClassAndStructExtractor = ElementExtractor<Type>(
     
-    var supportedKinds: Set<String> = [SwiftDeclarationKind.Class.rawValue,
-                                       SwiftDeclarationKind.Struct.rawValue]
+    supportedKinds: [SwiftDeclarationKind.Class.rawValue,
+      SwiftDeclarationKind.Struct.rawValue],
     
-    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput] {
+    extract: { input, nesting in
       guard let name = input.name,
-            let type = input.kind
+        let type = input.kind
         else {
           fatalError()
       }
       
       let fullName = (nesting + name).joinWithSeparator(".")
-
+      
       let kind = {
         let initial = Kind(rawValue: type.drop("source.lang.swift.decl."))
         switch initial {
@@ -53,7 +52,7 @@ struct StructureExtractor {
         case .Enum:
           return .Enum([])
         }
-      }() as Kind
+        }() as Kind
       
       return [Type(accessibility: input.accessibility?.description,
         name: fullName,
@@ -61,15 +60,16 @@ struct StructureExtractor {
         kind: kind)
       ]
     }
-  }
+  )
+  
   
   // this won't extract out the enum cases (that's done from the output of the index command), since it's not exposed by SourceKit
 
-  struct EnumExtractor: ElementExtractor {
+  static let EnumExtractor = ElementExtractor<Type>(
     
-    var supportedKinds: Set<String> = [SwiftDeclarationKind.Enum.rawValue]
+    supportedKinds: [SwiftDeclarationKind.Enum.rawValue],
     
-    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput] {
+    extract: { input, nesting in
       guard let name = input.name else { fatalError() }
       
       return [Type(accessibility: input.accessibility?.description,
@@ -78,7 +78,7 @@ struct StructureExtractor {
         kind: .Enum([]))
       ]
     }
-  }
+  )
 
 }
 

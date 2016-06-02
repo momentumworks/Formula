@@ -12,8 +12,6 @@ public typealias Name = String
 public typealias SourceString = String
 public typealias Import = String
 
-protocol ExtractorOutput { }
-
 
 protocol TupleConvertible {
   var name: Name { get }
@@ -91,7 +89,7 @@ public extension Kind {
   }
 }
 
-public struct Type : ExtractorOutput {
+public struct Type {
   public let accessibility : String
   public let name : Name
   public let extensions : Set<Extension>
@@ -186,7 +184,7 @@ public struct EnumCase {
 // this is an incomplete type that is required because some extensions (especially for enums) only appear in the output
 // of the index command, without additional type information.
 // this is used to record all (name : extension) pairs, so later they can get merged back into the "complete" Type with the same name.
-public struct ExtensionType : ExtractorOutput {
+public struct ExtensionType {
   public let name : String
   public let extensions : Set<Extension>
 }

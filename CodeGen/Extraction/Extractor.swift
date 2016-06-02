@@ -6,11 +6,9 @@
 import Foundation
 import SourceKittenFramework
 
-
-
-protocol ElementExtractor {
-  var supportedKinds: Set<String> { get }
-  func extract(input: [String: SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput]
+struct ElementExtractor <T where T: TupleConvertible, T: Mergeable> {
+  let supportedKinds: Set<String>
+  let extract: (input: [String: SourceKitRepresentable], nesting: [Name]) -> [T]
 }
 
 public class Extractor {
@@ -35,22 +33,19 @@ public class Extractor {
       return [:]
     }
     
-    let stuff: Dictionary = ["mamma": StructureExtractor.ClassAndStructExtractor().extract]
-    
-    let extractedFromStructure = extractFromTree(from: substructures, extractors: [
-                                                  StructureExtractor.ClassAndStructExtractor(),
-                                                  StructureExtractor.EnumExtractor()],
-                                                 traverseDeeper: { $0.substructures })
-      .map { $0 as! Type }
+    let extractedFromStructure = extractFromTree(from: substructures,
+                                          extractors: [
+                                            StructureExtractor.ClassAndStructExtractor,
+                                            StructureExtractor.EnumExtractor
+                                          ],
+                                       traverseDeeper: { $0.substructures })
       .mergeIntoDictionary()
     
-    let extractedFromIndex = extractFromTree(from: entities, extractors: [IndexExtractor.EnumExtractor()], traverseDeeper: { $0.entities })
-      .map { $0 as! Type }
+    let extractedFromIndex = extractFromTree(from: entities, extractors: [IndexExtractor.EnumExtractor], traverseDeeper: { $0.entities })
       .mergeIntoDictionary()
 
-    let extensions = extractFromTree(from: substructures, extractors: [StructureExtractor.ExtensionsExtractor()],
+    let extensions = extractFromTree(from: substructures, extractors: [StructureExtractor.ExtensionExtractor],
       traverseDeeper: { $0.substructures })
-      .map { $0 as! ExtensionType }
       .mergeIntoDictionary()
 
     let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
@@ -65,12 +60,14 @@ public class Extractor {
   
 }
 
-private func extractFromTree(from input: [SourceKitRepresentable],
-                             extractors: [ElementExtractor],
-                             traverseDeeper: [String: SourceKitRepresentable] -> [SourceKitRepresentable]?,
-                             currentNesting: [Name] = []) -> [ExtractorOutput] {
+private func extractFromTree<T where T: TupleConvertible, T: Mergeable>
+  (from input: [SourceKitRepresentable],
+   extractors: [ElementExtractor<T>],
+   traverseDeeper: [String: SourceKitRepresentable] -> [SourceKitRepresentable]?,
+   currentNesting: [Name] = []) -> [T]
+{
   return input
-    .parallelMap { item -> [ExtractorOutput] in
+    .parallelMap { item -> [T] in
       guard let dict = item.asDictionary,
             let name = dict.name,
             let kind = dict.kind
@@ -83,7 +80,7 @@ private func extractFromTree(from input: [SourceKitRepresentable],
       let nested = traverseDeeper(dict)
         .flatMap { extractFromTree(from: $0, extractors: extractors, traverseDeeper: traverseDeeper, currentNesting: currentNesting + name) } ?? []
       
-      return nested + extractor?.extract(dict, nesting: currentNesting)
+      return nested + extractor?.extract(input: dict, nesting: currentNesting)
     }
     .flatten()
     .array

@@ -11,22 +11,20 @@ import SourceKittenFramework
 
 struct IndexExtractor {
   
-  struct EnumExtractor: ElementExtractor {
+  static let EnumExtractor = ElementExtractor<Type>(
     
-    var supportedKinds: Set<String> = [SwiftDeclarationKind.Enum.rawValue]
+    supportedKinds: [SwiftDeclarationKind.Enum.rawValue],
     
-    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput] {
+    extract: { input, nesting in
       guard let name = input.name else { fatalError() }
       
-      return [
-        Type(accessibility: nil,
-              name: (nesting + name).joinWithSeparator("."),
-              extensions: [],
-              kind: .Enum(input.entities?.flatMap(extractEnumCase) ?? [])
-        )
-      ]
+      return [Type(accessibility: nil,
+          name: (nesting + name).joinWithSeparator("."),
+          extensions: [],
+          kind: .Enum(input.entities?.flatMap(extractEnumCase) ?? [])
+        )]
     }
-  }
+  )
   
 }
 
