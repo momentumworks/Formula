@@ -12,6 +12,7 @@ public typealias Name = String
 public typealias SourceString = String
 public typealias Import = String
 
+protocol ExtractorOutput { }
 
 
 protocol TupleConvertible {
@@ -22,65 +23,6 @@ protocol TupleConvertible {
 protocol Mergeable {
   static func merge(lhs: Self, rhs: Self) -> Self
 }
-
-public enum PossibleType {
-  case Complete(Type)
-  case PartialExtension(ExtensionType)
-  
-  var getType: Type? {
-    if case .Complete(let type) = self {
-      return type
-    } else {
-      return nil
-    }
-  }
-  
-  var getExtensionType: ExtensionType? {
-    if case .PartialExtension(let type) = self {
-      return type
-    } else {
-      return nil
-    }
-  }
-  
-}
-
-
-extension PossibleType: Mergeable {
-  static func merge(lhs: PossibleType, rhs: PossibleType) -> PossibleType {
-    switch (lhs, rhs) {
-    case (.Complete(let lhsType), .Complete(let rhsType)):
-      return PossibleType.Complete(lhsType + rhsType)
-      
-    case (.Complete(let lhsType), .PartialExtension(let rhsType)):
-      return PossibleType.Complete(rhsType + lhsType)
-    case (.PartialExtension(let lhsType), .Complete(let rhsType)):
-      return PossibleType.Complete(lhsType + rhsType)
-      
-    case (.PartialExtension(let lhsType), .PartialExtension(let rhsType)):
-      return PossibleType.PartialExtension(lhsType + rhsType)
-    }
-  }
-}
-
-extension PossibleType: TupleConvertible {
-  
-  var name: Name {
-    switch self {
-    case .Complete(let type):
-      return type.name
-    case .PartialExtension(let extensionType):
-      return extensionType.name
-    }
-  }
-  
-  func toTuple() -> (Name, PossibleType) {
-    return (self.name, self)
-  }
-  
-}
-
-
 
 public enum Kind {
   case Struct([Field])
@@ -149,7 +91,7 @@ public extension Kind {
   }
 }
 
-public struct Type {
+public struct Type : ExtractorOutput {
   public let accessibility : String
   public let name : Name
   public let extensions : Set<Extension>
@@ -244,7 +186,7 @@ public struct EnumCase {
 // this is an incomplete type that is required because some extensions (especially for enums) only appear in the output
 // of the index command, without additional type information.
 // this is used to record all (name : extension) pairs, so later they can get merged back into the "complete" Type with the same name.
-public struct ExtensionType {
+public struct ExtensionType : ExtractorOutput {
   public let name : String
   public let extensions : Set<Extension>
 }

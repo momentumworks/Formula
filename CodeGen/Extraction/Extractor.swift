@@ -10,7 +10,7 @@ import SourceKittenFramework
 
 protocol ElementExtractor {
   var supportedKinds: Set<String> { get }
-  func extract(input: [String: SourceKitRepresentable], nesting: [Name]) -> [PossibleType]
+  func extract(input: [String: SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput]
 }
 
 public class Extractor {
@@ -37,29 +37,17 @@ public class Extractor {
                                                   StructureExtractor.ClassAndStructExtractor(),
                                                   StructureExtractor.EnumExtractor()],
                                                  traverseDeeper: { $0.substructures })
-      .map { $0.getType! }
+      .map { $0 as! Type }
       .mergeIntoDictionary()
     
     let extractedFromIndex = extractFromTree(from: entities, extractors: [IndexExtractor.EnumExtractor()], traverseDeeper: { $0.entities })
-      .map { $0.getType! }
+      .map { $0 as! Type }
       .mergeIntoDictionary()
 
     let extensions = extractFromTree(from: substructures, extractors: [StructureExtractor.ExtensionsExtractor()],
       traverseDeeper: { $0.substructures })
-      .map { $0.getExtensionType! }
+      .map { $0 as! ExtensionType }
       .mergeIntoDictionary()
-    
-    
-////    let extractedClassesStructs = extract(from: substructures, function: StructureExtractor.extractClassOrStruct)
-//    
-//    // the associated values that enum cases hold only appear in the output of the Index command
-//    let enumsFromIndex = extract(from: entities, function: IndexExtractor.extractEnum)
-//    
-//    // but we still need the output of the structure to extract out accessiblity and other relevant information
-//    let enumsFromStructure = extract(from: substructures, function: StructureExtractor.extractEnum)
-//
-//    // we have to extract out extensions separately for the enums, since they appear completely inconsistently throughout the structure output (not like with classes and structs, where they're nested)
-//    let extensions = extract(from: substructures, function: StructureExtractor.extractExtensionTypes)
 
     let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
     return mergeTypesAndExtensions(allTypes, extensions)
@@ -76,9 +64,9 @@ public class Extractor {
 private func extractFromTree(from input: [SourceKitRepresentable],
                              extractors: [ElementExtractor],
                              traverseDeeper: [String: SourceKitRepresentable] -> [SourceKitRepresentable]?,
-                             currentNesting: [Name] = []) -> [PossibleType] {
+                             currentNesting: [Name] = []) -> [ExtractorOutput] {
   return input
-    .flatMap { item -> [PossibleType] in
+    .flatMap { item -> [ExtractorOutput] in
       guard let dict = item.asDictionary,
             let name = dict.name,
             let kind = dict.kind

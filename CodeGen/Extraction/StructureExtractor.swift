@@ -18,13 +18,13 @@ struct StructureExtractor {
                                        SwiftDeclarationKind.ExtensionClass.rawValue,
                                        SwiftDeclarationKind.ExtensionEnum.rawValue]
     
-    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [PossibleType] {
+    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput] {
       guard let name = input.name else { fatalError() }
       let fullName = (nesting + name).joinWithSeparator(".")
       
       return input
         .extensions?
-        .map { .PartialExtension( ExtensionType(name: fullName, extensions: [$0]) ) } ?? []
+        .map { ExtensionType(name: fullName, extensions: [$0])  } ?? []
     }
   }
   
@@ -34,7 +34,7 @@ struct StructureExtractor {
     var supportedKinds: Set<String> = [SwiftDeclarationKind.Class.rawValue,
                                        SwiftDeclarationKind.Struct.rawValue]
     
-    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [PossibleType] {
+    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput] {
       guard let name = input.name,
             let type = input.kind
         else {
@@ -55,11 +55,10 @@ struct StructureExtractor {
         }
       }() as Kind
       
-      return [.Complete(Type(accessibility: input.accessibility?.description,
+      return [Type(accessibility: input.accessibility?.description,
         name: fullName,
         extensions: Set(input.extensions ?? []),
         kind: kind)
-        )
       ]
     }
   }
@@ -70,14 +69,13 @@ struct StructureExtractor {
     
     var supportedKinds: Set<String> = [SwiftDeclarationKind.Enum.rawValue]
     
-    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [PossibleType] {
+    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput] {
       guard let name = input.name else { fatalError() }
       
-      return [.Complete(Type(accessibility: input.accessibility?.description,
+      return [Type(accessibility: input.accessibility?.description,
         name: (nesting + name).joinWithSeparator("."),
         extensions: Set(input.extensions ?? []),
         kind: .Enum([]))
-        )
       ]
     }
   }

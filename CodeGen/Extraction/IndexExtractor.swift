@@ -15,16 +15,16 @@ struct IndexExtractor {
     
     var supportedKinds: Set<String> = [SwiftDeclarationKind.Enum.rawValue]
     
-    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [PossibleType] {
+    func extract(input: [String : SourceKitRepresentable], nesting: [Name]) -> [ExtractorOutput] {
       guard let name = input.name else { fatalError() }
       
-      return [.Complete(
+      return [
         Type(accessibility: nil,
               name: (nesting + name).joinWithSeparator("."),
               extensions: [],
               kind: .Enum(input.entities?.flatMap(extractEnumCase) ?? [])
         )
-      )]
+      ]
     }
   }
   
