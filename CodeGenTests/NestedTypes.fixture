@@ -10,7 +10,7 @@ class Parent {
   }
 }
 
-extension Children {
+extension Parent.Children {
   struct Other {
     let b: String
   }

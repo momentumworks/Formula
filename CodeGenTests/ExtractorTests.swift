@@ -97,12 +97,30 @@ class ExtractorTests: QuickSpec {
       }
       
       it("should recognize a nested type when it's in an extension") {
-        expect(metaData["Parent.OtherChildren"]).toNot(beNil())
-        expect(metaData["Parent.OtherChildren"]?.kind.isStruct).to(equal(true))
+        expect(metaData["Parent.Children.Other"]).toNot(beNil())
+        expect(metaData["Parent.Children.Other"]?.kind.isStruct).to(equal(true))
       }
       
     }
 
+
+    describe("when extracting an enum with only one case") {
+      
+      let file = File(path: self.testBundle.pathForResource("OneCaseEnum", ofType: "fixture")!)!
+      let metaData = Extractor.extractTypes([file])
+      
+      it("should recognize its name & type") {
+        expect(metaData["OnlyOne"]).toNot(beNil())
+        expect(metaData["OnlyOne"]?.kind.isEnum).to(equal(true))
+      }
+      
+      it("should recognize its cases") {
+        let enumCases = [
+          EnumCase(name: "One", associatedValues: ["Int"]),
+        ]
+        expect(metaData["OnlyOne"]?.kind).to(equal(Kind.Enum(enumCases)))
+      }
+    }
 
   
   }

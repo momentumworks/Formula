@@ -39,6 +39,7 @@
 		4D4800B51CFF024A0087C474 /* AutoEquatableComplexResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B41CFF024A0087C474 /* AutoEquatableComplexResult.fixture */; };
 		4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */; };
 		4D4800B91CFF0AE00087C474 /* Immutable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B81CFF0AE00087C474 /* Immutable.stencil */; };
+		4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */; };
 		4D757F111CFAE9A40053A20A /* GeneratorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D757F101CFAE9A40053A20A /* GeneratorModels.swift */; };
 		4D99867B1CFDD41E00C2BEB8 /* ExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */; };
 		4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */; };
@@ -118,6 +119,7 @@
 		4D4800B41CFF024A0087C474 /* AutoEquatableComplexResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatableComplexResult.fixture; sourceTree = "<group>"; };
 		4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatableComplexSource.fixture; sourceTree = "<group>"; };
 		4D4800B81CFF0AE00087C474 /* Immutable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Immutable.stencil; sourceTree = "<group>"; };
+		4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OneCaseEnum.fixture; sourceTree = "<group>"; };
 		4D757F101CFAE9A40053A20A /* GeneratorModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorModels.swift; sourceTree = "<group>"; };
 		4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorTests.swift; sourceTree = "<group>"; };
 		4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleEnum.fixture; path = Fixtures/SimpleEnum.fixture; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */,
 				4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */,
 				4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */,
+				4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */,
 			);
 			name = UnitTestFixtures;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				4D4800B91CFF0AE00087C474 /* Immutable.stencil in Resources */,
 				4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */,
 				317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */,
+				4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */,
 				CDC6B2901CA3FE1F0041517A /* ImmutableComplexSource.fixture in Resources */,
 				4D4800AF1CFEFB6B0087C474 /* ImmutableComplexResult.fixture in Resources */,
 				4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */,
