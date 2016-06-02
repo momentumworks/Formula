@@ -15,11 +15,10 @@ struct IndexExtractor {
     
     supportedKinds: [SwiftDeclarationKind.Enum.rawValue],
     
-    extract: { input, nesting in
-      guard let name = input.name else { fatalError() }
+    extract: { input, name in
       
       return [Type(accessibility: nil,
-          name: (nesting + name).joinWithSeparator("."),
+          name: name,
           extensions: [],
           kind: .Enum(input.entities?.flatMap(extractEnumCase) ?? [])
         )]

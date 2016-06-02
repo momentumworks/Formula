@@ -8,7 +8,7 @@ import SourceKittenFramework
 
 struct ElementExtractor <T where T: TupleConvertible, T: Mergeable> {
   let supportedKinds: Set<String>
-  let extract: (input: [String: SourceKitRepresentable], nesting: [Name]) -> [T]
+  let extract: (input: [String: SourceKitRepresentable], name: Name) -> [T]
 }
 
 public class Extractor {
@@ -80,7 +80,7 @@ private func extractFromTree<T where T: TupleConvertible, T: Mergeable>
       let nested = traverseDeeper(dict)
         .flatMap { extractFromTree(from: $0, extractors: extractors, traverseDeeper: traverseDeeper, currentNesting: currentNesting + name) } ?? []
       
-      return nested + extractor?.extract(input: dict, nesting: currentNesting)
+      return nested + extractor?.extract(input: dict, name: (currentNesting + name).joinWithSeparator("."))
     }
     .flatten()
     .array

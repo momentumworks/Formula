@@ -18,13 +18,10 @@ struct StructureExtractor {
       SwiftDeclarationKind.ExtensionClass.rawValue,
       SwiftDeclarationKind.ExtensionEnum.rawValue],
     
-    extract: { input, nesting in
-      guard let name = input.name else { fatalError() }
-      let fullName = (nesting + name).joinWithSeparator(".")
-      
+    extract: { input, name in
       return input
         .extensions?
-        .map { ExtensionType(name: fullName, extensions: [$0])  } ?? []
+        .map { ExtensionType(name: name, extensions: [$0])  } ?? []
     }
   )
   
@@ -33,14 +30,8 @@ struct StructureExtractor {
     supportedKinds: [SwiftDeclarationKind.Class.rawValue,
       SwiftDeclarationKind.Struct.rawValue],
     
-    extract: { input, nesting in
-      guard let name = input.name,
-        let type = input.kind
-        else {
-          fatalError()
-      }
-      
-      let fullName = (nesting + name).joinWithSeparator(".")
+    extract: { input, name in
+      guard let type = input.kind else { fatalError() }
       
       let kind = {
         let initial = Kind(rawValue: type.drop("source.lang.swift.decl."))
@@ -50,12 +41,12 @@ struct StructureExtractor {
         case .Class:
           return .Class(extractFields(input))
         case .Enum:
-          return .Enum([])
+          fatalError()
         }
         }() as Kind
       
       return [Type(accessibility: input.accessibility?.description,
-        name: fullName,
+        name: name,
         extensions: Set(input.extensions ?? []),
         kind: kind)
       ]
@@ -69,11 +60,9 @@ struct StructureExtractor {
     
     supportedKinds: [SwiftDeclarationKind.Enum.rawValue],
     
-    extract: { input, nesting in
-      guard let name = input.name else { fatalError() }
-      
+    extract: { input, name in
       return [Type(accessibility: input.accessibility?.description,
-        name: (nesting + name).joinWithSeparator("."),
+        name: name,
         extensions: Set(input.extensions ?? []),
         kind: .Enum([]))
       ]
