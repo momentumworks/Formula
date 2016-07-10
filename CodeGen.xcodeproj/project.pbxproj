@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0219A1C470C3772AC33A178D /* Pods_CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 882DB0D0D67C03F4A03F57D3 /* Pods_CodeGen.framework */; };
 		3169C1301CA2E9FE009828E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3169C11B1CA2E9FE009828E2 /* Assets.xcassets */; };
 		3169C13E1CA2E9FE009828E2 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C12F1CA2E9FE009828E2 /* main.swift */; };
 		3169C1551CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 3169C1511CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM */; };
@@ -19,24 +20,38 @@
 		3169C1691CA2F138009828E2 /* Dictionary+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C15E1CA2F138009828E2 /* Dictionary+MW.swift */; };
 		3169C16A1CA2F138009828E2 /* String+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C15F1CA2F138009828E2 /* String+MW.swift */; };
 		3169C16B1CA2F138009828E2 /* Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1611CA2F138009828E2 /* Extractor.swift */; };
-		3169C16C1CA2F138009828E2 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1621CA2F138009828E2 /* Object.swift */; };
-		3169C16D1CA2F138009828E2 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1641CA2F138009828E2 /* Generator.swift */; };
+		3169C16C1CA2F138009828E2 /* ExtractorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1621CA2F138009828E2 /* ExtractorModels.swift */; };
+		3169C16D1CA2F138009828E2 /* StencilEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1641CA2F138009828E2 /* StencilEngine.swift */; };
 		3169C16F1CA2F138009828E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1671CA2F138009828E2 /* Utils.swift */; };
-		3169C1721CA2F168009828E2 /* CodeGenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1701CA2F168009828E2 /* CodeGenTests.swift */; };
+		3169C1721CA2F168009828E2 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1701CA2F168009828E2 /* IntegrationTests.swift */; };
 		3169C1751CA2F1BA009828E2 /* SourceKittenFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3169C1761CA2F1BA009828E2 /* SWXMLHash.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3169C1781CA2F646009828E2 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; };
 		3169C1791CA2F646009828E2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; };
 		317D2D9F1CA3066300305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
-		50C4F41BD66B6DDB1343F125 /* Pods_CodeGenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39AE0A4AA598B898AA2FE8F8 /* Pods_CodeGenTests.framework */; };
-		6C553C77EAB3DE3B721902F0 /* Pods_CodeGen.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD243D9A3A8ECECCEDE236D /* Pods_CodeGen.framework */; };
-		CDC6B28F1CA3FE1F0041517A /* ComplexResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = CDC6B28D1CA3FE1F0041517A /* ComplexResult.fixture */; };
-		CDC6B2901CA3FE1F0041517A /* ComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = CDC6B28E1CA3FE1F0041517A /* ComplexSource.fixture */; };
-		E291D0AB963A667D153A6800 /* Immutable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = E291D5B4287FCB20AD2B99AC /* Immutable.stencil */; };
-		E291D17344B4163D9A5100F4 /* SimpleSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = E291DA17BA08E486EE4C788A /* SimpleSource.fixture */; };
-		E291D376C9A79DC1EF98CFBC /* Object+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291D24949DFE586CB60DB34 /* Object+Helpers.swift */; };
-		E291DE4021C50D4D1B73DBC5 /* SimpleResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = E291D14C28192A1DF846A7EA /* SimpleResult.fixture */; };
+		4D0DFE911CFF32F10036E336 /* FileExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0DFE901CFF32F10036E336 /* FileExtractor.swift */; };
+		4D0DFE931CFF3EF20036E336 /* NestedTypes.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */; };
+		4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */; };
+		4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */; };
+		4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */; };
+		4D4800AF1CFEFB6B0087C474 /* ImmutableComplexResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800AE1CFEFB6B0087C474 /* ImmutableComplexResult.fixture */; };
+		4D4800B51CFF024A0087C474 /* AutoEquatableComplexResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B41CFF024A0087C474 /* AutoEquatableComplexResult.fixture */; };
+		4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */; };
+		4D4800B91CFF0AE00087C474 /* Immutable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B81CFF0AE00087C474 /* Immutable.stencil */; };
+		4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */; };
+		4D757F111CFAE9A40053A20A /* StencilModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D757F101CFAE9A40053A20A /* StencilModels.swift */; };
+		4D99867B1CFDD41E00C2BEB8 /* ExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */; };
+		4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */; };
+		4D99867F1CFDD50100C2BEB8 /* XCTest+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99867E1CFDD50100C2BEB8 /* XCTest+MW.swift */; };
+		4DA578911D3031F90089F197 /* TemplateEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA578901D3031F90089F197 /* TemplateEngine.swift */; };
+		4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */; };
+		4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */; };
+		4DCE86681CFEEA0E00A3E238 /* IndexExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */; };
+		4DCE866A1CFEEA1A00A3E238 /* StructureExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */; };
+		CCD966357DA9707527CF5143 /* Pods_CodeGenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1EBF68C2F8803CC9C572D2 /* Pods_CodeGenTests.framework */; };
+		CDC6B2901CA3FE1F0041517A /* ImmutableComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = CDC6B28E1CA3FE1F0041517A /* ImmutableComplexSource.fixture */; };
+		E291D17344B4163D9A5100F4 /* ImmutableSimpleSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,24 +105,39 @@
 		3169C15E1CA2F138009828E2 /* Dictionary+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+MW.swift"; sourceTree = "<group>"; };
 		3169C15F1CA2F138009828E2 /* String+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MW.swift"; sourceTree = "<group>"; };
 		3169C1611CA2F138009828E2 /* Extractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extractor.swift; sourceTree = "<group>"; };
-		3169C1621CA2F138009828E2 /* Object.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
-		3169C1641CA2F138009828E2 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		3169C1621CA2F138009828E2 /* ExtractorModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorModels.swift; sourceTree = "<group>"; };
+		3169C1641CA2F138009828E2 /* StencilEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilEngine.swift; sourceTree = "<group>"; };
 		3169C1671CA2F138009828E2 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		3169C1701CA2F168009828E2 /* CodeGenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGenTests.swift; sourceTree = "<group>"; };
+		3169C1701CA2F168009828E2 /* IntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 		317D2D9E1CA3066300305424 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		39AE0A4AA598B898AA2FE8F8 /* Pods_CodeGenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AD243D9A3A8ECECCEDE236D /* Pods_CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EAD3536D2CA9821BC529B90 /* Pods-CodeGen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.debug.xcconfig"; sourceTree = "<group>"; };
-		C34B52AA629FE032BEDC02F5 /* Pods-CodeGenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGenTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests.release.xcconfig"; sourceTree = "<group>"; };
+		379E1AFE4C92D4DC50969364 /* Pods-CodeGen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.release.xcconfig"; sourceTree = "<group>"; };
+		4D0DFE901CFF32F10036E336 /* FileExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileExtractor.swift; sourceTree = "<group>"; };
+		4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NestedTypes.fixture; sourceTree = "<group>"; };
+		4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ComplexEnum.fixture; path = Fixtures/ComplexEnum.fixture; sourceTree = "<group>"; };
+		4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatable.stencil; sourceTree = "<group>"; };
+		4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableSimpleResult.fixture; sourceTree = "<group>"; };
+		4D4800AE1CFEFB6B0087C474 /* ImmutableComplexResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableComplexResult.fixture; sourceTree = "<group>"; };
+		4D4800B41CFF024A0087C474 /* AutoEquatableComplexResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatableComplexResult.fixture; sourceTree = "<group>"; };
+		4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatableComplexSource.fixture; sourceTree = "<group>"; };
+		4D4800B81CFF0AE00087C474 /* Immutable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Immutable.stencil; sourceTree = "<group>"; };
+		4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OneCaseEnum.fixture; sourceTree = "<group>"; };
+		4D757F101CFAE9A40053A20A /* StencilModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilModels.swift; sourceTree = "<group>"; };
+		4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorTests.swift; sourceTree = "<group>"; };
+		4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleEnum.fixture; path = Fixtures/SimpleEnum.fixture; sourceTree = "<group>"; };
+		4D99867E1CFDD50100C2BEB8 /* XCTest+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTest+MW.swift"; sourceTree = "<group>"; };
+		4DA578901D3031F90089F197 /* TemplateEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateEngine.swift; sourceTree = "<group>"; };
+		4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SourceKitRepresentable+MW.swift"; sourceTree = "<group>"; };
+		4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Set+MW.swift"; sourceTree = "<group>"; };
+		4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexExtractor.swift; sourceTree = "<group>"; };
+		4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructureExtractor.swift; sourceTree = "<group>"; };
+		8386F0DC3C1478B668A20C55 /* Pods-CodeGenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGenTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests.release.xcconfig"; sourceTree = "<group>"; };
+		882DB0D0D67C03F4A03F57D3 /* Pods_CodeGen.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGen.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		88971BD574975569CCABC4F6 /* Pods-CodeGenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AC1EBF68C2F8803CC9C572D2 /* Pods_CodeGenTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CodeGenTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C443619F8536E838B06875EE /* Pods-CodeGen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.debug.xcconfig"; sourceTree = "<group>"; };
 		CD3D742F1CA2907D0021FC36 /* CodeGen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodeGen.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDC6B28D1CA3FE1F0041517A /* ComplexResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ComplexResult.fixture; sourceTree = "<group>"; };
-		CDC6B28E1CA3FE1F0041517A /* ComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ComplexSource.fixture; sourceTree = "<group>"; };
-		E291D14C28192A1DF846A7EA /* SimpleResult.fixture */ = {isa = PBXFileReference; lastKnownFileType = file.fixture; path = SimpleResult.fixture; sourceTree = "<group>"; };
-		E291D24949DFE586CB60DB34 /* Object+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Object+Helpers.swift"; sourceTree = "<group>"; };
-		E291D5B4287FCB20AD2B99AC /* Immutable.stencil */ = {isa = PBXFileReference; lastKnownFileType = file.stencil; path = Immutable.stencil; sourceTree = "<group>"; };
-		E291DA17BA08E486EE4C788A /* SimpleSource.fixture */ = {isa = PBXFileReference; lastKnownFileType = file.fixture; path = SimpleSource.fixture; sourceTree = "<group>"; };
-		EA2C2CE09B5F92B8CB9C5965 /* Pods-CodeGenTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGenTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EBFB44578E4D1F94FC0EF31E /* Pods-CodeGen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.release.xcconfig"; sourceTree = "<group>"; };
+		CDC6B28E1CA3FE1F0041517A /* ImmutableComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableComplexSource.fixture; sourceTree = "<group>"; };
+		E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */ = {isa = PBXFileReference; lastKnownFileType = text; path = ImmutableSimpleSource.fixture; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +147,7 @@
 			files = (
 				3169C1781CA2F646009828E2 /* SourceKittenFramework.framework in Frameworks */,
 				3169C1791CA2F646009828E2 /* SWXMLHash.framework in Frameworks */,
-				50C4F41BD66B6DDB1343F125 /* Pods_CodeGenTests.framework in Frameworks */,
+				CCD966357DA9707527CF5143 /* Pods_CodeGenTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +157,7 @@
 			files = (
 				3169C15A1CA2EE36009828E2 /* SWXMLHash.framework in Frameworks */,
 				3169C1581CA2EE36009828E2 /* SourceKittenFramework.framework in Frameworks */,
-				6C553C77EAB3DE3B721902F0 /* Pods_CodeGen.framework in Frameworks */,
+				0219A1C470C3772AC33A178D /* Pods_CodeGen.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				3169C15C1CA2F138009828E2 /* Extensions */,
-				3169C1601CA2F138009828E2 /* Extraction */,
-				3169C1631CA2F138009828E2 /* Generators */,
+				3169C1601CA2F138009828E2 /* ExtractorEngine */,
+				3169C1631CA2F138009828E2 /* TemplateEngine */,
 				3169C1661CA2F138009828E2 /* Utils */,
 				3169C11B1CA2E9FE009828E2 /* Assets.xcassets */,
 				3169C12E1CA2E9FE009828E2 /* Info.plist */,
@@ -152,8 +182,12 @@
 		3169C1441CA2EC36009828E2 /* CodeGenTests */ = {
 			isa = PBXGroup;
 			children = (
-				E291D2AC757AA623334D9708 /* Fixtures */,
-				3169C1701CA2F168009828E2 /* CodeGenTests.swift */,
+				4D4800AB1CFEF9FC0087C474 /* Stencils */,
+				4D9986801CFDE44800C2BEB8 /* UnitTestFixtures */,
+				E291D2AC757AA623334D9708 /* IntegrationFixtures */,
+				3169C1701CA2F168009828E2 /* IntegrationTests.swift */,
+				4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */,
+				4D99867E1CFDD50100C2BEB8 /* XCTest+MW.swift */,
 				3169C1471CA2EC36009828E2 /* Info.plist */,
 			);
 			path = CodeGenTests;
@@ -166,8 +200,8 @@
 				3169C1511CA2EE2E009828E2 /* SourceKittenFramework.framework.dSYM */,
 				3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */,
 				3169C1531CA2EE2E009828E2 /* SWXMLHash.framework.dSYM */,
-				6AD243D9A3A8ECECCEDE236D /* Pods_CodeGen.framework */,
-				39AE0A4AA598B898AA2FE8F8 /* Pods_CodeGenTests.framework */,
+				882DB0D0D67C03F4A03F57D3 /* Pods_CodeGen.framework */,
+				AC1EBF68C2F8803CC9C572D2 /* Pods_CodeGenTests.framework */,
 			);
 			name = Frameworks;
 			path = CodeGen;
@@ -177,27 +211,32 @@
 			isa = PBXGroup;
 			children = (
 				3169C15D1CA2F138009828E2 /* Array+MW.swift */,
+				4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */,
 				3169C15E1CA2F138009828E2 /* Dictionary+MW.swift */,
 				3169C15F1CA2F138009828E2 /* String+MW.swift */,
+				4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		3169C1601CA2F138009828E2 /* Extraction */ = {
+		3169C1601CA2F138009828E2 /* ExtractorEngine */ = {
 			isa = PBXGroup;
 			children = (
+				3169C1621CA2F138009828E2 /* ExtractorModels.swift */,
 				3169C1611CA2F138009828E2 /* Extractor.swift */,
-				3169C1621CA2F138009828E2 /* Object.swift */,
+				4D6E62EB1D317CAF00C63032 /* SourceKitten */,
 			);
+			name = ExtractorEngine;
 			path = Extraction;
 			sourceTree = "<group>";
 		};
-		3169C1631CA2F138009828E2 /* Generators */ = {
+		3169C1631CA2F138009828E2 /* TemplateEngine */ = {
 			isa = PBXGroup;
 			children = (
-				3169C1641CA2F138009828E2 /* Generator.swift */,
-				E291D24949DFE586CB60DB34 /* Object+Helpers.swift */,
+				4DA578901D3031F90089F197 /* TemplateEngine.swift */,
+				4DA5788F1D3031980089F197 /* Stencil */,
 			);
+			name = TemplateEngine;
 			path = Generators;
 			sourceTree = "<group>";
 		};
@@ -209,15 +248,44 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		89485FFCE7E933BD1B8A36D4 /* Pods */ = {
+		4D4800AB1CFEF9FC0087C474 /* Stencils */ = {
 			isa = PBXGroup;
 			children = (
-				8EAD3536D2CA9821BC529B90 /* Pods-CodeGen.debug.xcconfig */,
-				EBFB44578E4D1F94FC0EF31E /* Pods-CodeGen.release.xcconfig */,
-				EA2C2CE09B5F92B8CB9C5965 /* Pods-CodeGenTests.debug.xcconfig */,
-				C34B52AA629FE032BEDC02F5 /* Pods-CodeGenTests.release.xcconfig */,
+				4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */,
+				4D4800B81CFF0AE00087C474 /* Immutable.stencil */,
 			);
-			name = Pods;
+			name = Stencils;
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		4D6E62EB1D317CAF00C63032 /* SourceKitten */ = {
+			isa = PBXGroup;
+			children = (
+				4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */,
+				4D0DFE901CFF32F10036E336 /* FileExtractor.swift */,
+				4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */,
+			);
+			name = SourceKitten;
+			sourceTree = "<group>";
+		};
+		4D9986801CFDE44800C2BEB8 /* UnitTestFixtures */ = {
+			isa = PBXGroup;
+			children = (
+				4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */,
+				4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */,
+				4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */,
+				4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */,
+			);
+			name = UnitTestFixtures;
+			sourceTree = "<group>";
+		};
+		4DA5788F1D3031980089F197 /* Stencil */ = {
+			isa = PBXGroup;
+			children = (
+				4D757F101CFAE9A40053A20A /* StencilModels.swift */,
+				3169C1641CA2F138009828E2 /* StencilEngine.swift */,
+			);
+			name = Stencil;
 			sourceTree = "<group>";
 		};
 		CD3D74261CA2907D0021FC36 = {
@@ -227,7 +295,7 @@
 				3169C11A1CA2E9FE009828E2 /* CodeGen */,
 				3169C1441CA2EC36009828E2 /* CodeGenTests */,
 				CD3D74301CA2907D0021FC36 /* Products */,
-				89485FFCE7E933BD1B8A36D4 /* Pods */,
+				E059F076E05E2810C278DFDA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -240,15 +308,28 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E291D2AC757AA623334D9708 /* Fixtures */ = {
+		E059F076E05E2810C278DFDA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CDC6B28D1CA3FE1F0041517A /* ComplexResult.fixture */,
-				CDC6B28E1CA3FE1F0041517A /* ComplexSource.fixture */,
-				E291D5B4287FCB20AD2B99AC /* Immutable.stencil */,
-				E291D14C28192A1DF846A7EA /* SimpleResult.fixture */,
-				E291DA17BA08E486EE4C788A /* SimpleSource.fixture */,
+				88971BD574975569CCABC4F6 /* Pods-CodeGenTests.debug.xcconfig */,
+				8386F0DC3C1478B668A20C55 /* Pods-CodeGenTests.release.xcconfig */,
+				C443619F8536E838B06875EE /* Pods-CodeGen.debug.xcconfig */,
+				379E1AFE4C92D4DC50969364 /* Pods-CodeGen.release.xcconfig */,
 			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E291D2AC757AA623334D9708 /* IntegrationFixtures */ = {
+			isa = PBXGroup;
+			children = (
+				4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */,
+				4D4800B41CFF024A0087C474 /* AutoEquatableComplexResult.fixture */,
+				E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */,
+				4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */,
+				CDC6B28E1CA3FE1F0041517A /* ImmutableComplexSource.fixture */,
+				4D4800AE1CFEFB6B0087C474 /* ImmutableComplexResult.fixture */,
+			);
+			name = IntegrationFixtures;
 			path = Fixtures;
 			sourceTree = "<group>";
 		};
@@ -259,6 +340,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3169C14A1CA2EC36009828E2 /* Build configuration list for PBXNativeTarget "CodeGenTests" */;
 			buildPhases = (
+				7248147F34E9E60311E4421A /* 📦 Check Pods Manifest.lock */,
 				6A3F23E21092DBE76BDD5378 /* uD83DuDCE6 Check Pods Manifest.lock */,
 				FD5CD84967BD6E9E7D580981 /* uD83DuDCE6 Check Pods Manifest.lock */,
 				3169C13F1CA2EC36009828E2 /* Sources */,
@@ -269,6 +351,8 @@
 				4BC480CB8EDBE9E0C8BA838C /* uD83DuDCE6 Copy Pods Resources */,
 				C6D16E237345C1334EEF2197 /* uD83DuDCE6 Embed Pods Frameworks */,
 				6D39D557C92CC7A256EB5325 /* uD83DuDCE6 Copy Pods Resources */,
+				BECFDFD8B22C7C73EBD0E985 /* 📦 Embed Pods Frameworks */,
+				7247665C14610E150E0401E4 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -284,16 +368,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD3D743C1CA2907D0021FC36 /* Build configuration list for PBXNativeTarget "CodeGen" */;
 			buildPhases = (
-				EFFDA7E99C10BA2F91FE31AF /* uD83DuDCE6 Check Pods Manifest.lock */,
-				671354F440447C59F7A4006E /* uD83DuDCE6 Check Pods Manifest.lock */,
+				9B53417821961389EEE6B722 /* 📦 Check Pods Manifest.lock */,
 				CD3D742B1CA2907D0021FC36 /* Sources */,
 				CD3D742C1CA2907D0021FC36 /* Frameworks */,
 				CD3D742D1CA2907D0021FC36 /* Resources */,
 				CD3D74541CA293E40021FC36 /* Embed Frameworks */,
-				B1357AC75283FB5D595914E6 /* uD83DuDCE6 Embed Pods Frameworks */,
-				DA5E10B29065B166DA900484 /* uD83DuDCE6 Copy Pods Resources */,
-				1F8831DA0C4D0844AB332E6B /* uD83DuDCE6 Embed Pods Frameworks */,
-				5452D96CA30B463B47D56A0A /* uD83DuDCE6 Copy Pods Resources */,
+				2E20555FAE4AFF9E072B4636 /* 📦 Embed Pods Frameworks */,
+				24F516E04851146E69C0B6F9 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -347,12 +428,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */,
+				4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */,
+				4D4800B51CFF024A0087C474 /* AutoEquatableComplexResult.fixture in Resources */,
+				4D4800B91CFF0AE00087C474 /* Immutable.stencil in Resources */,
+				4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */,
 				317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */,
-				CDC6B2901CA3FE1F0041517A /* ComplexSource.fixture in Resources */,
-				E291D0AB963A667D153A6800 /* Immutable.stencil in Resources */,
-				E291DE4021C50D4D1B73DBC5 /* SimpleResult.fixture in Resources */,
-				CDC6B28F1CA3FE1F0041517A /* ComplexResult.fixture in Resources */,
-				E291D17344B4163D9A5100F4 /* SimpleSource.fixture in Resources */,
+				4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */,
+				CDC6B2901CA3FE1F0041517A /* ImmutableComplexSource.fixture in Resources */,
+				4D4800AF1CFEFB6B0087C474 /* ImmutableComplexResult.fixture in Resources */,
+				4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */,
+				E291D17344B4163D9A5100F4 /* ImmutableSimpleSource.fixture in Resources */,
+				4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */,
+				4D0DFE931CFF3EF20036E336 /* NestedTypes.fixture in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,14 +458,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1F8831DA0C4D0844AB332E6B /* uD83DuDCE6 Embed Pods Frameworks */ = {
+		24F516E04851146E69C0B6F9 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "uD83DuDCE6 Embed Pods Frameworks";
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E20555FAE4AFF9E072B4636 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -398,36 +501,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5452D96CA30B463B47D56A0A /* uD83DuDCE6 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "uD83DuDCE6 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		671354F440447C59F7A4006E /* uD83DuDCE6 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "uD83DuDCE6 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		6A3F23E21092DBE76BDD5378 /* uD83DuDCE6 Check Pods Manifest.lock */ = {
@@ -460,6 +533,51 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		7247665C14610E150E0401E4 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7248147F34E9E60311E4421A /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9B53417821961389EEE6B722 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		A1F7238090A5CD21A00BCF54 /* uD83DuDCE6 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -475,19 +593,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B1357AC75283FB5D595914E6 /* uD83DuDCE6 Embed Pods Frameworks */ = {
+		BECFDFD8B22C7C73EBD0E985 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "uD83DuDCE6 Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C6D16E237345C1334EEF2197 /* uD83DuDCE6 Embed Pods Frameworks */ = {
@@ -503,36 +621,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DA5E10B29065B166DA900484 /* uD83DuDCE6 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "uD83DuDCE6 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EFFDA7E99C10BA2F91FE31AF /* uD83DuDCE6 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "uD83DuDCE6 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		FD5CD84967BD6E9E7D580981 /* uD83DuDCE6 Check Pods Manifest.lock */ = {
@@ -557,7 +645,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3169C1721CA2F168009828E2 /* CodeGenTests.swift in Sources */,
+				4D99867B1CFDD41E00C2BEB8 /* ExtractorTests.swift in Sources */,
+				3169C1721CA2F168009828E2 /* IntegrationTests.swift in Sources */,
+				4D99867F1CFDD50100C2BEB8 /* XCTest+MW.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,13 +657,19 @@
 			files = (
 				3169C16A1CA2F138009828E2 /* String+MW.swift in Sources */,
 				3169C13E1CA2E9FE009828E2 /* main.swift in Sources */,
+				4D0DFE911CFF32F10036E336 /* FileExtractor.swift in Sources */,
+				4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */,
+				4D757F111CFAE9A40053A20A /* StencilModels.swift in Sources */,
 				3169C16F1CA2F138009828E2 /* Utils.swift in Sources */,
 				3169C16B1CA2F138009828E2 /* Extractor.swift in Sources */,
+				4DA578911D3031F90089F197 /* TemplateEngine.swift in Sources */,
 				3169C1681CA2F138009828E2 /* Array+MW.swift in Sources */,
-				3169C16D1CA2F138009828E2 /* Generator.swift in Sources */,
-				3169C16C1CA2F138009828E2 /* Object.swift in Sources */,
+				4DCE86681CFEEA0E00A3E238 /* IndexExtractor.swift in Sources */,
+				4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */,
+				4DCE866A1CFEEA1A00A3E238 /* StructureExtractor.swift in Sources */,
+				3169C16D1CA2F138009828E2 /* StencilEngine.swift in Sources */,
+				3169C16C1CA2F138009828E2 /* ExtractorModels.swift in Sources */,
 				3169C1691CA2F138009828E2 /* Dictionary+MW.swift in Sources */,
-				E291D376C9A79DC1EF98CFBC /* Object+Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,7 +686,7 @@
 /* Begin XCBuildConfiguration section */
 		3169C14B1CA2EC36009828E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA2C2CE09B5F92B8CB9C5965 /* Pods-CodeGenTests.debug.xcconfig */;
+			baseConfigurationReference = 88971BD574975569CCABC4F6 /* Pods-CodeGenTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -611,7 +707,7 @@
 		};
 		3169C14C1CA2EC36009828E2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C34B52AA629FE032BEDC02F5 /* Pods-CodeGenTests.release.xcconfig */;
+			baseConfigurationReference = 8386F0DC3C1478B668A20C55 /* Pods-CodeGenTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -715,7 +811,7 @@
 		};
 		CD3D743D1CA2907D0021FC36 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8EAD3536D2CA9821BC529B90 /* Pods-CodeGen.debug.xcconfig */;
+			baseConfigurationReference = C443619F8536E838B06875EE /* Pods-CodeGen.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -733,7 +829,7 @@
 		};
 		CD3D743E1CA2907D0021FC36 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EBFB44578E4D1F94FC0EF31E /* Pods-CodeGen.release.xcconfig */;
+			baseConfigurationReference = 379E1AFE4C92D4DC50969364 /* Pods-CodeGen.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -746,6 +842,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.momentumworks.codegen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};

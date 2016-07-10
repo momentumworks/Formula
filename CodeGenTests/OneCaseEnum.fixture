@@ -1,0 +1,3 @@
+enum OnlyOne {
+ case One(Int)
+}

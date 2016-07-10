@@ -4,9 +4,10 @@
 //
 
 import Foundation
-import SourceKittenFramework
+import PathKit
 
-struct Utils {
+struct FileUtils {
+  
   static func removeTrailingFileSeparator(filePath: String) -> String {
     if (filePath.characters.last == "/") {
       return String(filePath.characters.dropLast())
@@ -29,21 +30,17 @@ struct Utils {
     try! NSFileManager.defaultManager().createDirectoryAtPath(directory, withIntermediateDirectories: true, attributes: nil)
   }
   
-  static func fullPathForAllFilesAt(directory: String, withExtension ext: String, ignoreSubdirectory: String?) -> [String] {
+  static func fullPathForAllFilesAt(directory: String, withExtension ext: String, ignoreSubdirectory: String?) -> [Path] {
     let subPaths = NSFileManager.defaultManager().enumeratorAtPath(directory)?.allObjects as! [NSString]
-    let prefixToIgnore = ignoreSubdirectory.map{ "\(Utils.removeTrailingFileSeparator($0))/" }
+    let prefixToIgnore = ignoreSubdirectory.map{ "\(removeTrailingFileSeparator($0))/" }
     
     return subPaths.filter{ subPath in
         let fileShouldBeIgnored: Bool = prefixToIgnore.map{subPath.hasPrefix($0)} ?? false
         return subPath.pathExtension == ext && !fileShouldBeIgnored
       }
-      .map { "\(directory)/\($0)" }
+      .map { Path("\(directory)/\($0)") }
   }
   
-  static func filesFromSources(sources: [String]) -> [File] {
-    return sources.map{ File(contents: $0) }
-  }
-    
   static func pathFromWorkingDirectory(pathComponent: String) -> String {
     return (NSFileManager.defaultManager().currentDirectoryPath as NSString).stringByAppendingPathComponent(pathComponent)
   }

@@ -1,0 +1,48 @@
+// MARK: - AutoEquatable
+
+
+extension AComplexEnum: Equatable {}
+ func ==(lhs: AComplexEnum, rhs: AComplexEnum) -> Bool {
+  switch (lhs, rhs) { 
+  case (.One(let lhsValue1), .One(let rhsValue1 )) where lhsValue1 == rhsValue1 :
+    return true
+  case (.Two(let lhsValue1, let lhsValue2), .Two(let rhsValue1 , let rhsValue2 )) where lhsValue1 == rhsValue1 && lhsValue2 == rhsValue2 :
+    return true
+  case (.Three(let lhsValue1, let lhsValue2, let lhsValue3), .Three(let rhsValue1 , let rhsValue2 , let rhsValue3 )) where lhsValue1 == rhsValue1 && lhsValue2 == rhsValue2 && lhsValue3 == rhsValue3 :
+    return true
+  case (.Four, .Four):
+    return true
+  default: return false
+  }
+  
+}
+
+extension Anenum: Equatable {}
+ func ==(lhs: Anenum, rhs: Anenum) -> Bool {
+  switch (lhs, rhs) { 
+  case (.One, .One):
+    return true
+  case (.Two, .Two):
+    return true
+  case (.Three, .Three):
+    return true
+  default: return false
+  }
+  
+}
+
+extension FourthThing: Equatable {}
+public func ==(lhs: FourthThing, rhs: FourthThing) -> Bool {
+  
+  return    lhs.s == rhs.s && 
+    lhs.f == rhs.f && 
+    lhs.i == rhs.i 
+  
+}
+
+extension OtherThing: Equatable {}
+ func ==(lhs: OtherThing, rhs: OtherThing) -> Bool {
+  
+  return    lhs.s == rhs.s 
+  
+}

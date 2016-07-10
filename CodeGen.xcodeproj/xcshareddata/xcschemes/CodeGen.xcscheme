@@ -78,7 +78,15 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/merowing/work/contracts/momentum/code-gen/Example"
+            argument = "/Users/mark/Dev/momentum-ib/Momentum/"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-templates"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/mark/Dev/momentum-ib/MomentumCore/MomentumCore/Templates"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

@@ -1,77 +1,76 @@
 // THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY
 import AppKit
 import MomentumCore
-// MARK: - Description
+// MARK: - AutoEquatable
 
-public extension CustomDebugStringConvertible {
-    var debugDescription: String {
-        return debugDescription()
-    }
-    
-    func debugDescription(indentationLevel: Int = 0) -> String {
-        
-        let indentString = (0..<indentationLevel).reduce("") { tabs, _ in tabs + "\t" }
-        
-        var s = "\(self.dynamicType)"
-        
-        let mirror = Mirror(reflecting: self)
-        let children = mirror.children
-        
-        if children.count == 0 {
-            return "\(s) = \(debugDescription),"
-        }
-        
-        s += " {"
-        
-        s = children.reduce(s) {
-            reducedString, child in
-            
-            if let aChild = child.1 as? CustomDebugStringConvertible {
-                let childDescription = aChild.debugDescription(indentationLevel + 1)
-                return reducedString + "\n\(indentString)\t\(child.0!): \(childDescription)"
-            } else {
 
-                return reducedString +  "\n\(indentString)\t\(child.0!): \(child.1),"
-            }
-        }
-        
-        s = s.substringToIndex(s.characters.endIndex.predecessor())
-        s += "\n\(indentString)}"
-        
-        return s
-    }
+extension EnumCase: Equatable {}
+public func ==(lhs: EnumCase, rhs: EnumCase) -> Bool {
+  
+  return    lhs.name == rhs.name && 
+    lhs.associatedValues == rhs.associatedValues 
+  
+}
+
+extension Field: Equatable {}
+public func ==(lhs: Field, rhs: Field) -> Bool {
+  
+  return    lhs.accessibility == rhs.accessibility && 
+    lhs.name == rhs.name && 
+    lhs.type == rhs.type 
+  
+}
+
+extension Kind: Equatable {}
+public func ==(lhs: Kind, rhs: Kind) -> Bool {
+  switch (lhs, rhs) { 
+  case (.Struct(let lhsValue1), .Struct(let rhsValue1 )) where lhsValue1 == rhsValue1 :
+    return true
+  case (.Class(let lhsValue1), .Class(let rhsValue1 )) where lhsValue1 == rhsValue1 :
+    return true
+  case (.Enum(let lhsValue1), .Enum(let rhsValue1 )) where lhsValue1 == rhsValue1 :
+    return true
+  default: return false
+  }
+  
+}
+
+extension Type: Equatable {}
+public func ==(lhs: Type, rhs: Type) -> Bool {
+  
+  return    lhs.accessibility == rhs.accessibility && 
+    lhs.name == rhs.name && 
+    lhs.extensions == rhs.extensions && 
+    lhs.kind == rhs.kind 
+  
+}
+
+// MARK: - Immutable
+
+
+
+extension FourthThing {
+	
+	private func set(s s: String) -> FourthThing {
+		return FourthThing(s: s, f: f, i: i)
+	}
+	
+	 func set(f f: Float) -> FourthThing {
+		return FourthThing(s: s, f: f, i: i)
+	}
+	
+	public func set(i i: Int) -> FourthThing {
+		return FourthThing(s: s, f: f, i: i)
+	}
+	
 }
 
 
-// MARK: -
-// MARK: - Immutable
 
-	extension FourthThing {
-		
+extension Simple {
+	
+	 func set(s s: String) -> Simple {
+		return Simple(s: s)
 	}
-
-	extension Outer.Inner {
-		
-			 func set(s s: String -> Outer.Inner {
-				return Outer.Inner(s: s)
-			}
-		
-	}
-
-	extension Outer.OtherInner {
-		
-	}
-
-	extension Simple {
-		
-			 func set(s s: String -> Simple {
-				return Simple(s: s)
-			}
-		
-	}
-
-	extension Thing {
-		
-	}
-
-// MARK: -
+	
+}

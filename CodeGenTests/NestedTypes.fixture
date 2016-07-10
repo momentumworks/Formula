@@ -1,0 +1,17 @@
+class Parent {
+  let a: String
+
+  struct Children {
+    let b: String
+
+    struct GrandChildren {
+      let c: String
+    }
+  }
+}
+
+extension Parent.Children {
+  struct Other {
+    let b: String
+  }
+}

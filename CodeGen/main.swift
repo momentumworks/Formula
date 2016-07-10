@@ -9,25 +9,27 @@
 import Foundation
 import SourceKittenFramework
 import AppKit
-import Stencil
 import PathKit
 
 let GeneratedCodeDirectory = "Autogen"
 let GeneratedCodeFile = "Autogen.swift"
 
-private func generateForDirectory(directory: String, usingTemplates templates: [Template], cleanFirst: Bool) {
-  let trimmedTarget = Utils.removeTrailingFileSeparator(directory)
+let templateEngine: TemplateEngine = StencilEngine()
+
+private func generateForDirectory(directory: String, usingTemplates templates: [Path], cleanFirst: Bool) {
+  let trimmedTarget = FileUtils.removeTrailingFileSeparator(directory)
   let outputDirectory = "\(trimmedTarget)/\(GeneratedCodeDirectory)"
   let outputFile = "\(outputDirectory)/\(GeneratedCodeFile)"
   
-  if (cleanFirst) { Utils.deleteFile(outputFile) }
+  if (cleanFirst) { FileUtils.deleteFile(outputFile) }
   
   print("About to generate extensions for directory \(directory) using templates \(templates)")
   
-  let generator = CodeGenerator(templates: templates)
-  let generated = generator.generateForDirectory(trimmedTarget)
+  let filesToProcess = FileUtils.fullPathForAllFilesAt(directory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
   
-  Utils.createDirectoryIfNonExistent(outputDirectory)
+  let generated = templateEngine.generateForFiles(filesToProcess, templates: templates)
+  
+  FileUtils.createDirectoryIfNonExistent(outputDirectory)
   print("Writing file \(outputFile)")
   try! generated.writeToFile(outputFile, atomically: true, encoding: NSUTF8StringEncoding)
   
@@ -58,9 +60,7 @@ func main() {
   }
 
   print("Running code gen with target \(target) \(cleanFirst ? "(cleaning first)" : "")")
-  let templates = Utils.fullPathForAllFilesAt(templatesArgument ?? Utils.pathFromWorkingDirectory("/Templates"), withExtension:"stencil", ignoreSubdirectory: GeneratedCodeDirectory).map { templatePath in
-    return try! Template(path: Path(templatePath))
-  }
+  let templates = FileUtils.fullPathForAllFilesAt(templatesArgument ?? FileUtils.pathFromWorkingDirectory("/Templates"), withExtension:"stencil", ignoreSubdirectory: GeneratedCodeDirectory)
   generateForDirectory(target, usingTemplates: templates, cleanFirst: cleanFirst)
 }
 
@@ -68,7 +68,6 @@ let inTests = NSClassFromString("XCTest") != nil
 
 if inTests {
     NSApplicationMain( 0,  UnsafeMutablePointer<UnsafeMutablePointer<CChar>>(nil) )
-}
-else {
+} else {
     main()
 }

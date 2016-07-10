@@ -5,148 +5,103 @@
 
 import Foundation
 import SourceKittenFramework
+import PathKit
 
-public class Extractor {
-  private static func extractAccessibility(typeDict: [String: SourceKitRepresentable]) -> Accessibility? {
-    guard let accessibilityStr = typeDict["key.accessibility"] as? String else {
-      return nil
-    }
+struct ElementExtractor <T where T: TupleConvertible, T: Mergeable> {
+  let supportedKinds: Set<String>
+  let extract: (input: [String: SourceKitRepresentable], name: Name) -> [T]
+}
 
-    return Accessibility(rawValue: accessibilityStr)
+public struct Extractor {
+
+  static func extractImports(files: [Path]) -> [Import] {
+    return files
+      .parallelMap(FileExtractor.extractImports)
+      .flatten()
+      .array
+      .unique
   }
 
-  private static func extractName(typeDict: [String: SourceKitRepresentable]) -> String? {
-    return typeDict["key.name"] as? String
-  }
-
-  private static func extractType(typeDict: [String: SourceKitRepresentable]) -> String? {
-    return typeDict["key.typename"] as? String
-  }
-
-  private static func extractExtensions(typeDict: [String: SourceKitRepresentable]) -> [Extension] {
-    guard let inheritedTypes = typeDict["key.inheritedtypes"] as? [SourceKitRepresentable] else {
-      return []
-    }
-
-    return inheritedTypes.flatMap { inheritedType in
-      guard let inheritedTypeDict = inheritedType as? [String : SourceKitRepresentable] else {
-        return nil
-      }
-
-      return extractName(inheritedTypeDict)
-    }
-  }
-  
-  private static func extractFields(typeDict: [String: SourceKitRepresentable]) -> [Field] {
-    guard let fields = typeDict["key.substructure"] as? [SourceKitRepresentable] else {
-      return []
-    }
+  public static func extractTypes(filePath: Path) -> [Name:Type] {
     
-    func fieldIsntCalculated(field: [String: SourceKitRepresentable]) -> Bool {
-      return field["key.bodylength"] == nil
-    }
-    
-    func fieldIsntStatic(field: [String: SourceKitRepresentable]) -> Bool {
-      // This feels dangerous...
-      return field["key.kind"].flatMap{ $0 as? String } != Optional(SwiftDeclarationKind.VarStatic.rawValue)
-    }
-
-    return fields.flatMap { field in
-      guard let fieldData = field as? [String: SourceKitRepresentable],
-        let accessibility = extractAccessibility(fieldData),
-        let fieldName = extractName(fieldData),
-        let fieldType = extractType(fieldData)
-        where fieldIsntCalculated(fieldData) &&
-        fieldIsntStatic(fieldData) else {
-          return nil
-        }
-      
-      return Field(accessibility: accessibility, name: fieldName, type: fieldType)
-    }
-  }
-
-  private static func extractType(typeDict: [String : SourceKitRepresentable], nesting: [Name]) -> Type? {
-    guard let type = typeDict["key.kind"] as? String,
-        let unqualifiedName = extractName(typeDict) else {
-      return nil
-    }
-    
-    let allowedTypes = [SwiftDeclarationKind.Class.rawValue, SwiftDeclarationKind.ExtensionClass.rawValue, SwiftDeclarationKind.Struct.rawValue, SwiftDeclarationKind.ExtensionStruct.rawValue, SwiftDeclarationKind.Extension.rawValue, SwiftDeclarationKind.Enum.rawValue]
-    if !allowedTypes.contains(type) {
-        return nil
-    }
-    
-    let name = (nesting + unqualifiedName).joinWithSeparator(".")
-
-    let accessibility = extractAccessibility(typeDict)
-    let fields = extractFields(typeDict)
-    let extensions = extractExtensions(typeDict)
-
-    return Type(accessibility: accessibility?.description, name: name, fields: fields, extensions: extensions, kind: type.stringByReplacingOccurrencesOfString("source.lang.swift.decl.", withString: ""))
-  }
-  
-  private static func extractNestedTypes(typeDict: [String : SourceKitRepresentable], nesting: [Name]) -> [(Name, Type)] {
-    guard let nestedTypes = typeDict["key.substructure"] as? [SourceKitRepresentable] else {
-      return []
-    }
-    
-    return extractTypesAsTuples(nestedTypes, nesting: nesting)
-  }
-  
-  private static func extractTypesAsTuples(types: [SourceKitRepresentable], nesting: [Name]) -> [(Name, Type)] {
-    return types.flatMap{ type -> [(Name, Type)] in
-      guard let typeDict = type as? [String : SourceKitRepresentable],
-        let obj = extractType(typeDict, nesting: nesting) else {
-        return []
-      }
-      
-      let nestedObjects = extractNestedTypes(typeDict, nesting: nesting + obj.name)
-      return nestedObjects + (obj.name, obj)
-    }
-  }
-
-  private static func extractTypes(types: [SourceKitRepresentable], nesting: [Name]) -> [Name:Type] {
-    let tuples = extractTypesAsTuples(types, nesting: nesting)
-    return Dictionary(tuples){ $0.mergeWith($1) }
-  }
-  
-  static func extractImports(lines: [String]) -> [Import] {
-    // SourceKitten doesn't give us info about the import statements, and
-    // altering it to support that would be way more work than this, so...
-    
-    return lines.filter {
-        $0.trim().hasPrefix("import")
-      }
-      .map {
-        $0.trim().split("import")[1].trim()
-      }
-  }
-  
-  static func extractImports(file: File) -> [Import] {
-    return extractImports(file.lines.map{ $0.content })
-  }
-  
-  static func extractImports(files: [File]) -> [Import] {
-    let allImports = files.reduce([Import]()) { imports, file in
-      return imports + extractImports(file)
-    }
-    return [Import](Set(allImports))
-  }
-
-  static func extractTypes(file: File) -> [Name:Type] {
+    let file = File(path: filePath.description)!
     print("Extracting objects from \(file.path ?? "source string")")
     let structure: Structure = Structure(file: file)
-    let dictionary = structure.dictionary
-    guard let substructures = dictionary["key.substructure"] as? [SourceKitRepresentable] else {
+    
+    let indexed = Request.Index(file: file.path!).send()
+
+    guard let substructures = structure.dictionary.substructures,
+          let entities = indexed.entities else {
       return [:]
     }
+    
+    let extractedFromStructure = extractFromTree(from: substructures,
+                                          extractors: [
+                                            StructureExtractor.ClassAndStructExtractor,
+                                            StructureExtractor.EnumExtractor
+                                          ],
+                                       traverseDeeper: { $0.substructures })
+      .mergeIntoDictionary()
+    
+    let extractedFromIndex = extractFromTree(from: entities, extractors: [IndexExtractor.EnumExtractor], traverseDeeper: { $0.entities })
+      .mergeIntoDictionary()
 
-    return extractTypes(substructures, nesting: [])
+    let extensions = extractFromTree(from: substructures, extractors: [StructureExtractor.ExtensionExtractor],
+      traverseDeeper: { $0.substructures })
+      .mergeIntoDictionary()
+
+    let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
+    return mergeTypesAndExtensions(allTypes, extensions)
   }
   
-  static func extractTypes(files: [File]) -> [Name:Type] {
-    return files.reduce([Name: Type]()) { objects, file in
-      return objects.mergeWith(extractTypes(file)){ $0.mergeWith($1) }
+  public static func extractTypes(files: [Path]) -> [Name:Type] {
+    return files
+      .parallelMap(extractTypes)
+      .reduce([Name:Type](), combine: +)
+  }
+  
+}
+
+private func extractFromTree<T where T: TupleConvertible, T: Mergeable>
+  (from input: [SourceKitRepresentable],
+   extractors: [ElementExtractor<T>],
+   traverseDeeper: [String: SourceKitRepresentable] -> [SourceKitRepresentable]?,
+   currentNesting: [Name] = []) -> [T]
+{
+  return input
+    .parallelMap { item -> [T] in
+      guard let dict = item.asDictionary,
+            let name = dict.name,
+            let kind = dict.kind
+        else {
+          return []
+      }
+      
+      let extractor = extractors.find { $0.supportedKinds.contains(kind) }
+      
+      let nested = traverseDeeper(dict)
+        .flatMap { extractFromTree(from: $0, extractors: extractors, traverseDeeper: traverseDeeper, currentNesting: currentNesting + name) } ?? []
+      
+      return nested + extractor?.extract(input: dict, name: (currentNesting + name).joinWithSeparator("."))
+    }
+    .flatten()
+    .array
+
+}
+
+private extension Array where Element : TupleConvertible, Element : Mergeable {
+  func mergeIntoDictionary() -> [Name: Element] {
+    return Dictionary(tupleArray: self.map { $0.toTuple() }, mergeFn: Element.merge)
+  }
+}
+
+
+private func mergeTypesAndExtensions(lhs: [Name: Type], _ rhs: [Name: ExtensionType]) -> [Name: Type] {
+  var merged = lhs
+  for (k, v) in rhs {
+    if let existing = merged[k] {
+      merged[k] = v + existing
     }
   }
+  return merged
 }

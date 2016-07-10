@@ -1,0 +1,7 @@
+enum Anenum : Protocol1 {
+  case One
+  case Two
+  case Three
+}
+
+extension Anenum: Protocol2 { }

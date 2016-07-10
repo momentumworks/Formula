@@ -1,10 +1,16 @@
+platform :osx, '10.11'
+
+
 use_frameworks!
+inhibit_all_warnings!
+
+
+pod 'Stencil'
 
 target 'CodeGen' do
-	pod 'Stencil'
 end
 
 target 'CodeGenTests' do
-	pod 'Stencil'
+	pod 'Quick'
+	pod 'Nimble'
 end
-
