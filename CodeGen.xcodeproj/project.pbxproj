@@ -21,7 +21,7 @@
 		3169C16A1CA2F138009828E2 /* String+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C15F1CA2F138009828E2 /* String+MW.swift */; };
 		3169C16B1CA2F138009828E2 /* Extractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1611CA2F138009828E2 /* Extractor.swift */; };
 		3169C16C1CA2F138009828E2 /* ExtractorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1621CA2F138009828E2 /* ExtractorModels.swift */; };
-		3169C16D1CA2F138009828E2 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1641CA2F138009828E2 /* Generator.swift */; };
+		3169C16D1CA2F138009828E2 /* StencilEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1641CA2F138009828E2 /* StencilEngine.swift */; };
 		3169C16F1CA2F138009828E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1671CA2F138009828E2 /* Utils.swift */; };
 		3169C1721CA2F168009828E2 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1701CA2F168009828E2 /* IntegrationTests.swift */; };
 		3169C1751CA2F1BA009828E2 /* SourceKittenFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -40,10 +40,11 @@
 		4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */; };
 		4D4800B91CFF0AE00087C474 /* Immutable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B81CFF0AE00087C474 /* Immutable.stencil */; };
 		4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */; };
-		4D757F111CFAE9A40053A20A /* GeneratorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D757F101CFAE9A40053A20A /* GeneratorModels.swift */; };
+		4D757F111CFAE9A40053A20A /* StencilModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D757F101CFAE9A40053A20A /* StencilModels.swift */; };
 		4D99867B1CFDD41E00C2BEB8 /* ExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */; };
 		4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */; };
 		4D99867F1CFDD50100C2BEB8 /* XCTest+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99867E1CFDD50100C2BEB8 /* XCTest+MW.swift */; };
+		4DA578911D3031F90089F197 /* TemplateEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA578901D3031F90089F197 /* TemplateEngine.swift */; };
 		4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */; };
 		4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */; };
 		4DCE86681CFEEA0E00A3E238 /* IndexExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */; };
@@ -105,7 +106,7 @@
 		3169C15F1CA2F138009828E2 /* String+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+MW.swift"; sourceTree = "<group>"; };
 		3169C1611CA2F138009828E2 /* Extractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extractor.swift; sourceTree = "<group>"; };
 		3169C1621CA2F138009828E2 /* ExtractorModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorModels.swift; sourceTree = "<group>"; };
-		3169C1641CA2F138009828E2 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		3169C1641CA2F138009828E2 /* StencilEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilEngine.swift; sourceTree = "<group>"; };
 		3169C1671CA2F138009828E2 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		3169C1701CA2F168009828E2 /* IntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
 		317D2D9E1CA3066300305424 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
@@ -120,10 +121,11 @@
 		4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatableComplexSource.fixture; sourceTree = "<group>"; };
 		4D4800B81CFF0AE00087C474 /* Immutable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Immutable.stencil; sourceTree = "<group>"; };
 		4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OneCaseEnum.fixture; sourceTree = "<group>"; };
-		4D757F101CFAE9A40053A20A /* GeneratorModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratorModels.swift; sourceTree = "<group>"; };
+		4D757F101CFAE9A40053A20A /* StencilModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilModels.swift; sourceTree = "<group>"; };
 		4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorTests.swift; sourceTree = "<group>"; };
 		4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleEnum.fixture; path = Fixtures/SimpleEnum.fixture; sourceTree = "<group>"; };
 		4D99867E1CFDD50100C2BEB8 /* XCTest+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTest+MW.swift"; sourceTree = "<group>"; };
+		4DA578901D3031F90089F197 /* TemplateEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateEngine.swift; sourceTree = "<group>"; };
 		4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SourceKitRepresentable+MW.swift"; sourceTree = "<group>"; };
 		4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Set+MW.swift"; sourceTree = "<group>"; };
 		4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexExtractor.swift; sourceTree = "<group>"; };
@@ -166,8 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				3169C15C1CA2F138009828E2 /* Extensions */,
-				3169C1601CA2F138009828E2 /* Extraction */,
-				3169C1631CA2F138009828E2 /* Generators */,
+				3169C1601CA2F138009828E2 /* ExtractorEngine */,
+				3169C1631CA2F138009828E2 /* TemplateEngine */,
 				3169C1661CA2F138009828E2 /* Utils */,
 				3169C11B1CA2E9FE009828E2 /* Assets.xcassets */,
 				3169C12E1CA2E9FE009828E2 /* Info.plist */,
@@ -217,24 +219,24 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		3169C1601CA2F138009828E2 /* Extraction */ = {
+		3169C1601CA2F138009828E2 /* ExtractorEngine */ = {
 			isa = PBXGroup;
 			children = (
-				3169C1611CA2F138009828E2 /* Extractor.swift */,
-				4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */,
-				4D0DFE901CFF32F10036E336 /* FileExtractor.swift */,
-				4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */,
 				3169C1621CA2F138009828E2 /* ExtractorModels.swift */,
+				3169C1611CA2F138009828E2 /* Extractor.swift */,
+				4D6E62EB1D317CAF00C63032 /* SourceKitten */,
 			);
+			name = ExtractorEngine;
 			path = Extraction;
 			sourceTree = "<group>";
 		};
-		3169C1631CA2F138009828E2 /* Generators */ = {
+		3169C1631CA2F138009828E2 /* TemplateEngine */ = {
 			isa = PBXGroup;
 			children = (
-				3169C1641CA2F138009828E2 /* Generator.swift */,
-				4D757F101CFAE9A40053A20A /* GeneratorModels.swift */,
+				4DA578901D3031F90089F197 /* TemplateEngine.swift */,
+				4DA5788F1D3031980089F197 /* Stencil */,
 			);
+			name = TemplateEngine;
 			path = Generators;
 			sourceTree = "<group>";
 		};
@@ -256,6 +258,16 @@
 			path = Fixtures;
 			sourceTree = "<group>";
 		};
+		4D6E62EB1D317CAF00C63032 /* SourceKitten */ = {
+			isa = PBXGroup;
+			children = (
+				4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */,
+				4D0DFE901CFF32F10036E336 /* FileExtractor.swift */,
+				4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */,
+			);
+			name = SourceKitten;
+			sourceTree = "<group>";
+		};
 		4D9986801CFDE44800C2BEB8 /* UnitTestFixtures */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +277,15 @@
 				4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */,
 			);
 			name = UnitTestFixtures;
+			sourceTree = "<group>";
+		};
+		4DA5788F1D3031980089F197 /* Stencil */ = {
+			isa = PBXGroup;
+			children = (
+				4D757F101CFAE9A40053A20A /* StencilModels.swift */,
+				3169C1641CA2F138009828E2 /* StencilEngine.swift */,
+			);
+			name = Stencil;
 			sourceTree = "<group>";
 		};
 		CD3D74261CA2907D0021FC36 = {
@@ -638,14 +659,15 @@
 				3169C13E1CA2E9FE009828E2 /* main.swift in Sources */,
 				4D0DFE911CFF32F10036E336 /* FileExtractor.swift in Sources */,
 				4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */,
-				4D757F111CFAE9A40053A20A /* GeneratorModels.swift in Sources */,
+				4D757F111CFAE9A40053A20A /* StencilModels.swift in Sources */,
 				3169C16F1CA2F138009828E2 /* Utils.swift in Sources */,
 				3169C16B1CA2F138009828E2 /* Extractor.swift in Sources */,
+				4DA578911D3031F90089F197 /* TemplateEngine.swift in Sources */,
 				3169C1681CA2F138009828E2 /* Array+MW.swift in Sources */,
 				4DCE86681CFEEA0E00A3E238 /* IndexExtractor.swift in Sources */,
 				4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */,
 				4DCE866A1CFEEA1A00A3E238 /* StructureExtractor.swift in Sources */,
-				3169C16D1CA2F138009828E2 /* Generator.swift in Sources */,
+				3169C16D1CA2F138009828E2 /* StencilEngine.swift in Sources */,
 				3169C16C1CA2F138009828E2 /* ExtractorModels.swift in Sources */,
 				3169C1691CA2F138009828E2 /* Dictionary+MW.swift in Sources */,
 			);

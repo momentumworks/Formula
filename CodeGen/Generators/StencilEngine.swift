@@ -8,25 +8,11 @@ import SourceKittenFramework
 import Stencil
 import PathKit
 
-public typealias GeneratedFunction = String
 
-public protocol Generator {
-  func filter(object: Type) -> Bool
-  func generateFor(filteredObjects: [Type]) -> [Name: [GeneratedFunction]]
-}
+class StencilEngine: TemplateEngine {
 
-class CodeGenerator {
-  static let Warning = "// THIS FILE HAS BEEN AUTO GENERATED AND MUST NOT BE ALTERED DIRECTLY\n"
-
-  let templates: [Template]
-  let infoHeader: String
-
-  init(templates: [Template], infoHeader: String? = CodeGenerator.Warning) {
-    self.templates = templates
-    self.infoHeader = infoHeader ?? ""
-  }
-
-  func generateForFiles(files: [File]) -> String {
+  func generateForFiles(files: [Path], templates templatePaths: [Path]) -> String {
+    let templates = templatePaths.map { try! Template(path: $0) }
     let types = Extractor.extractTypes(files).values.map(StencilType.init).sort(sortByName)
     let imports = Extractor.extractImports(files).sort()
     
@@ -67,7 +53,7 @@ class CodeGenerator {
       }
     }
 
-    var header = infoHeader + imports.map { "import \($0)" }.joinWithSeparator("\n")
+    var header = imports.map { "import \($0)" }.joinWithSeparator("\n")
     
     if !header.isEmpty {
         header += "\n"
@@ -75,11 +61,7 @@ class CodeGenerator {
     return header + generated.trimWithNewLines()
 }
 
-  func generateForDirectory(directory: String) -> String {
-    let filePaths = Utils.fullPathForAllFilesAt(directory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
-    let files = filePaths.map { File(path: $0)! }
-    return generateForFiles(files)
-  }
+
 }
 
 

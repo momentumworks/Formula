@@ -7,8 +7,7 @@
 //
 
 @testable import CodeGen
-import Stencil
-import SourceKittenFramework
+import PathKit
 import Quick
 import Nimble
 
@@ -38,13 +37,12 @@ class CodeGenTests: QuickSpec {
   }
   
   private func loadInputAndGenerate(templateName templateName: String, input: String, expectedOutput: String) -> Bool {
-    let template = try! Template(named: templateName + ".stencil", inBundle: self.testBundle)
+    let template = Path (testBundle.pathForResource(templateName, ofType: "stencil")!)
     
-    let fixture = File(path: testBundle.pathForResource(input, ofType: "fixture")!)!
-    let expected = File(path: testBundle.pathForResource(expectedOutput, ofType: "fixture")!)!.contents
+    let fixture = Path( testBundle.pathForResource(input, ofType: "fixture")!)
+    let expected : String = try! Path( testBundle.pathForResource(expectedOutput, ofType: "fixture")!).read()
     
-    let generator = CodeGenerator(templates: [template], infoHeader: nil)
-    let output = generator.generateForFiles([fixture])
+    let output = StencilEngine().generateForFiles([fixture], templates: [template])
     return output == expected
   }
   

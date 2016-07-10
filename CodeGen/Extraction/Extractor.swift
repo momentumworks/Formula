@@ -5,15 +5,16 @@
 
 import Foundation
 import SourceKittenFramework
+import PathKit
 
 struct ElementExtractor <T where T: TupleConvertible, T: Mergeable> {
   let supportedKinds: Set<String>
   let extract: (input: [String: SourceKitRepresentable], name: Name) -> [T]
 }
 
-public class Extractor {
+public struct Extractor {
 
-  static func extractImports(files: [File]) -> [Import] {
+  static func extractImports(files: [Path]) -> [Import] {
     return files
       .parallelMap(FileExtractor.extractImports)
       .flatten()
@@ -21,8 +22,9 @@ public class Extractor {
       .unique
   }
 
-  static func extractTypes(file: File) -> [Name:Type] {
+  public static func extractTypes(filePath: Path) -> [Name:Type] {
     
+    let file = File(path: filePath.description)!
     print("Extracting objects from \(file.path ?? "source string")")
     let structure: Structure = Structure(file: file)
     
@@ -52,7 +54,7 @@ public class Extractor {
     return mergeTypesAndExtensions(allTypes, extensions)
   }
   
-  static func extractTypes(files: [File]) -> [Name:Type] {
+  public static func extractTypes(files: [Path]) -> [Name:Type] {
     return files
       .parallelMap(extractTypes)
       .reduce([Name:Type](), combine: +)

@@ -8,7 +8,8 @@
 
 @testable import CodeGen
 import Stencil
-import SourceKittenFramework
+
+import PathKit
 
 import Quick
 import Nimble
@@ -18,7 +19,7 @@ class ExtractorTests: QuickSpec {
   override func spec() {
     describe("when extracting simple enums") {
       
-      let file = File(path: self.testBundle.pathForResource("SimpleEnum", ofType: "fixture")!)!
+      let file = Path( self.testBundle.pathForResource("SimpleEnum", ofType: "fixture")!)
       let metaData = Extractor.extractTypes([file])
       
       it("should recognize its name & type") {
@@ -47,7 +48,7 @@ class ExtractorTests: QuickSpec {
     
     describe("when extracting complex enums") {
       
-      let file = File(path: self.testBundle.pathForResource("ComplexEnum", ofType: "fixture")!)!
+      let file = Path( self.testBundle.pathForResource("ComplexEnum", ofType: "fixture")! )
       let metaData = Extractor.extractTypes([file])
       
       it("should recognize its name & type") {
@@ -78,7 +79,7 @@ class ExtractorTests: QuickSpec {
     
     describe("when extracting complex nested types") {
       
-      let file = File(path: self.testBundle.pathForResource("NestedTypes", ofType: "fixture")!)!
+      let file = Path( self.testBundle.pathForResource("NestedTypes", ofType: "fixture")!)
       let metaData = Extractor.extractTypes([file])
       
       it("should recognize the parent type") {
@@ -106,7 +107,7 @@ class ExtractorTests: QuickSpec {
 
     describe("when extracting an enum with only one case") {
       
-      let file = File(path: self.testBundle.pathForResource("OneCaseEnum", ofType: "fixture")!)!
+      let file = Path( self.testBundle.pathForResource("OneCaseEnum", ofType: "fixture")!)
       let metaData = Extractor.extractTypes([file])
       
       it("should recognize its name & type") {

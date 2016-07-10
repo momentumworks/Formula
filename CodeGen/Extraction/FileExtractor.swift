@@ -8,11 +8,12 @@
 
 import Foundation
 import SourceKittenFramework
+import PathKit
 
 struct FileExtractor {
   
-  static func extractImports(file: File) -> [Import] {
-    return extractImports(file.lines.map { $0.content })
+  static func extractImports(file: Path) -> [Import] {
+    return extractImports(File(path: file.description)!.lines.map { $0.content })
   }
   
   static func extractImports(lines: [String]) -> [Import] {
