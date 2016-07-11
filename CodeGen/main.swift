@@ -27,7 +27,10 @@ private func generateForDirectory(directory: String, usingTemplates templates: [
   
   let filesToProcess = FileUtils.fullPathForAllFilesAt(directory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
   
-  let generated = templateEngine.generateForFiles(filesToProcess, templates: templates)
+  let types = Extractor.extractTypes(filesToProcess)
+  let imports = Extractor.extractImports(filesToProcess)
+  
+  let generated = templateEngine.generateForFiles(types, imports: imports, templates: templates)
   
   FileUtils.createDirectoryIfNonExistent(outputDirectory)
   print("Writing file \(outputFile)")

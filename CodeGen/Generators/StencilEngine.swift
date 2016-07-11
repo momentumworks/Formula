@@ -4,17 +4,16 @@
 //
 
 import Foundation
-import SourceKittenFramework
 import Stencil
 import PathKit
 
 
-class StencilEngine: TemplateEngine {
+struct StencilEngine: TemplateEngine {
 
-  func generateForFiles(files: [Path], templates templatePaths: [Path]) -> String {
+  func generateForFiles(types: [Type], imports: [Import], templates templatePaths: [Path]) -> String {
     let templates = templatePaths.map { try! Template(path: $0) }
-    let types = Extractor.extractTypes(files).values.map(StencilType.init).sort(sortByName)
-    let imports = Extractor.extractImports(files).sort()
+    let types = types.map(StencilType.init).sort(sortByName)
+    let imports = imports.sort()
     
     let extensions = types
       .splitBy { $0.extensions }
