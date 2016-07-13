@@ -24,6 +24,9 @@ struct JavascriptEngine: TemplateEngine {
     let context = JSContext()!
     
     context.setObject(JavascriptType.self, forKeyedSubscript: "Type")
+    context.setObject(JavascriptField.self, forKeyedSubscript: "Field")
+    context.setObject(JavascriptEnumCase.self, forKeyedSubscript: "EnumCase")
+
     
     context["structs"] = types.filter { $0.isStruct }
     context["enums"] = types.filter { $0.isEnum }

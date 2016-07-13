@@ -9,7 +9,7 @@
 import Foundation
 import JavaScriptCore
 
-@objc protocol GenKitType : JSExport {
+@objc protocol ExportedType : JSExport {
   
   var accessibility : String { get }
   var name : String { get }
@@ -25,7 +25,7 @@ import JavaScriptCore
 }
 
 
-@objc public class JavascriptType: NSObject, GenKitType {
+@objc public class JavascriptType: NSObject, ExportedType {
   
   public dynamic var accessibility : String
   public dynamic var name : String
@@ -52,7 +52,16 @@ import JavaScriptCore
   
 }
 
-@objc public class JavascriptField: NSObject {
+
+@objc protocol ExportedField : JSExport {
+  
+  var accessibility : String { get }
+  var name : String { get }
+  var type : String { get }
+
+}
+
+@objc public class JavascriptField: NSObject, ExportedField {
   public let accessibility : String
   public let name : String
   public let type : String
@@ -64,7 +73,14 @@ import JavaScriptCore
   }
 }
 
-@objc public class JavascriptEnumCase: NSObject {
+@objc protocol ExportedEnumCase : JSExport {
+  
+  var name : String { get }
+  var associatedValues : [String] { get }
+  
+}
+
+@objc public class JavascriptEnumCase: NSObject, ExportedEnumCase {
   
   public let name: Name
   public let associatedValues: [Name]
