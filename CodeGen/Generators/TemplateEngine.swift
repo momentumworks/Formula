@@ -10,6 +10,7 @@ import PathKit
 
 protocol TemplateEngine {
   
+  var templateExtension : String { get }
   func generateForFiles(types: [Type], imports: [Import], templates: [Path]) -> String
   
 }

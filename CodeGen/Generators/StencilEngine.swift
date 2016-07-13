@@ -9,6 +9,8 @@ import PathKit
 
 
 struct StencilEngine: TemplateEngine {
+  
+  let templateExtension = "stencil"
 
   func generateForFiles(types: [Type], imports: [Import], templates templatePaths: [Path]) -> String {
     let templates = templatePaths.map { try! Template(path: $0) }

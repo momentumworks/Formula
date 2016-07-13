@@ -14,7 +14,7 @@ import PathKit
 let GeneratedCodeDirectory = "Autogen"
 let GeneratedCodeFile = "Autogen.swift"
 
-let templateEngine: TemplateEngine = StencilEngine()
+let templateEngine: TemplateEngine = JavascriptEngine()
 
 private func generateForDirectory(directory: String, usingTemplates templates: [Path], cleanFirst: Bool) {
   let trimmedTarget = FileUtils.removeTrailingFileSeparator(directory)
@@ -27,7 +27,7 @@ private func generateForDirectory(directory: String, usingTemplates templates: [
   
   let filesToProcess = FileUtils.fullPathForAllFilesAt(directory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
   
-  let types = Extractor.extractTypes(filesToProcess)
+  let types = Array(Extractor.extractTypes(filesToProcess).values)
   let imports = Extractor.extractImports(filesToProcess)
   
   let generated = templateEngine.generateForFiles(types, imports: imports, templates: templates)
@@ -63,7 +63,7 @@ func main() {
   }
 
   print("Running code gen with target \(target) \(cleanFirst ? "(cleaning first)" : "")")
-  let templates = FileUtils.fullPathForAllFilesAt(templatesArgument ?? FileUtils.pathFromWorkingDirectory("/Templates"), withExtension:"stencil", ignoreSubdirectory: GeneratedCodeDirectory)
+  let templates = FileUtils.fullPathForAllFilesAt(templatesArgument ?? FileUtils.pathFromWorkingDirectory("/Templates"), withExtension:templateEngine.templateExtension, ignoreSubdirectory: GeneratedCodeDirectory)
   generateForDirectory(target, usingTemplates: templates, cleanFirst: cleanFirst)
 }
 

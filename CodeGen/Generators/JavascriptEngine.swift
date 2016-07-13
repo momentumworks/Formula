@@ -12,6 +12,8 @@ import PathKit
 
 struct JavascriptEngine: TemplateEngine {
   
+  let templateExtension = "js"
+  
   func generateForFiles(types: [Type], imports: [Import], templates: [Path]) -> String {
   
     let templates = templates.map { try! $0.read() as String }
@@ -19,10 +21,10 @@ struct JavascriptEngine: TemplateEngine {
     let imports = imports.sort()
     
     
-    let context = JSContext()
+    let context = JSContext()!
     
     context.setObject(JavascriptType.self, forKeyedSubscript: "Type")
-
+    
     context["structs"] = types.filter { $0.isStruct }
     context["enums"] = types.filter { $0.isEnum }
     context["classes"] = types.filter { $0.isClass }
@@ -32,13 +34,10 @@ struct JavascriptEngine: TemplateEngine {
 
     
     return templates
-      .map { context.evaluateScript($0).toString()! }
+      .map {
+        context.evaluateScript("(function printOut() { \($0); })()").toString()!
+      }
       .joinWithSeparator("\n")
-    
-    
-    
-    
-    
   }
   
 }
