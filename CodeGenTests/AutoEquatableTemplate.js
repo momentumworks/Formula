@@ -1,45 +1,55 @@
 
 return '// MARK: - AutoEquatable\n\n'
  + extensions.AutoEquatable.map(function(object) {
-    return `${object.accessibility} func ==(lhs: ${object.name}, rhs:${object.name}) -> Bool {`
-      + object.isEnum ? enumEquality(object) : structEquality(object)
+   const equalityString = (object.isEnum) ? enumEquality(object) : structEquality(object)
+   return `extension ${object.name}: Equatable {}\n\n`
+      + `${object.accessibility} func ==(lhs: ${object.name}, rhs:${object.name}) -> Bool {`
+      + equalityString
+      + '}\n'
   })
 
 
-function structEquality(function(struct) {
+function structEquality(object) {
+  return 'return '
+    + object.fields.map(function(field) {
+      return `  lhs.${field.name} == rhs.${field.name}`
+    }).join(' &&\n')
+}
 
-})
-function enumEquality(function(enum) {
-  return 'switch (lhs, rhs) {'
-    + enum.enumCases.map (function (enumCase) {
+function enumEquality(object) {
+  return 'switch (lhs, rhs) {\n'
+    + object.enumCases.map (function (enumCase) {
         return `case (.${enumCase.name}`
-          + listEnumAssociatedValues(enumCase)
+          + listEnumAssociatedValues(enumCase, 'lhs')
           + `, .${enumCase.name}`
-          + listEnumAssociatedValues(enumCase)
-          + 
-        })
-})
+          + listEnumAssociatedValues(enumCase, 'rhs')
+          + ')'
+          + listEnumAssociatedValuesEquality(enumCase)
+          + ':\n return true\n'
+        }).join('\n')
+    + ' default: return false\n'
+}
 
-function listEnumAssociatedValues(function(enumCase) {
-  if (enumCase.associatedValues != undefined && enumCase.associatedValues != null & enumCase.associatedValues.length > 0) {
+
+function listEnumAssociatedValues(enumCase, prefix) {
+  if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return '('
       + enumCase.associatedValues.map(function (associatedValue, index) {
-          return `let lhsValue${index}`
-        }).join(',')
+          return `let ${prefix}Value${index}`
+        }).join(', ')
       + ')'
   } else {
     return ''
   }
-})
+}
 
-function
-
-//  {% if type.enumCases %}switch (lhs, rhs) { {% for enumCase in type.enumCases %}
-//    case (.{{ enumCase.name }}{% if enumCase.associatedValues %}({% for associatedValue in enumCase.associatedValues %}let lhsValue{{ forloop.counter }}{% comma %}{% endfor %}){% endif %}, .{{ enumCase.name }}{% if enumCase.associatedValues %}({% for associatedValue in enumCase.associatedValues %}let rhsValue{{ forloop.counter }} {% comma %}{% endfor %}){% endif %}){% if enumCase.associatedValues %} where {% for associatedValue in enumCase.associatedValues %}lhsValue{{ forloop.counter }} == rhsValue{{ forloop.counter }} {% andSymbol %}{% endfor %}{% endif %}:
-//      return true{% endfor %}
-//    default: return false
-//  }
-//  {% else %}
-//  return  {% for field in type.fields %}  lhs.{{ field.name }} == rhs.{{ field.name }} {% andSymbol %}
-//  {% endfor %}{% endif %}
-//}
+function listEnumAssociatedValuesEquality(enumCase) {
+  if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
+    return 'where '
+      + enumCase.associatedValues.map(function (associatedValue, index) {
+          return `lhsValue${index} == rhsValue${index}`
+        }).join(' && ')
+  } else {
+    return ''
+  }
+}

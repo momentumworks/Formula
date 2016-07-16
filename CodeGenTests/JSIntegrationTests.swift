@@ -1,4 +1,4 @@
-//
+  //
 //  JSIntegrationTests.swift
 //  CodeGen
 //
@@ -18,7 +18,7 @@ class JSIntegrationTests: QuickSpec {
     
     describe("generator should output the correct fixtures") {
       
-      it("when using Immutable stencil with simple source") {
+      it("when using ImmutableTemplate.js with simple source") {
         let result = loadInputAndGenerate(
           templateName: self.testBundle.pathForFileName("ImmutableTemplate.js")!,
           input: self.testBundle.pathForFileName("ImmutableSimpleSource.fixture")!,
@@ -28,26 +28,26 @@ class JSIntegrationTests: QuickSpec {
         expect(result.generated).to(be(result.expected))
       }
       
-//      it("when using Immutable stencil with complex source") {
-//        let result = loadInputAndGenerate(
-//          templateName: self.testBundle.pathForFileName("Immutable.stencil")!,
-//          input: self.testBundle.pathForFileName("ImmutableComplexSource.fixture")!,
-//          expectedOutput: self.testBundle.pathForFileName("ImmutableComplexResult.fixture")!,
-//          engine: StencilEngine()
-//        )
-//        expect(result).to(be(true))
-//      }
-//      
-//      it("when using AutoEquatable stencil with complex source") {
-//        let result = loadInputAndGenerate(
-//          templateName: self.testBundle.pathForFileName("AutoEquatable.stencil")!,
-//          input: self.testBundle.pathForFileName("AutoEquatableComplexSource.fixture")!,
-//          expectedOutput: self.testBundle.pathForFileName("AutoEquatableComplexResult.fixture")!,
-//          engine: StencilEngine()
-//        )
-//        expect(result).to(be(true))
-//      }
-//      
+      it("when using ImmutableTemplate.js with complex source") {
+        let result = loadInputAndGenerate(
+          templateName: self.testBundle.pathForFileName("ImmutableTemplate.js")!,
+          input: self.testBundle.pathForFileName("ImmutableComplexSource.fixture")!,
+          expectedOutput: self.testBundle.pathForFileName("ImmutableComplexResult.fixture")!,
+          engine: JavascriptEngine()
+        )
+        expect(result.generated).to(be(result.expected))
+      }
+
+      it("when using AutoEquatableTemplate.js with complex source") {
+        let result = loadInputAndGenerate(
+          templateName: self.testBundle.pathForFileName("AutoEquatableTemplate.js")!,
+          input: self.testBundle.pathForFileName("AutoEquatableComplexSource.fixture")!,
+          expectedOutput: self.testBundle.pathForFileName("AutoEquatableComplexResult.fixture")!,
+          engine: JavascriptEngine()
+        )
+        expect(result.generated).to(be(result.expected))
+      }
+
       
 
     }
