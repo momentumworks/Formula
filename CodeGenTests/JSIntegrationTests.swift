@@ -22,10 +22,10 @@ class JSIntegrationTests: QuickSpec {
         let result = loadInputAndGenerate(
           templateName: self.testBundle.pathForFileName("ImmutableTemplate.js")!,
           input: self.testBundle.pathForFileName("ImmutableSimpleSource.fixture")!,
-          expectedOutput: self.testBundle.pathForFileName("Temp.fixture")!,
+          expectedOutput: self.testBundle.pathForFileName("ImmutableSimpleResult.fixture")!,
           engine: JavascriptEngine()
         )
-        expect(result.generated).to(be("1"))
+        expect(result.generated).to(be(result.expected))
       }
       
 //      it("when using Immutable stencil with complex source") {

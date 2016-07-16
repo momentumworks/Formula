@@ -36,7 +36,6 @@
 		4D0F098E1D35283200EB9D75 /* JSIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F098D1D35283200EB9D75 /* JSIntegrationTests.swift */; };
 		4D0F09901D35286300EB9D75 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F098F1D35286300EB9D75 /* TestHelpers.swift */; };
 		4D0F09951D3528E900EB9D75 /* ImmutableTemplate.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0F09941D3528E900EB9D75 /* ImmutableTemplate.js */; };
-		4D0F09971D35297400EB9D75 /* Temp.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D0F09961D35297400EB9D75 /* Temp.fixture */; };
 		4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */; };
 		4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */; };
 		4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */; };
@@ -55,6 +54,7 @@
 		4DA578911D3031F90089F197 /* TemplateEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA578901D3031F90089F197 /* TemplateEngine.swift */; };
 		4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */; };
 		4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */; };
+		4DCA90C71D3A726500B4C408 /* AutoEquatableTemplate.js in Resources */ = {isa = PBXBuildFile; fileRef = 4DCA90C61D3A726500B4C408 /* AutoEquatableTemplate.js */; };
 		4DCE86681CFEEA0E00A3E238 /* IndexExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */; };
 		4DCE866A1CFEEA1A00A3E238 /* StructureExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */; };
 		CCD966357DA9707527CF5143 /* Pods_CodeGenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1EBF68C2F8803CC9C572D2 /* Pods_CodeGenTests.framework */; };
@@ -125,7 +125,6 @@
 		4D0F098D1D35283200EB9D75 /* JSIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSIntegrationTests.swift; sourceTree = "<group>"; };
 		4D0F098F1D35286300EB9D75 /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		4D0F09941D3528E900EB9D75 /* ImmutableTemplate.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ImmutableTemplate.js; sourceTree = "<group>"; };
-		4D0F09961D35297400EB9D75 /* Temp.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Temp.fixture; sourceTree = "<group>"; };
 		4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ComplexEnum.fixture; path = Fixtures/ComplexEnum.fixture; sourceTree = "<group>"; };
 		4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatable.stencil; sourceTree = "<group>"; };
 		4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableSimpleResult.fixture; sourceTree = "<group>"; };
@@ -144,6 +143,7 @@
 		4DA578901D3031F90089F197 /* TemplateEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateEngine.swift; sourceTree = "<group>"; };
 		4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SourceKitRepresentable+MW.swift"; sourceTree = "<group>"; };
 		4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Set+MW.swift"; sourceTree = "<group>"; };
+		4DCA90C61D3A726500B4C408 /* AutoEquatableTemplate.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AutoEquatableTemplate.js; sourceTree = "<group>"; };
 		4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexExtractor.swift; sourceTree = "<group>"; };
 		4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructureExtractor.swift; sourceTree = "<group>"; };
 		8386F0DC3C1478B668A20C55 /* Pods-CodeGenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGenTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -274,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				4D0F09941D3528E900EB9D75 /* ImmutableTemplate.js */,
+				4DCA90C61D3A726500B4C408 /* AutoEquatableTemplate.js */,
 			);
 			name = JSTemplates;
 			sourceTree = "<group>";
@@ -362,7 +363,6 @@
 			isa = PBXGroup;
 			children = (
 				4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */,
-				4D0F09961D35297400EB9D75 /* Temp.fixture */,
 				4D4800B41CFF024A0087C474 /* AutoEquatableComplexResult.fixture */,
 				E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */,
 				4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */,
@@ -469,7 +469,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */,
-				4D0F09971D35297400EB9D75 /* Temp.fixture in Resources */,
 				4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */,
 				4D4800B51CFF024A0087C474 /* AutoEquatableComplexResult.fixture in Resources */,
 				4D4800B91CFF0AE00087C474 /* Immutable.stencil in Resources */,
@@ -480,6 +479,7 @@
 				CDC6B2901CA3FE1F0041517A /* ImmutableComplexSource.fixture in Resources */,
 				4D4800AF1CFEFB6B0087C474 /* ImmutableComplexResult.fixture in Resources */,
 				4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */,
+				4DCA90C71D3A726500B4C408 /* AutoEquatableTemplate.js in Resources */,
 				E291D17344B4163D9A5100F4 /* ImmutableSimpleSource.fixture in Resources */,
 				4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */,
 				4D0DFE931CFF3EF20036E336 /* NestedTypes.fixture in Resources */,
