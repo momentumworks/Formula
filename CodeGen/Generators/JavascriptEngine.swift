@@ -20,28 +20,28 @@ struct JavascriptEngine: TemplateEngine {
     let types = types.map(JavascriptType.init)
     let imports = imports.sort()
     
-    
     let context = JSContext()!
     
-    context.setObject(JavascriptType.self, forKeyedSubscript: "Type")
-    context.setObject(JavascriptField.self, forKeyedSubscript: "Field")
-    context.setObject(JavascriptEnumCase.self, forKeyedSubscript: "EnumCase")
-
+    context["Type"] = JavascriptType.self
+    context["Field"] = JavascriptField.self
+    context["EnumCase"] = JavascriptEnumCase.self
     
     context["structs"] = types.filter { $0.isStruct }
     context["enums"] = types.filter { $0.isEnum }
     context["classes"] = types.filter { $0.isClass }
     context["extensions"] = types
       .splitBy { $0.extensions }
-    //      .mapValues { $0.sort(sortByName) }
+      .mapValues { $0.sort(sortByName) }
+    context["imports"] = imports
 
     
     return templates
-      .map {
-        context.evaluateScript("(function printOut() { \($0); })()").toString()!
-      }
+      .map { context.evaluateScript("(function printOut() { \($0); })()").toString()! }
       .joinWithSeparator("\n")
   }
   
 }
 
+private func sortByName(lhs: JavascriptType, rhs: JavascriptType) -> Bool {
+  return lhs.name < rhs.name
+}
