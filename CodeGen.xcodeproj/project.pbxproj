@@ -23,7 +23,7 @@
 		3169C16C1CA2F138009828E2 /* ExtractorModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1621CA2F138009828E2 /* ExtractorModels.swift */; };
 		3169C16D1CA2F138009828E2 /* StencilEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1641CA2F138009828E2 /* StencilEngine.swift */; };
 		3169C16F1CA2F138009828E2 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1671CA2F138009828E2 /* Utils.swift */; };
-		3169C1721CA2F168009828E2 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1701CA2F168009828E2 /* IntegrationTests.swift */; };
+		3169C1721CA2F168009828E2 /* StencilIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169C1701CA2F168009828E2 /* StencilIntegrationTests.swift */; };
 		3169C1751CA2F1BA009828E2 /* SourceKittenFramework.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3169C1761CA2F1BA009828E2 /* SWXMLHash.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3169C1781CA2F646009828E2 /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1501CA2EE2E009828E2 /* SourceKittenFramework.framework */; };
@@ -32,6 +32,10 @@
 		317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		4D0DFE911CFF32F10036E336 /* FileExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0DFE901CFF32F10036E336 /* FileExtractor.swift */; };
 		4D0DFE931CFF3EF20036E336 /* NestedTypes.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */; };
+		4D0F098C1D35225C00EB9D75 /* NSBundle+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F098B1D35225C00EB9D75 /* NSBundle+MW.swift */; };
+		4D0F098E1D35283200EB9D75 /* JSIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F098D1D35283200EB9D75 /* JSIntegrationTests.swift */; };
+		4D0F09901D35286300EB9D75 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F098F1D35286300EB9D75 /* TestHelpers.swift */; };
+		4D0F09951D3528E900EB9D75 /* ImmutableTemplate.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D0F09941D3528E900EB9D75 /* ImmutableTemplate.js */; };
 		4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */; };
 		4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */; };
 		4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */; };
@@ -40,6 +44,9 @@
 		4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */; };
 		4D4800B91CFF0AE00087C474 /* Immutable.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 4D4800B81CFF0AE00087C474 /* Immutable.stencil */; };
 		4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */; };
+		4D6E62ED1D330D1F00C63032 /* JavascriptEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E62EC1D330D1F00C63032 /* JavascriptEngine.swift */; };
+		4D6E62F01D330FA500C63032 /* JavascriptModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E62EF1D330FA500C63032 /* JavascriptModels.swift */; };
+		4D6E62F21D33191900C63032 /* JSContext+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E62F11D33191900C63032 /* JSContext+MW.swift */; };
 		4D757F111CFAE9A40053A20A /* StencilModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D757F101CFAE9A40053A20A /* StencilModels.swift */; };
 		4D99867B1CFDD41E00C2BEB8 /* ExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */; };
 		4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */; };
@@ -47,6 +54,7 @@
 		4DA578911D3031F90089F197 /* TemplateEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA578901D3031F90089F197 /* TemplateEngine.swift */; };
 		4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */; };
 		4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */; };
+		4DCA90C71D3A726500B4C408 /* AutoEquatableTemplate.js in Resources */ = {isa = PBXBuildFile; fileRef = 4DCA90C61D3A726500B4C408 /* AutoEquatableTemplate.js */; };
 		4DCE86681CFEEA0E00A3E238 /* IndexExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */; };
 		4DCE866A1CFEEA1A00A3E238 /* StructureExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */; };
 		CCD966357DA9707527CF5143 /* Pods_CodeGenTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1EBF68C2F8803CC9C572D2 /* Pods_CodeGenTests.framework */; };
@@ -108,11 +116,15 @@
 		3169C1621CA2F138009828E2 /* ExtractorModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorModels.swift; sourceTree = "<group>"; };
 		3169C1641CA2F138009828E2 /* StencilEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilEngine.swift; sourceTree = "<group>"; };
 		3169C1671CA2F138009828E2 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		3169C1701CA2F168009828E2 /* IntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
+		3169C1701CA2F168009828E2 /* StencilIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilIntegrationTests.swift; sourceTree = "<group>"; };
 		317D2D9E1CA3066300305424 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		379E1AFE4C92D4DC50969364 /* Pods-CodeGen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.release.xcconfig"; sourceTree = "<group>"; };
 		4D0DFE901CFF32F10036E336 /* FileExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileExtractor.swift; sourceTree = "<group>"; };
 		4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NestedTypes.fixture; sourceTree = "<group>"; };
+		4D0F098B1D35225C00EB9D75 /* NSBundle+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+MW.swift"; sourceTree = "<group>"; };
+		4D0F098D1D35283200EB9D75 /* JSIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSIntegrationTests.swift; sourceTree = "<group>"; };
+		4D0F098F1D35286300EB9D75 /* TestHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
+		4D0F09941D3528E900EB9D75 /* ImmutableTemplate.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ImmutableTemplate.js; sourceTree = "<group>"; };
 		4D4800A51CFEF2100087C474 /* ComplexEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ComplexEnum.fixture; path = Fixtures/ComplexEnum.fixture; sourceTree = "<group>"; };
 		4D4800A91CFEF9F80087C474 /* AutoEquatable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatable.stencil; sourceTree = "<group>"; };
 		4D4800AC1CFEFB130087C474 /* ImmutableSimpleResult.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImmutableSimpleResult.fixture; sourceTree = "<group>"; };
@@ -121,6 +133,9 @@
 		4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoEquatableComplexSource.fixture; sourceTree = "<group>"; };
 		4D4800B81CFF0AE00087C474 /* Immutable.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Immutable.stencil; sourceTree = "<group>"; };
 		4D67C6651D00425A009C25AA /* OneCaseEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OneCaseEnum.fixture; sourceTree = "<group>"; };
+		4D6E62EC1D330D1F00C63032 /* JavascriptEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavascriptEngine.swift; sourceTree = "<group>"; };
+		4D6E62EF1D330FA500C63032 /* JavascriptModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavascriptModels.swift; sourceTree = "<group>"; };
+		4D6E62F11D33191900C63032 /* JSContext+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSContext+MW.swift"; sourceTree = "<group>"; };
 		4D757F101CFAE9A40053A20A /* StencilModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilModels.swift; sourceTree = "<group>"; };
 		4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorTests.swift; sourceTree = "<group>"; };
 		4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleEnum.fixture; path = Fixtures/SimpleEnum.fixture; sourceTree = "<group>"; };
@@ -128,6 +143,7 @@
 		4DA578901D3031F90089F197 /* TemplateEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemplateEngine.swift; sourceTree = "<group>"; };
 		4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SourceKitRepresentable+MW.swift"; sourceTree = "<group>"; };
 		4DC3C32C1CF9F8FD00D3702B /* Set+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Set+MW.swift"; sourceTree = "<group>"; };
+		4DCA90C61D3A726500B4C408 /* AutoEquatableTemplate.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = AutoEquatableTemplate.js; sourceTree = "<group>"; };
 		4DCE86671CFEEA0E00A3E238 /* IndexExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexExtractor.swift; sourceTree = "<group>"; };
 		4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructureExtractor.swift; sourceTree = "<group>"; };
 		8386F0DC3C1478B668A20C55 /* Pods-CodeGenTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGenTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGenTests/Pods-CodeGenTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,11 +198,14 @@
 		3169C1441CA2EC36009828E2 /* CodeGenTests */ = {
 			isa = PBXGroup;
 			children = (
+				4D0F09931D3528C500EB9D75 /* JSTemplates */,
 				4D4800AB1CFEF9FC0087C474 /* Stencils */,
 				4D9986801CFDE44800C2BEB8 /* UnitTestFixtures */,
 				E291D2AC757AA623334D9708 /* IntegrationFixtures */,
-				3169C1701CA2F168009828E2 /* IntegrationTests.swift */,
+				3169C1701CA2F168009828E2 /* StencilIntegrationTests.swift */,
+				4D0F098D1D35283200EB9D75 /* JSIntegrationTests.swift */,
 				4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */,
+				4D0F098F1D35286300EB9D75 /* TestHelpers.swift */,
 				4D99867E1CFDD50100C2BEB8 /* XCTest+MW.swift */,
 				3169C1471CA2EC36009828E2 /* Info.plist */,
 			);
@@ -215,6 +234,8 @@
 				3169C15E1CA2F138009828E2 /* Dictionary+MW.swift */,
 				3169C15F1CA2F138009828E2 /* String+MW.swift */,
 				4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */,
+				4D6E62F11D33191900C63032 /* JSContext+MW.swift */,
+				4D0F098B1D35225C00EB9D75 /* NSBundle+MW.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -234,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				4DA578901D3031F90089F197 /* TemplateEngine.swift */,
+				4D6E62EE1D330D2500C63032 /* Javascript */,
 				4DA5788F1D3031980089F197 /* Stencil */,
 			);
 			name = TemplateEngine;
@@ -246,6 +268,15 @@
 				3169C1671CA2F138009828E2 /* Utils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		4D0F09931D3528C500EB9D75 /* JSTemplates */ = {
+			isa = PBXGroup;
+			children = (
+				4D0F09941D3528E900EB9D75 /* ImmutableTemplate.js */,
+				4DCA90C61D3A726500B4C408 /* AutoEquatableTemplate.js */,
+			);
+			name = JSTemplates;
 			sourceTree = "<group>";
 		};
 		4D4800AB1CFEF9FC0087C474 /* Stencils */ = {
@@ -266,6 +297,15 @@
 				4DCE86691CFEEA1A00A3E238 /* StructureExtractor.swift */,
 			);
 			name = SourceKitten;
+			sourceTree = "<group>";
+		};
+		4D6E62EE1D330D2500C63032 /* Javascript */ = {
+			isa = PBXGroup;
+			children = (
+				4D6E62EF1D330FA500C63032 /* JavascriptModels.swift */,
+				4D6E62EC1D330D1F00C63032 /* JavascriptEngine.swift */,
+			);
+			name = Javascript;
 			sourceTree = "<group>";
 		};
 		4D9986801CFDE44800C2BEB8 /* UnitTestFixtures */ = {
@@ -435,9 +475,11 @@
 				4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */,
 				317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */,
 				4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */,
+				4D0F09951D3528E900EB9D75 /* ImmutableTemplate.js in Resources */,
 				CDC6B2901CA3FE1F0041517A /* ImmutableComplexSource.fixture in Resources */,
 				4D4800AF1CFEFB6B0087C474 /* ImmutableComplexResult.fixture in Resources */,
 				4D4800AA1CFEF9F80087C474 /* AutoEquatable.stencil in Resources */,
+				4DCA90C71D3A726500B4C408 /* AutoEquatableTemplate.js in Resources */,
 				E291D17344B4163D9A5100F4 /* ImmutableSimpleSource.fixture in Resources */,
 				4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */,
 				4D0DFE931CFF3EF20036E336 /* NestedTypes.fixture in Resources */,
@@ -646,8 +688,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D99867B1CFDD41E00C2BEB8 /* ExtractorTests.swift in Sources */,
-				3169C1721CA2F168009828E2 /* IntegrationTests.swift in Sources */,
+				4D0F09901D35286300EB9D75 /* TestHelpers.swift in Sources */,
+				3169C1721CA2F168009828E2 /* StencilIntegrationTests.swift in Sources */,
 				4D99867F1CFDD50100C2BEB8 /* XCTest+MW.swift in Sources */,
+				4D0F098E1D35283200EB9D75 /* JSIntegrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,19 +700,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				3169C16A1CA2F138009828E2 /* String+MW.swift in Sources */,
+				4D6E62F01D330FA500C63032 /* JavascriptModels.swift in Sources */,
 				3169C13E1CA2E9FE009828E2 /* main.swift in Sources */,
 				4D0DFE911CFF32F10036E336 /* FileExtractor.swift in Sources */,
 				4DC3C32B1CF7B29700D3702B /* SourceKitRepresentable+MW.swift in Sources */,
 				4D757F111CFAE9A40053A20A /* StencilModels.swift in Sources */,
+				4D6E62F21D33191900C63032 /* JSContext+MW.swift in Sources */,
 				3169C16F1CA2F138009828E2 /* Utils.swift in Sources */,
 				3169C16B1CA2F138009828E2 /* Extractor.swift in Sources */,
 				4DA578911D3031F90089F197 /* TemplateEngine.swift in Sources */,
 				3169C1681CA2F138009828E2 /* Array+MW.swift in Sources */,
+				4D0F098C1D35225C00EB9D75 /* NSBundle+MW.swift in Sources */,
 				4DCE86681CFEEA0E00A3E238 /* IndexExtractor.swift in Sources */,
 				4DC3C32D1CF9F8FD00D3702B /* Set+MW.swift in Sources */,
 				4DCE866A1CFEEA1A00A3E238 /* StructureExtractor.swift in Sources */,
 				3169C16D1CA2F138009828E2 /* StencilEngine.swift in Sources */,
 				3169C16C1CA2F138009828E2 /* ExtractorModels.swift in Sources */,
+				4D6E62ED1D330D1F00C63032 /* JavascriptEngine.swift in Sources */,
 				3169C1691CA2F138009828E2 /* Dictionary+MW.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

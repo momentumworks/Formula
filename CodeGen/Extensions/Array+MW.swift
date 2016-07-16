@@ -86,6 +86,7 @@ public extension CollectionType {
   
 }
 
+
 public extension CollectionType where SubSequence : CollectionType, SubSequence.SubSequence == SubSequence, SubSequence.Generator.Element == Generator.Element, Index == Int {
   
   @warn_unused_result
