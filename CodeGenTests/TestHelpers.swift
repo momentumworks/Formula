@@ -23,3 +23,13 @@ internal func loadInputAndGenerate(templateName templateName: String, input: Str
   let output = engine.generateForFiles(types, imports: imports, templates: [Path(templateName)])
   return (generated: output ,expected: expected)
 }
+
+internal extension String {
+  
+  internal func removeAllFormatting() -> String {
+    return stringByReplacingOccurrencesOfString("\n", withString: "")
+      .stringByReplacingOccurrencesOfString(" ", withString: "")
+      .stringByReplacingOccurrencesOfString("\t", withString: "")
+  }
+  
+}

@@ -25,7 +25,7 @@ class JSIntegrationTests: QuickSpec {
           expectedOutput: self.testBundle.pathForFileName("ImmutableSimpleResult.fixture")!,
           engine: JavascriptEngine()
         )
-        expect(result.generated).to(be(result.expected))
+        expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
       }
       
       it("when using ImmutableTemplate.js with complex source") {
@@ -35,7 +35,7 @@ class JSIntegrationTests: QuickSpec {
           expectedOutput: self.testBundle.pathForFileName("ImmutableComplexResult.fixture")!,
           engine: JavascriptEngine()
         )
-        expect(result.generated).to(be(result.expected))
+        expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
       }
 
       it("when using AutoEquatableTemplate.js with complex source") {
@@ -45,7 +45,7 @@ class JSIntegrationTests: QuickSpec {
           expectedOutput: self.testBundle.pathForFileName("AutoEquatableComplexResult.fixture")!,
           engine: JavascriptEngine()
         )
-        expect(result.generated).to(be(result.expected))
+        expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
       }
 
       

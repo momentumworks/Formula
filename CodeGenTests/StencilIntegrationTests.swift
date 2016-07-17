@@ -24,7 +24,7 @@ class StencilIntegrationTests: QuickSpec {
           expectedOutput: self.testBundle.pathForFileName("ImmutableSimpleResult.fixture")!,
           engine: StencilEngine()
         )
-        expect(result.generated).to(be(result.expected))
+        expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
       }
       
       it("when using Immutable stencil with complex source") {
@@ -34,7 +34,7 @@ class StencilIntegrationTests: QuickSpec {
           expectedOutput: self.testBundle.pathForFileName("ImmutableComplexResult.fixture")!,
           engine: StencilEngine()
         )
-        expect(result.generated).to(be(result.expected))
+        expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
       }
       
       it("when using AutoEquatable stencil with complex source") {
@@ -44,7 +44,7 @@ class StencilIntegrationTests: QuickSpec {
           expectedOutput: self.testBundle.pathForFileName("AutoEquatableComplexResult.fixture")!,
           engine: StencilEngine()
         )
-        expect(result.generated).to(be(result.expected))
+        expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
       }
       
       
