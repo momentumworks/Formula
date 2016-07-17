@@ -35,19 +35,25 @@ public struct Extractor {
       return [:]
     }
     
-    let extractedFromStructure = extractFromTree(from: substructures,
-                                          extractors: [
-                                            StructureExtractor.ClassAndStructExtractor,
-                                            StructureExtractor.EnumExtractor
-                                          ],
-                                       traverseDeeper: { $0.substructures })
+    let extractedFromStructure = extractFromTree(
+        from: substructures,
+        extractors: [
+          StructureExtractor.ClassAndStructExtractor,
+          StructureExtractor.EnumExtractor
+        ],
+        traverseDeeper: { $0.substructures })
       .mergeIntoDictionary()
     
-    let extractedFromIndex = extractFromTree(from: entities, extractors: [IndexExtractor.EnumExtractor], traverseDeeper: { $0.entities })
+    let extractedFromIndex = extractFromTree(
+        from: entities,
+        extractors: [IndexExtractor.EnumExtractor],
+        traverseDeeper: { $0.entities })
       .mergeIntoDictionary()
 
-    let extensions = extractFromTree(from: substructures, extractors: [StructureExtractor.ExtensionExtractor],
-      traverseDeeper: { $0.substructures })
+    let extensions = extractFromTree(
+        from: substructures,
+        extractors: [StructureExtractor.ExtensionExtractor],
+        traverseDeeper: { $0.substructures })
       .mergeIntoDictionary()
 
     let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
