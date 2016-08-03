@@ -153,7 +153,7 @@ public struct Field {
   public let name : Name
   public let type : String
     
-  public init(accessibility: Accessibility, name: String, type: Name) {
+  public init(accessibility: Accessibility, name: Name, type: String) {
     self.accessibility = accessibility.description
     self.name = name
     self.type = type

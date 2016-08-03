@@ -65,12 +65,3 @@ public func +<K, V>(left: [K:V], right: [K:V]) -> [K:V] {
   }
   return map
 }
-
-public func +<K, V>(left: [K:V], right: (K, V)?) -> [K:V] {
-  guard let right = right else { return left }
-
-  var newDict = left
-  newDict[right.0] = right.1
-
-  return newDict
-}
