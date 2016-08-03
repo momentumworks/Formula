@@ -1,0 +1,7 @@
+enum NumberType: String, AutoJSONEncodable {
+
+  case One
+  case Two
+  case Three
+
+}

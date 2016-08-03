@@ -1,0 +1,7 @@
+
+enum StringBacked: String {
+
+  case One
+  case Two
+
+}
