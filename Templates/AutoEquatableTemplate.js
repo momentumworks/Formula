@@ -6,7 +6,7 @@ return '// MARK: - AutoEquatable\n\n'
       + `${object.accessibility} func ==(lhs: ${object.name}, rhs:${object.name}) -> Bool {`
       + equalityString
       + '}\n'
-  })
+  }).join('\n')
 
 
 function structEquality(object) {
@@ -27,7 +27,8 @@ function enumEquality(object) {
           + listEnumAssociatedValuesEquality(enumCase)
           + ':\n return true\n'
         }).join('\n')
-    + ' default: return false\n'
+    + '  default: return false\n'
+    + '  }\n'
 }
 
 
@@ -35,7 +36,7 @@ function listEnumAssociatedValues(enumCase, prefix) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return '('
       + enumCase.associatedValues.map(function (associatedValue, index) {
-          return `let ${prefix}Value${index}`
+          return `let ${prefix}Value${index+1}`
         }).join(', ')
       + ')'
   } else {
@@ -47,7 +48,7 @@ function listEnumAssociatedValuesEquality(enumCase) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return 'where '
       + enumCase.associatedValues.map(function (associatedValue, index) {
-          return `lhsValue${index} == rhsValue${index}`
+          return `lhsValue${index+1} == rhsValue${index+1}`
         }).join(' && ')
   } else {
     return ''
