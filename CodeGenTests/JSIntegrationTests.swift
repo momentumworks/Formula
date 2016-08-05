@@ -47,6 +47,17 @@ class JSIntegrationTests: QuickSpec {
         )
         expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
       }
+      
+      it("when using JSONCodecTemplate with a string backed enum source") {
+        let result = loadInputAndGenerate(
+          templateName: self.testBundle.pathForFileName("JSONCodecTemplate.js")!,
+          input: self.testBundle.pathForFileName("JSONCodecSimpleEnumSource.fixture")!,
+          expectedOutput: self.testBundle.pathForFileName("JSONCodecSimpleEnumResult.fixture")!,
+          engine: JavascriptEngine()
+        )
+        expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
+      }
+
 
       
 

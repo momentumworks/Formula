@@ -1,0 +1,13 @@
+// MARK: - JSONEncodable
+
+extension NumberType: JSONEncodable {
+
+  static func fromJSON(optionalJSON: JSON?) -> NumberType? {
+    return optionalJSON.string.flatMap { NumberType(rawValue: $0.lowercaseString }
+  }
+
+  func toJSON() -> JSON {
+    return JSON(self.rawValue.lowercaseString)
+  }
+
+}

@@ -62,7 +62,7 @@ public struct Extractor {
   
   public static func extractTypes(files: [Path]) -> [Name:Type] {
     return files
-      .parallelMap(extractTypes)
+      .map(extractTypes)
       .reduce([Name:Type](), combine: +)
   }
   
@@ -75,7 +75,7 @@ private func extractFromTree<T where T: TupleConvertible, T: Mergeable>
    currentNesting: [Name] = []) -> [T]
 {
   return input
-    .parallelMap { item -> [T] in
+    .map { item -> [T] in
       guard let dict = item.asDictionary,
             let name = dict.name,
             let kind = dict.kind

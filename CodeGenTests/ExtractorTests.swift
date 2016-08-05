@@ -122,6 +122,25 @@ class ExtractorTests: QuickSpec {
         expect(metaData["OnlyOne"]?.kind).to(equal(Kind.Enum(enumCases)))
       }
     }
+    
+    describe("when extracting a string backed enum") {
+      
+      let file = Path( self.testBundle.pathForResource("StringBackedEnum", ofType: "fixture")!)
+      let metaData = Extractor.extractTypes([file])
+      
+      it("should recognize its name & type") {
+        expect(metaData["StringBacked"]).toNot(beNil())
+        expect(metaData["StringBacked"]?.kind.isEnum).to(equal(true))
+      }
+      
+      it("should recognize its cases") {
+        let enumCases = [
+          EnumCase(name: "One", associatedValues: []),
+          EnumCase(name: "Two", associatedValues: []),
+          ]
+        expect(metaData["StringBacked"]?.kind).to(equal(Kind.Enum(enumCases)))
+      }
+    }
 
   
   }

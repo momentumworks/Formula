@@ -1,0 +1,23 @@
+
+extension One: JSONEncodable {
+
+  static func fromJSON(optionalJSON: JSON?) -> One? {
+
+    guard let json = optionalJSON,
+      string1 = json["string1"].string,
+      string2 = json["string2"].string
+    else {
+      return nil
+    }
+
+    return One(string1: string1, string2: string2)
+
+  }
+
+  func toJSON() -> JSON {
+    var json = JSON([:])
+    json["string1"] = JSON(self.string1)
+    json["string2"] = JSON(self.string2)
+    return json
+  }
+}
