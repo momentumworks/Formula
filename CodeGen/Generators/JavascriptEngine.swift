@@ -13,33 +13,45 @@ import PathKit
 struct JavascriptEngine: TemplateEngine {
   
   let templateExtension = "js"
-  
+
   func generateForFiles(types: [Type], imports: [Import], templates: [Path]) -> String {
-  
     let templates = templates.map { try! $0.read() as String }
-    let types = types.map(JavascriptType.init)
+    let context = self.createContext(types, imports: imports)
+
+    return templates
+      .map { self.generate(context, fromTemplate: $0) }
+      .joinWithSeparator("\n")
+  }
+  
+  func createContext(types: [Type], imports: [Import]) -> JSContext {
+    let jstypes = types.map(JavascriptType.init)
     let imports = imports.sort()
-    
     let context = JSContext()!
-    
+
     context["Type"] = JavascriptType.self
     context["Field"] = JavascriptField.self
     context["EnumCase"] = JavascriptEnumCase.self
-    
-    context["structs"] = types.filter { $0.isStruct }
-    context["enums"] = types.filter { $0.isEnum }
-    context["classes"] = types.filter { $0.isClass }
-    context["extensions"] = types
+
+    context["structs"] = jstypes.filter { $0.isStruct }
+    context["enums"] = jstypes.filter { $0.isEnum }
+    context["classes"] = jstypes.filter { $0.isClass }
+    context["extensions"] = jstypes
       .splitBy { $0.extensions }
       .mapValues { $0.sort(sortByName) }
     context["imports"] = imports
 
-    
-    return templates
-      .map { context.evaluateScript("(function printOut() { \($0); })()").toString()! }
-      .joinWithSeparator("\n")
+    context.evaluateScript("var console = { log: function(message) { _consoleLog(JSON.stringify(message)) } }")
+    let consoleLog: @convention(block) String -> Void = { message in
+      print("Javascript log: " + message)
+    }
+    context.setObject(unsafeBitCast(consoleLog, AnyObject.self), forKeyedSubscript: "_consoleLog")
+
+    return context
   }
-  
+
+  func generate(context: JSContext, fromTemplate template: String) -> String {
+    return context.evaluateScript("(function printOut() { \(template); })()").toString()!
+  }
 }
 
 private func sortByName(lhs: JavascriptType, rhs: JavascriptType) -> Bool {
