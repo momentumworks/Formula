@@ -22,3 +22,28 @@ extension One: JSONEncodable {
     return json
   }
 }
+
+extension Two: JSONEncodable {
+
+  static func fromJSON(optionalJSON: JSON?) -> Two? {
+
+    guard let json = optionalJSON,
+      one = One.fromJSON(json["one"]),
+      int1 = json["int1"].int
+    else {
+      return nil
+    }
+
+    return Two(one: one, int1: int1)
+
+  }
+
+  func toJSON() -> JSON {
+    var json = JSON([:])
+    json["one"] = one.toJSON()
+    json["int1"] = JSON(self.int1)
+    return json
+  }
+}
+
+

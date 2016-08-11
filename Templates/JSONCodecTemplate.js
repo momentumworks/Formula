@@ -3,21 +3,21 @@
 return '// MARK: - JSONEncodable\n\n'
  + extensions.AutoJSONEncodable.map(function(object) {
     if (object.isEnum) {
-      return `extension ${object.name} : JSONEncodable {\n\n`
-        + `  static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
-        + `    return optionalJSON.string.flatMap { ${object.name}(rawValue: $0.lowercaseString }\n`
-        + '  }\n\n'
-        + `  func toJSON() -> JSON {\n`
-        + `    return JSON(self.rawValue.lowercaseString)\n`
-        + '  }\n\n'
-        + '}\n'
+
+      if (object.extensions.String || object.extensions.Int) {
+        return rawValueBackedEnumJSONCodec(object)
+      } else {
+        return enumJSONCodec(object)
+      }
+
+
     } else {
 
       return `extension ${object.name} : JSONEncodable {\n\n`
         + `  static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
         + '    guard let json = optionalJSON,\n'
         + object.fields.map(function(field) {
-           if (field.type === 'String' || field.type === 'Bool') {
+           if (isSwiftPrimitive(field.type)) {
              return `      ${field.name} = json["${field.name}"].${field.type.toLowerCase()}`
            } else {
              return `      ${field.name} = ${field.type}.fromJSON(json["${field.name}"])`
@@ -31,7 +31,7 @@ return '// MARK: - JSONEncodable\n\n'
         + `  func toJSON() -> JSON {`
         + '    var json = JSON([:])'
         + object.fields.map(function(field) {
-           if (field.type === 'String' || field.type === 'Bool') {
+          if (isSwiftPrimitive(field.type)) {
              return `      json["${field.name}"] = JSON(self.${field.name})`
            } else {
              return `      json["${field.name}"] = ${field.name}.toJSON()`
@@ -49,4 +49,31 @@ function constructorCall(object) {
     + '('
     + object.fields.map(function(field) { return `${field.name}: ${field.name}` }).join(',')
     + ')'
+}
+
+
+function enumJSONCodec(object) {
+  return `extension ${object.name} : JSONEncodable {\n\n`
+    + `  static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
+    + `    return optionalJSON.string.flatMap { ${object.name}(rawValue: $0.lowercaseString }\n`
+    + '  }\n\n'
+    + `  func toJSON() -> JSON {\n`
+    + `    return JSON(self.rawValue.lowercaseString)\n`
+    + '  }\n\n'
+    + '}\n'
+}
+
+function rawValueBackedEnumJSONCodec(object) {
+  return `extension ${object.name} : JSONEncodable {\n\n`
+    + `  static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
+    + `    return optionalJSON.string.flatMap { ${object.name}(rawValue: $0.lowercaseString }\n`
+    + '  }\n\n'
+    + `  func toJSON() -> JSON {\n`
+    + `    return JSON(self.rawValue.lowercaseString)\n`
+    + '  }\n\n'
+    + '}\n'
+}
+
+function isSwiftPrimitive(type) {
+  return (type === 'String' || type === 'Bool' || type === 'Int')
 }
