@@ -1,3 +1,4 @@
+// MARK: - JSONEncodable
 
 extension One: JSONEncodable {
 

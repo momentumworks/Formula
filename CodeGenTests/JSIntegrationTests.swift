@@ -59,6 +59,16 @@ class JSIntegrationTests: QuickSpec {
       }
 
 
+      it("when using JSONCodecTemplate with a simple source") {
+        let result = loadInputAndGenerate(
+          templateName: self.testBundle.pathForFileName("JSONCodecTemplate.js")!,
+          input: self.testBundle.pathForFileName("JSONCodecSimpleSource.fixture")!,
+          expectedOutput: self.testBundle.pathForFileName("JSONCodecSimpleResult.fixture")!,
+          engine: JavascriptEngine()
+        )
+        expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
+      }
+
       
 
     }
