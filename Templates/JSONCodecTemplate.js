@@ -1,7 +1,7 @@
 
 
 return '// MARK: - JSONEncodable\n\n'
-  + extensions.AutoJSONEncodable.map(function(object) {
+  + (extensions.AutoJSONEncodable || []).map(function(object) {
 
     if (object.isEnum) {
 
@@ -42,9 +42,9 @@ function enumJSONCodec(object) {
     }).join('\n')
     + '    }\n'
     + '  }\n\n'
-    + `  func toJSON() -> JSON {`
-    + '    var json = JSON([:])'
-    + '    json["type"] = JSON(self.typeString)'
+    + `  func toJSON() -> JSON {\n`
+    + '    var json = JSON([:])\n'
+    + '    json["type"] = JSON(self.typeString)\n'
     + '    switch self {\n'
     + object.enumCases.map(function(enumCase) {
       return `      case .${enumCase.name}${listEnumAssociatedValues(enumCase)}:\n`
@@ -121,7 +121,7 @@ function structJSONCodec(object) {
          return `      ${field.name} = ${field.type}.fromJSON(json["${field.name}"])`
        }
     }).join(',\n')
-    + '      else {\n'
+    + '\n      else {\n'
     + '        return nil\n'
     + '      }\n\n'
     + `  return ${structConstructor(object)}\n`
@@ -135,7 +135,7 @@ function structJSONCodec(object) {
          return `      json["${field.name}"] = ${field.name}.toJSON()`
        }
     }).join('\n')
-    + '        return json\n'
+    + '\n        return json\n'
     + '  }\n'
     + '}\n'
 }
