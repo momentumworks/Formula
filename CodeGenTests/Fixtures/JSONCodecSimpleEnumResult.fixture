@@ -1,5 +1,52 @@
 // MARK: - JSONEncodable
 
+extension ASemiComplexEnum: JSONEncodable {
+
+  private var typeString: String {
+    switch self {
+      case .Dell:  return "dell"
+      case .Bell:  return "bell"
+      case .Silicon:  return "silicon"
+    }
+  }
+
+  static func fromJSON(optionalJSON: JSON?) -> ASemiComplexEnum? {
+    guard let json = optionalJSON,
+      type = json["type"].string,
+      values = json["values"].array
+    else {
+      return nil
+    }
+
+    switch (type) {
+    case "dell":
+      return .Dell(values[0].string)
+    case "bell":
+      return .Bell(NumberType.fromJSON(values[0]))
+    case "silicon":
+      return .Silicon(values[0].int)
+    }
+
+  }
+
+  func toJSON() -> JSON {
+    var json = JSON([:])
+    json["type"] = JSON(self.typeString)
+    switch self {
+    case .Dell(let value1):
+      json["values"] = JSON([JSON(value1)])
+    case .Bell(let value1):
+      json["values"] = JSON([value1.toJSON()])
+    case .Silicon(let value1):
+      json["values"] = JSON([JSON(value1)])
+    }
+    return json
+  }
+
+}
+
+
+
 extension NumberType: JSONEncodable {
 
   static func fromJSON(optionalJSON: JSON?) -> NumberType? {
@@ -11,3 +58,5 @@ extension NumberType: JSONEncodable {
   }
 
 }
+
+
