@@ -33,14 +33,15 @@ function enumJSONCodec(object) {
     + '      type = json["type"].string,\n'
     + '      values = json["values"].array\n'
     + '      else {\n'
-    + '        return nil\n'
+    + '        return logErrorAndReturnNil(optionalJSON)\n'
     + '      }\n\n'
     + `    switch (type) {\n`
     + object.enumCases.map(function(enumCase) {
       return `      case "${enumCase.name.toLowerCase()}":\n`
-        + `${enumAssociatedValuesConstructor(enumCase)}`
+        + `${enumAssociatedValuesConstructor(enumCase, object)}`
     }).join('\n')
-    + '\n    default: return nil\n'
+    + '\n    default:'
+    + '        return logErrorAndReturnNil(optionalJSON)\n'
     + '    }\n'
     + '  }\n\n'
     + `  ${object.accessibility} func toJSON() -> JSON {\n`
@@ -81,7 +82,7 @@ function listEnumAssociatedValues(enumCase) {
   }
 }
 
-function enumAssociatedValuesConstructor(enumCase) {
+function enumAssociatedValuesConstructor(enumCase, object) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return `      guard let\n`
       + enumCase.associatedValues.map(function(associatedValue, index) {
@@ -91,8 +92,9 @@ function enumAssociatedValuesConstructor(enumCase) {
           return `        value${index} = ${associatedValue}.fromJSON(values[${index}])`
         }
       }).join(',\n')
-      + '\n       else { return nil }\n'
-      + `       return .${enumCase.name}(`
+      + '\n       else {\n'
+      + '        return logErrorAndReturnNil(optionalJSON) }\n'
+      + `      return .${enumCase.name}(`
       + enumCase.associatedValues.map(function(associatedValue, index) {
         return `value${index}`
       }).join(', ')
@@ -128,7 +130,7 @@ function structJSONCodec(object) {
        }
     }).join(',\n')
     + '\n      else {\n'
-    + '        return nil\n'
+    + '        return logErrorAndReturnNil(optionalJSON)\n'
     + '      }\n\n'
     + `    return ${structConstructor(object)}\n`
     + '  }\n'
