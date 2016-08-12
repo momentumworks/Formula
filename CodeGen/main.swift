@@ -14,7 +14,9 @@ private func generate(engines engines: [TemplateEngine], sourceDirectory: String
   let types = Array(Extractor.extractTypes(filesToProcess).values)
   let imports = Extractor.extractImports(filesToProcess)
 
-  let templatesByExtension = FileUtils.groupByExtension(templates)
+  let templatesByExtension : [String: [Path]] = templates
+    .filter { $0.`extension` != nil }
+    .splitBy { [$0.`extension`!] }
 
   let generated = templatesByExtension.reduce("") { working, entry in
     let (ext, paths) = entry

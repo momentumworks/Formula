@@ -47,18 +47,6 @@ struct FileUtils {
     return (NSFileManager.defaultManager().currentDirectoryPath as NSString).stringByAppendingPathComponent(pathComponent)
   }
 
-  static func groupByExtension(paths: [Path]) -> [String: [Path]] {
-    return paths.reduce([:] as [String: [Path]]) { (var working, path) in
-      guard let ext = path.`extension` else {
-        return working    // we need the extension to process a template
-      }
-      if working[ext] == nil {
-        working[ext] = []
-      }
-      working[ext]?.append(path)
-      return working
-    }
-  }
 
   static func mkdirAndWriteFile(fileName fileName: String, inDirectory directory: String, content: String) {
     FileUtils.createDirectoryIfNonExistent(directory)
