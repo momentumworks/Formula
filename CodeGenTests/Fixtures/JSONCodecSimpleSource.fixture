@@ -1,6 +1,13 @@
-struct One: AutoJSONCodec {
+struct One: AutoJSONEncodable {
 
   let string1: String
   let string2: String
+
+}
+
+struct Two: AutoJSONEncodable {
+
+  let one: One
+  let int1: Int
 
 }

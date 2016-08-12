@@ -1,3 +1,12 @@
+
+enum ASemiComplexEnum: AutoJSONEncodable {
+
+  case Dell(String)
+  case Bell(NumberType)
+  case Silicon(Int)
+
+}
+
 enum NumberType: String, AutoJSONEncodable {
 
   case One
@@ -5,3 +14,4 @@ enum NumberType: String, AutoJSONEncodable {
   case Three
 
 }
+

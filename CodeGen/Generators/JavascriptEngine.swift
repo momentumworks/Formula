@@ -44,7 +44,11 @@ struct JavascriptEngine: TemplateEngine {
     let consoleLog: @convention(block) String -> Void = { message in
       print("Javascript log: " + message)
     }
-    context.setObject(unsafeBitCast(consoleLog, AnyObject.self), forKeyedSubscript: "_consoleLog")
+    context["_consoleLog"] = unsafeBitCast(consoleLog, AnyObject.self)
+    
+    context.exceptionHandler = { context, value in
+      print("Javascript exception: \(value)")
+    }
 
     return context
   }
