@@ -20,11 +20,13 @@ extension ASemiComplexEnum: JSONEncodable {
 
     switch (type) {
     case "dell":
-      return .Dell(values[0].string)
+      return .Dell(values[0].string!)
     case "bell":
-      return .Bell(NumberType.fromJSON(values[0]))
+      return .Bell(NumberType.fromJSON(values[0])!)
     case "silicon":
-      return .Silicon(values[0].int)
+      return .Silicon(values[0].int!)
+    default:
+      return nil
     }
 
   }
@@ -50,7 +52,7 @@ extension ASemiComplexEnum: JSONEncodable {
 extension NumberType: JSONEncodable {
 
   static func fromJSON(optionalJSON: JSON?) -> NumberType? {
-    return optionalJSON.string.flatMap { NumberType(rawValue: $0.lowercaseString }
+    return optionalJSON?.string.flatMap { NumberType(rawValue: $0.lowercaseString) }
   }
 
   func toJSON() -> JSON {

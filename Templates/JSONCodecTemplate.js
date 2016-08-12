@@ -88,7 +88,7 @@ function enumAssociatedValuesConstructor(enumCase) {
         if (isSwiftPrimitive(associatedValue)) {
           return `values[${index}].${associatedValue.toLowerCase()}!`
         } else {
-          return `${associatedValue}.fromJSON(values[${index}])`
+          return `${associatedValue}.fromJSON(values[${index}])!`
         }
       }).join(', ')
       + ')'
