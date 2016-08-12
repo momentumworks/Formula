@@ -20,20 +20,20 @@ extension ASemiComplexEnum: JSONEncodable {
 
     switch (type) {
     case "dell":
-      guard let value1 = values[0].string else {
+      guard let value0 = values[0].string else {
         return nil
       }
-      return .Dell(value1)
+      return .Dell(value0)
     case "bell":
-      guard let value1 = NumberType.fromJSON(values[0]) else {
+      guard let value0 = NumberType.fromJSON(values[0]) else {
         return nil
       }
-      return .Bell(value1)
+      return .Bell(value0)
     case "silicon":
-      guard let value1 = values[0].int else {
+      guard let value0 = values[0].int else {
         return nil
       }
-      return .Silicon(value1)
+      return .Silicon(value0)
     default:
       return nil
     }
@@ -44,12 +44,12 @@ extension ASemiComplexEnum: JSONEncodable {
     var json = JSON([:])
     json["type"] = JSON(self.typeString)
     switch self {
-    case .Dell(let value1):
-      json["values"] = JSON([JSON(value1)])
-    case .Bell(let value1):
-      json["values"] = JSON([value1.toJSON()])
-    case .Silicon(let value1):
-      json["values"] = JSON([JSON(value1)])
+    case .Dell(let value0):
+      json["values"] = JSON([JSON(value0)])
+    case .Bell(let value0):
+      json["values"] = JSON([value0.toJSON()])
+    case .Silicon(let value0):
+      json["values"] = JSON([JSON(value0)])
     }
     return json
   }

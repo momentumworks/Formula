@@ -38,7 +38,7 @@ function enumJSONCodec(object) {
     + `    switch (type) {\n`
     + object.enumCases.map(function(enumCase) {
       return `      case "${enumCase.name.toLowerCase()}":\n`
-        + `      return ${enumAssociatedValuesConstructor(enumCase)}`
+        + `${enumAssociatedValuesConstructor(enumCase)}`
     }).join('\n')
     + '\n    default: return nil\n'
     + '    }\n'
@@ -61,9 +61,9 @@ function enumAssociatedValuesExporter(enumCase) {
   return '['
     + enumCase.associatedValues.map(function(associatedValue, index) {
       if (isSwiftPrimitive(associatedValue)) {
-        return `JSON(value${index + 1})`
+        return `JSON(value${index})`
       } else {
-        return `value${index + 1}.toJSON()`
+        return `value${index}.toJSON()`
       }
     }).join(', ')
     + ']'
@@ -73,7 +73,7 @@ function listEnumAssociatedValues(enumCase) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return '('
       + enumCase.associatedValues.map(function (associatedValue, index) {
-          return `let value${index+1}`
+          return `let value${index}`
         }).join(', ')
       + ')'
   } else {
@@ -83,17 +83,22 @@ function listEnumAssociatedValues(enumCase) {
 
 function enumAssociatedValuesConstructor(enumCase) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
-    return `.${enumCase.name}(`
+    return `      guard let\n`
       + enumCase.associatedValues.map(function(associatedValue, index) {
         if (isSwiftPrimitive(associatedValue)) {
-          return `values[${index}].${associatedValue.toLowerCase()}!`
+          return `        value${index} = values[${index}].${associatedValue.toLowerCase()}`
         } else {
-          return `${associatedValue}.fromJSON(values[${index}])!`
+          return `        value${index} = ${associatedValue}.fromJSON(values[${index}])`
         }
+      }).join(',\n')
+      + '\n       else { return nil }\n'
+      + `       return .${enumCase.name}(`
+      + enumCase.associatedValues.map(function(associatedValue, index) {
+        return `value${index}`
       }).join(', ')
       + ')'
   } else {
-    return `.${enumCase.name}`
+    return `      return .${enumCase.name}`
   }
 }
 
