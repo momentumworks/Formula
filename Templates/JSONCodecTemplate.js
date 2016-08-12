@@ -26,9 +26,9 @@ function enumJSONCodec(object) {
     + object.enumCases.map(function(enumCase) {
       return `    case .${enumCase.name}:  return "${enumCase.name.toLowerCase()}"`
     }).join('\n')
-    + '     }\n'
+    + '\n     }\n'
     + '  }\n\n'
-    + `  static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
+    + `  ${object.accessibility} static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
     + '    guard let json = optionalJSON,\n'
     + '      type = json["type"].string,\n'
     + '      values = json["values"].array\n'
@@ -40,9 +40,10 @@ function enumJSONCodec(object) {
       return `      case "${enumCase.name.toLowerCase()}":\n`
         + `      return ${enumAssociatedValuesConstructor(enumCase)}`
     }).join('\n')
+    + '\n    default: return nil\n'
     + '    }\n'
     + '  }\n\n'
-    + `  func toJSON() -> JSON {\n`
+    + `  ${object.accessibility} func toJSON() -> JSON {\n`
     + '    var json = JSON([:])\n'
     + '    json["type"] = JSON(self.typeString)\n'
     + '    switch self {\n'
@@ -85,7 +86,7 @@ function enumAssociatedValuesConstructor(enumCase) {
     return `.${enumCase.name}(`
       + enumCase.associatedValues.map(function(associatedValue, index) {
         if (isSwiftPrimitive(associatedValue)) {
-          return `values[${index}].${associatedValue.toLowerCase()}`
+          return `values[${index}].${associatedValue.toLowerCase()}!`
         } else {
           return `${associatedValue}.fromJSON(values[${index}])`
         }
@@ -99,10 +100,10 @@ function enumAssociatedValuesConstructor(enumCase) {
 
 function rawValueBackedEnumJSONCodec(object) {
   return `extension ${object.name} : JSONEncodable {\n\n`
-    + `  static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
-    + `    return optionalJSON.string.flatMap { ${object.name}(rawValue: $0.lowercaseString }\n`
+    + `  ${object.accessibility} static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
+    + `    return optionalJSON?.string.flatMap { ${object.name}(rawValue: $0.lowercaseString) }\n`
     + '  }\n\n'
-    + `  func toJSON() -> JSON {\n`
+    + `  ${object.accessibility} func toJSON() -> JSON {\n`
     + `    return JSON(self.rawValue.lowercaseString)\n`
     + '  }\n\n'
     + '}\n'
@@ -112,7 +113,7 @@ function rawValueBackedEnumJSONCodec(object) {
 
 function structJSONCodec(object) {
   return `extension ${object.name} : JSONEncodable {\n\n`
-    + `  static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
+    + `  ${object.accessibility} static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
     + '    guard let json = optionalJSON,\n'
     + object.fields.map(function(field) {
        if (isSwiftPrimitive(field.type)) {
@@ -124,18 +125,18 @@ function structJSONCodec(object) {
     + '\n      else {\n'
     + '        return nil\n'
     + '      }\n\n'
-    + `  return ${structConstructor(object)}\n`
+    + `    return ${structConstructor(object)}\n`
     + '  }\n'
-    + `  func toJSON() -> JSON {`
-    + '    var json = JSON([:])'
+    + `  ${object.accessibility} func toJSON() -> JSON {\n`
+    + '    var json = JSON([:])\n'
     + object.fields.map(function(field) {
       if (isSwiftPrimitive(field.type)) {
-         return `      json["${field.name}"] = JSON(self.${field.name})`
+         return `    json["${field.name}"] = JSON(self.${field.name})`
        } else {
-         return `      json["${field.name}"] = ${field.name}.toJSON()`
+         return `    json["${field.name}"] = ${field.name}.toJSON()`
        }
     }).join('\n')
-    + '\n        return json\n'
+    + '\n    return json\n'
     + '  }\n'
     + '}\n'
 }
@@ -143,10 +144,10 @@ function structJSONCodec(object) {
 function structConstructor(object) {
     return object.name
     + '('
-    + object.fields.map(function(field) { return `${field.name}: ${field.name}` }).join(',')
+    + object.fields.map(function(field) { return `${field.name}: ${field.name}` }).join(', ')
     + ')'
 }
 
 function isSwiftPrimitive(type) {
-  return (type === 'String' || type === 'Bool' || type === 'Int')
+  return (type === 'String' || type === 'Bool' || type === 'Int' || type === 'Double' || type === 'Float')
 }
