@@ -1,0 +1,12 @@
+
+enum EnumCustomKey: AutoJSONEncodableCustomKey {
+
+  static let jsonKeys [String: [String]] = [
+    "dell": ["name", "number"],
+    "bell": ["number"]
+  ]
+
+  case Dell(String, NumberType)
+  case Bell(NumberType)
+
+}

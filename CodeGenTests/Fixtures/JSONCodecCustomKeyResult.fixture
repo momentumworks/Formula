@@ -1,0 +1,52 @@
+// MARK: - JSONEncodable
+
+
+extension EnumCustomKey: JSONEncodable {
+
+  private var typeString: String {
+    switch self {
+      case .Dell:  return "dell"
+      case .Bell:  return "bell"
+    }
+  }
+
+  static func fromJSON(optionalJSON: JSON?) -> ASemiComplexEnum? {
+    guard let json = optionalJSON,
+      type = json["type"].string
+    else {
+      return nil
+    }
+
+    switch (type) {
+    case "dell":
+      guard let value0 = json[customKeys["dell"][0]].string,
+        value1 = NumberType.fromJSON(json[customKeys["dell"][1]]) else {
+        return nil
+      }
+      return .Dell(value0, value1)
+    case "bell":
+      guard let value0 = NumberType.fromJSON((json[customKeys["dell"][0]]) else {
+        return nil
+      }
+      return .Bell(value0)
+    default:
+      return nil
+    }
+
+  }
+
+  func toJSON() -> JSON {
+    var json = JSON([:])
+    json["type"] = JSON(self.typeString)
+    switch self {
+    case .Dell(let value0, let value1):
+      json[EnumCustomKey.customKeys["dell"][0]] = JSON(value0)
+      json[EnumCustomKey.customKeys["dell"][1]] = value1.toJSON()
+    case .Bell(let value0):
+      json[EnumCustomKey.customKeys["bell"][0]] = value0.toJSON()
+
+    }
+    return json
+  }
+
+}
