@@ -33,13 +33,15 @@ struct StructureExtractor {
     extract: { input, name in
       guard let type = input.kind else { fatalError() }
       
+      let fields = extractFields(input)
+      
       let kind = {
         let initial = Kind(rawValue: type.drop("source.lang.swift.decl."))
         switch initial {
         case .Struct:
-          return .Struct(extractFields(input))
+          return .Struct(fields.filter { !$0.isStatic })
         case .Class:
-          return .Class(extractFields(input))
+          return .Class(fields.filter { !$0.isStatic })
         case .Enum:
           fatalError()
         }
@@ -48,7 +50,9 @@ struct StructureExtractor {
       return [Type(accessibility: input.accessibility?.description,
         name: name,
         extensions: Set(input.extensions ?? []),
-        kind: kind)
+        kind: kind,
+        staticFields: fields.filter { $0.isStatic }
+        )
       ]
     }
   )
@@ -64,7 +68,9 @@ struct StructureExtractor {
       return [Type(accessibility: input.accessibility?.description,
         name: name,
         extensions: Set(input.extensions ?? []),
-        kind: .Enum([]))
+        kind: .Enum([]),
+        staticFields: extractFields(input).filter { $0.isStatic }
+        )
       ]
     }
   )
