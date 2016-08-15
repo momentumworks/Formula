@@ -82,11 +82,11 @@ private func extractFields(typeDict: [String: SourceKitRepresentable]) -> [Field
       let accessibility = fieldData.accessibility,
       let fieldName = fieldData.name,
       let fieldType = fieldData.typeName
-      where fieldData.fieldIsntCalculated && fieldData.fieldIsntStatic
+      where fieldData.fieldIsntCalculated
       else {
         return nil
     }
     
-    return Field(accessibility: accessibility, name: fieldName, type: fieldType)
+    return Field(accessibility: accessibility, name: fieldName, type: fieldType, isStatic: !fieldData.fieldIsntStatic)
   }
 }

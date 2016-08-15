@@ -17,6 +17,7 @@ import Foundation
   public let extensions : [Extension]
   public let type : String
   public let fields: [StencilField]?
+  public let staticFields: [StencilField]?
   public let enumCases: [StencilEnumCase]?
   
   public let isStruct: Bool
@@ -28,7 +29,8 @@ import Foundation
     self.name = type.name
     self.extensions = Array(type.extensions)
     self.type = type.kind.stringValue
-    self.fields = type.kind.fields?.map { StencilField(field: $0) } ?? []
+    self.fields = type.kind.fields?.filter { $0.isStatic }.map { StencilField(field: $0) } ?? []
+    self.staticFields = type.kind.fields?.filter { $0.isStatic }.map { StencilField(field: $0) } ?? []
     self.enumCases = type.kind.enumCases?.map { StencilEnumCase(enumCase: $0) } ?? []
     self.isStruct = type.kind.isStruct
     self.isEnum = type.kind.isEnum

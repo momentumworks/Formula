@@ -32,6 +32,7 @@ import JavaScriptCore
   public dynamic var extensions : [String]
   public dynamic var type : String
   public dynamic var fields: [JavascriptField]
+  public dynamic var staticFields: [JavascriptField]
   public dynamic var enumCases: [JavascriptEnumCase]
   
   public dynamic var isStruct: Bool
@@ -43,7 +44,8 @@ import JavaScriptCore
     self.name = type.name
     self.extensions = Array(type.extensions)
     self.type = type.kind.stringValue
-    self.fields = type.kind.fields?.map { JavascriptField(field: $0) } ?? []
+    self.fields = type.kind.fields?.filter { !$0.isStatic }.map { JavascriptField(field: $0) } ?? []
+    self.staticFields = type.kind.fields?.filter { $0.isStatic }.map { JavascriptField(field: $0) } ?? []
     self.enumCases = type.kind.enumCases?.map { JavascriptEnumCase(enumCase: $0) } ?? []
     self.isStruct = type.kind.isStruct
     self.isEnum = type.kind.isEnum

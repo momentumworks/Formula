@@ -152,11 +152,13 @@ public struct Field {
   public let accessibility : String
   public let name : Name
   public let type : String
+  public let isStatic: Bool
     
-  public init(accessibility: Accessibility, name: Name, type: String) {
+  public init(accessibility: Accessibility, name: Name, type: String, isStatic: Bool) {
     self.accessibility = accessibility.description
     self.name = name
     self.type = type
+    self.isStatic = isStatic
   }
 }
 
