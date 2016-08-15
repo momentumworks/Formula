@@ -8,7 +8,7 @@ extension One: JSONEncodable {
       string1 = json["string1"].string,
       string2 = json["string2"].string
     else {
-      return nil
+      return logErrorAndReturnNil(optionalJSON)
     }
 
     return One(string1: string1, string2: string2)
@@ -31,7 +31,7 @@ extension Two: JSONEncodable {
       one = One.fromJSON(json["one"]),
       int1 = json["int1"].int
     else {
-      return nil
+      return logErrorAndReturnNil(optionalJSON)
     }
 
     return Two(one: one, int1: int1)

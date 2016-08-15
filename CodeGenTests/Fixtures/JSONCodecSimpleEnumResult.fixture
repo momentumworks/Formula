@@ -15,27 +15,27 @@ extension ASemiComplexEnum: JSONEncodable {
       type = json["type"].string,
       values = json["values"].array
     else {
-      return nil
+      return logErrorAndReturnNil(optionalJSON)
     }
 
     switch (type) {
     case "dell":
       guard let value0 = values[0].string else {
-        return nil
+        return logErrorAndReturnNil(optionalJSON)
       }
       return .Dell(value0)
     case "bell":
       guard let value0 = NumberType.fromJSON(values[0]) else {
-        return nil
+        return logErrorAndReturnNil(optionalJSON)
       }
       return .Bell(value0)
     case "silicon":
       guard let value0 = values[0].int else {
-        return nil
+        return logErrorAndReturnNil(optionalJSON)
       }
       return .Silicon(value0)
     default:
-      return nil
+      return logErrorAndReturnNil(optionalJSON)
     }
 
   }
