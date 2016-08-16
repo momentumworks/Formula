@@ -20,7 +20,8 @@ struct IndexExtractor {
       return [Type(accessibility: nil,
           name: name,
           extensions: [],
-          kind: .Enum(input.entities?.flatMap(extractEnumCase) ?? [])
+          kind: .Enum(input.entities?.flatMap(extractEnumCase) ?? []),
+          staticFields: []
         )]
     }
   )

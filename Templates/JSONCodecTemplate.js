@@ -33,14 +33,15 @@ function enumJSONCodec(object) {
     + '      type = json["type"].string,\n'
     + '      values = json["values"].array\n'
     + '      else {\n'
-    + '        return nil\n'
+    + '        return logErrorAndReturnNil(optionalJSON)\n'
     + '      }\n\n'
     + `    switch (type) {\n`
     + object.enumCases.map(function(enumCase) {
       return `      case "${enumCase.name.toLowerCase()}":\n`
-        + `      return ${enumAssociatedValuesConstructor(enumCase)}`
+        + `${enumAssociatedValuesConstructor(enumCase, object)}`
     }).join('\n')
-    + '\n    default: return nil\n'
+    + '\n    default:'
+    + '        return logErrorAndReturnNil(optionalJSON)\n'
     + '    }\n'
     + '  }\n\n'
     + `  ${object.accessibility} func toJSON() -> JSON {\n`
@@ -61,9 +62,9 @@ function enumAssociatedValuesExporter(enumCase) {
   return '['
     + enumCase.associatedValues.map(function(associatedValue, index) {
       if (isSwiftPrimitive(associatedValue)) {
-        return `JSON(value${index + 1})`
+        return `JSON(value${index})`
       } else {
-        return `value${index + 1}.toJSON()`
+        return `value${index}.toJSON()`
       }
     }).join(', ')
     + ']'
@@ -73,7 +74,7 @@ function listEnumAssociatedValues(enumCase) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return '('
       + enumCase.associatedValues.map(function (associatedValue, index) {
-          return `let value${index+1}`
+          return `let value${index}`
         }).join(', ')
       + ')'
   } else {
@@ -81,19 +82,25 @@ function listEnumAssociatedValues(enumCase) {
   }
 }
 
-function enumAssociatedValuesConstructor(enumCase) {
+function enumAssociatedValuesConstructor(enumCase, object) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
-    return `.${enumCase.name}(`
+    return `      guard let\n`
       + enumCase.associatedValues.map(function(associatedValue, index) {
         if (isSwiftPrimitive(associatedValue)) {
-          return `values[${index}].${associatedValue.toLowerCase()}!`
+          return `        value${index} = values[${index}].${associatedValue.toLowerCase()}`
         } else {
-          return `${associatedValue}.fromJSON(values[${index}])!`
+          return `        value${index} = ${associatedValue}.fromJSON(values[${index}])`
         }
+      }).join(',\n')
+      + '\n       else {\n'
+      + '        return logErrorAndReturnNil(optionalJSON) }\n'
+      + `      return .${enumCase.name}(`
+      + enumCase.associatedValues.map(function(associatedValue, index) {
+        return `value${index}`
       }).join(', ')
       + ')'
   } else {
-    return `.${enumCase.name}`
+    return `      return .${enumCase.name}`
   }
 }
 
@@ -123,7 +130,7 @@ function structJSONCodec(object) {
        }
     }).join(',\n')
     + '\n      else {\n'
-    + '        return nil\n'
+    + '        return logErrorAndReturnNil(optionalJSON)\n'
     + '      }\n\n'
     + `    return ${structConstructor(object)}\n`
     + '  }\n'

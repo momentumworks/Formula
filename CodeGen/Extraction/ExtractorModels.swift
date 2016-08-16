@@ -94,20 +94,22 @@ public struct Type {
   public let name : Name
   public let extensions : Set<Extension>
   public let kind: Kind
+  public let staticFields: [Field]
 
-  public init(accessibility: String?, name: Name, extensions: Set<Extension>, kind: Kind) {
+  public init(accessibility: String?, name: Name, extensions: Set<Extension>, kind: Kind, staticFields: [Field]) {
     self.accessibility = accessibility ?? ""
     self.name = name
     self.extensions = extensions
     self.kind = kind
+    self.staticFields = staticFields
   }
 
   public func set(accessibility accessibility: String) -> Type {
-    return Type(accessibility: accessibility, name: name, extensions: extensions, kind: kind)
+    return Type(accessibility: accessibility, name: name, extensions: extensions, kind: kind, staticFields: staticFields)
   }
 
   public func appendExtensions(extensions: Set<Extension>) -> Type {
-    return Type(accessibility: accessibility, name: name, extensions: self.extensions + extensions, kind: kind)
+    return Type(accessibility: accessibility, name: name, extensions: self.extensions + extensions, kind: kind, staticFields: staticFields)
   }
 }
 
@@ -126,6 +128,7 @@ extension Type: Mergeable {
     // not proud of this, but it's to allow us to remove optionals
     let accessibility = lhs.accessibility == "" ? rhs.accessibility : lhs.accessibility
     let extensions = lhs.extensions + rhs.extensions
+    let staticFields = lhs.staticFields + rhs.staticFields
     let kind = {
       switch (lhs.kind, rhs.kind) {
       case let (.Struct(lhsValue), .Struct(rhsValue)):
@@ -139,7 +142,7 @@ extension Type: Mergeable {
       }
       }() as Kind
     
-    return Type(accessibility: accessibility, name: lhs.name, extensions: extensions, kind: kind)
+    return Type(accessibility: accessibility, name: lhs.name, extensions: extensions, kind: kind, staticFields: staticFields)
   }
 }
 
@@ -152,11 +155,13 @@ public struct Field {
   public let accessibility : String
   public let name : Name
   public let type : String
+  public let isStatic: Bool
     
-  public init(accessibility: Accessibility, name: Name, type: String) {
+  public init(accessibility: Accessibility, name: Name, type: String, isStatic: Bool) {
     self.accessibility = accessibility.description
     self.name = name
     self.type = type
+    self.isStatic = isStatic
   }
 }
 
@@ -211,7 +216,7 @@ public func +(lhs: ExtensionType, rhs: Type) -> Type {
   guard lhs.name == rhs.name else {
     return rhs
   }
-  return Type(accessibility: rhs.accessibility, name: rhs.name, extensions: lhs.extensions + rhs.extensions, kind: rhs.kind)
+  return Type(accessibility: rhs.accessibility, name: rhs.name, extensions: lhs.extensions + rhs.extensions, kind: rhs.kind, staticFields: rhs.staticFields)
 }
 
 public func +(lhs: ExtensionType, rhs: ExtensionType) -> ExtensionType {
