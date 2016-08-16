@@ -7,70 +7,74 @@ import Foundation
 import SourceKittenFramework
 import PathKit
 
-struct ElementExtractor <T where T: TupleConvertible, T: Mergeable> {
+struct SourceKittenElementExtractor <T where T: TupleConvertible, T: Mergeable> {
   let supportedKinds: Set<String>
   let extract: (input: [String: SourceKitRepresentable], name: Name) -> [T]
 }
 
-public struct Extractor {
+public struct SourceKittenExtractor : ExtractorEngine {
+  
+  let fileExtension = "swift"
 
-  static func extractImports(files: [Path]) -> [Import] {
+  func extractImports(files: [Path]) -> [Import] {
     return files
       .parallelMap(FileExtractor.extractImports)
       .flatten()
       .array
       .unique
   }
-
-  public static func extractTypes(filePath: Path) -> [Name:Type] {
-    
-    let file = File(path: filePath.description)!
-    print("Extracting objects from \(file.path ?? "source string")")
-    let structure: Structure = Structure(file: file)
-    
-    let indexed = Request.Index(file: file.path!).send()
-
-    guard let substructures = structure.dictionary.substructures,
-          let entities = indexed.entities else {
-      return [:]
-    }
-    
-    let extractedFromStructure = extractFromTree(
-        from: substructures,
-        extractors: [
-          StructureExtractor.ClassAndStructExtractor,
-          StructureExtractor.EnumExtractor
-        ],
-        traverseDeeper: { $0.substructures })
-      .mergeIntoDictionary()
-    
-    let extractedFromIndex = extractFromTree(
-        from: entities,
-        extractors: [IndexExtractor.EnumExtractor],
-        traverseDeeper: { $0.entities })
-      .mergeIntoDictionary()
-
-    let extensions = extractFromTree(
-        from: substructures,
-        extractors: [StructureExtractor.ExtensionExtractor],
-        traverseDeeper: { $0.substructures })
-      .mergeIntoDictionary()
-
-    let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
-    return mergeTypesAndExtensions(allTypes, extensions)
-  }
   
-  public static func extractTypes(files: [Path]) -> [Name:Type] {
+  func extractTypes(files: [Path]) -> [Name:Type] {
     return files
-      .map(extractTypes)
+      .map(extractTypesFromPath)
       .reduce([Name:Type](), combine: +)
   }
   
 }
 
+
+private func extractTypesFromPath(filePath: Path) -> [Name:Type] {
+  
+  let file = File(path: filePath.description)!
+  print("Extracting objects from \(file.path ?? "source string")")
+  let structure: Structure = Structure(file: file)
+  
+  let indexed = Request.Index(file: file.path!).send()
+  
+  guard let substructures = structure.dictionary.substructures,
+    let entities = indexed.entities else {
+      return [:]
+  }
+  
+  let extractedFromStructure = extractFromTree(
+    from: substructures,
+    extractors: [
+      StructureExtractor.ClassAndStructExtractor,
+      StructureExtractor.EnumExtractor
+    ],
+    traverseDeeper: { $0.substructures })
+    .mergeIntoDictionary()
+  
+  let extractedFromIndex = extractFromTree(
+    from: entities,
+    extractors: [IndexExtractor.EnumExtractor],
+    traverseDeeper: { $0.entities })
+    .mergeIntoDictionary()
+  
+  let extensions = extractFromTree(
+    from: substructures,
+    extractors: [StructureExtractor.ExtensionExtractor],
+    traverseDeeper: { $0.substructures })
+    .mergeIntoDictionary()
+  
+  let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
+  return mergeTypesAndExtensions(allTypes, extensions)
+}
+
+
 private func extractFromTree<T where T: TupleConvertible, T: Mergeable>
   (from input: [SourceKitRepresentable],
-   extractors: [ElementExtractor<T>],
+   extractors: [SourceKittenElementExtractor<T>],
    traverseDeeper: [String: SourceKitRepresentable] -> [SourceKitRepresentable]?,
    currentNesting: [Name] = []) -> [T]
 {

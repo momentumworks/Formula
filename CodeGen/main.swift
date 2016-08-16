@@ -7,12 +7,39 @@ let GeneratedCodeDirectory = "Autogen"
 let GeneratedCodeFile = "Autogen.swift"
 
 
-private func generate(engines engines: [TemplateEngine], sourceDirectory: String, usingTemplates templates: [Path], cleanFirst: Bool) {
+private func generate(extractorEngines extractorEngines: [ExtractorEngine], templateEngines: [TemplateEngine], sourceDirectory: String, usingTemplates templates: [Path], cleanFirst: Bool) {
   print("About to generate extensions for directory \(sourceDirectory) using templates \(templates)")
   
-  let filesToProcess = FileUtils.fullPathForAllFilesAt(sourceDirectory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
-  let types = Array(Extractor.extractTypes(filesToProcess).values)
-  let imports = Extractor.extractImports(filesToProcess)
+  let files = FileUtils.fullPathForAllFilesAt(sourceDirectory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
+  let filesByExtension = files
+    .filter { $0.`extension` != nil }
+    .splitBy { $0.`extension` }
+//  
+//  let types = filesByExtension.reduce([Type]()) { working, entry in
+//    let (ext, paths) = entry
+//    let engine = extractorEngines.find({ $0.fileExtension == ext })
+//    if let engine = engine {
+//      return working + engine.extractTypes(paths).values
+//    }
+//    return working
+//  }
+//  
+//  let imports = filesByExtension.reduce([Import]()) { working, entry in
+//    let (ext, paths) = entry
+//    let engine = extractorEngines.find({ $0.fileExtension == ext })
+//    if let engine =  {
+//      return working + engine.extractImports(paths)
+//    }
+//    return working
+//  }
+  
+  // uncomment the following line and you get a compiler error - wtf?
+//  let types = Array(extractorEngines[0].extractTypes(files).values)
+
+  let types = extractorEngines[0].extractTypes(files).values
+  let imports = extractorEngines[0].extractImports(files)
+
+//
 
   let templatesByExtension : [String: [Path]] = templates
     .filter { $0.`extension` != nil }
@@ -20,8 +47,7 @@ private func generate(engines engines: [TemplateEngine], sourceDirectory: String
 
   let generated = templatesByExtension.reduce("") { working, entry in
     let (ext, paths) = entry
-    let engine:TemplateEngine? = engines.find{ $0.templateExtension == ext }
-    if let engine = engine {
+    if let engine = templateEngines.find({ $0.templateExtension == ext }) {
       return working + engine.generateForFiles(types, imports: imports, templates: paths)
     }
     return working
@@ -63,17 +89,18 @@ func parseArgs() -> Configuration? {
     }
   }
 
-  return targetArgument == nil
-    ? nil
-    : Configuration(
-        sourceDirectory: targetArgument!,
-        templates: templatesArgument ?? FileUtils.pathFromWorkingDirectory("/Templates"),
-        cleanFirst: cleanFirst
-      )
+  return targetArgument.map {
+    Configuration(
+      sourceDirectory: $0,
+      templates: templatesArgument ?? FileUtils.pathFromWorkingDirectory("/Templates"),
+      cleanFirst: cleanFirst
+    )
+  }
 }
 
 func main() {
-  let engines: [TemplateEngine] = [JavascriptEngine(), StencilEngine()]
+  let extractorEngines:  [ExtractorEngine] = [SourceKittenExtractor()]
+  let templateEngines : [TemplateEngine] = [JavascriptEngine(), StencilEngine()]
 
   guard let config = parseArgs() else {
     print("Usage: \"codegen -target <path-directory> [-clean] [-templates <template-directory>]\"")
@@ -82,12 +109,13 @@ func main() {
 
   print("Running code gen with target \(config.sourceDirectory) \(config.cleanFirst ? "(cleaning first)" : "")")
 
+  
   let templates = FileUtils.fullPathForAllFilesAt(
     config.templates,
     withExtension: nil,
     ignoreSubdirectory: GeneratedCodeDirectory
   )
-  generate(engines: engines, sourceDirectory: config.sourceDirectory, usingTemplates: templates, cleanFirst: config.cleanFirst)
+  generate(extractorEngines: extractorEngines, templateEngines: templateEngines, sourceDirectory: config.sourceDirectory, usingTemplates: templates, cleanFirst: config.cleanFirst)
 }
 
 let inTests = NSClassFromString("XCTest") != nil

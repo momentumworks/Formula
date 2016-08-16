@@ -11,7 +11,7 @@ import SourceKittenFramework
 
 struct StructureExtractor {
   
-  static let ExtensionExtractor = ElementExtractor<ExtensionType>(
+  static let ExtensionExtractor = SourceKittenElementExtractor<ExtensionType>(
     
     supportedKinds: [SwiftDeclarationKind.ExtensionStruct.rawValue,
       SwiftDeclarationKind.Extension.rawValue,
@@ -25,7 +25,7 @@ struct StructureExtractor {
     }
   )
   
-  static let ClassAndStructExtractor = ElementExtractor<Type>(
+  static let ClassAndStructExtractor = SourceKittenElementExtractor<Type>(
     
     supportedKinds: [SwiftDeclarationKind.Class.rawValue,
       SwiftDeclarationKind.Struct.rawValue],
@@ -60,7 +60,7 @@ struct StructureExtractor {
   
   // this won't extract out the enum cases (that's done from the output of the index command), since it's not exposed by SourceKit
 
-  static let EnumExtractor = ElementExtractor<Type>(
+  static let EnumExtractor = SourceKittenElementExtractor<Type>(
     
     supportedKinds: [SwiftDeclarationKind.Enum.rawValue],
     
