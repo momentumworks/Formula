@@ -13,6 +13,6 @@ protocol ExtractorEngine {
   var fileExtension : String { get }
   
   func extractImports(files: [Path]) -> [Import]
-  func extractTypes(files: [Path]) -> [Name:Type]
+  func extractTypes(files: [Path]) -> [Type]
 
 }

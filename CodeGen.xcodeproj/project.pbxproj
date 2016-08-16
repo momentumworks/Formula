@@ -44,6 +44,7 @@
 		4D6E62ED1D330D1F00C63032 /* JavascriptEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E62EC1D330D1F00C63032 /* JavascriptEngine.swift */; };
 		4D6E62F01D330FA500C63032 /* JavascriptModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E62EF1D330FA500C63032 /* JavascriptModels.swift */; };
 		4D6E62F21D33191900C63032 /* JSContext+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E62F11D33191900C63032 /* JSContext+MW.swift */; };
+		4D738B5A1D63AF2C00127844 /* Path+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D738B591D63AF2C00127844 /* Path+MW.swift */; };
 		4D757F111CFAE9A40053A20A /* StencilModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D757F101CFAE9A40053A20A /* StencilModels.swift */; };
 		4D99867B1CFDD41E00C2BEB8 /* ExtractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */; };
 		4D99867D1CFDD48A00C2BEB8 /* SimpleEnum.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */; };
@@ -140,6 +141,7 @@
 		4D6E62EC1D330D1F00C63032 /* JavascriptEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavascriptEngine.swift; sourceTree = "<group>"; };
 		4D6E62EF1D330FA500C63032 /* JavascriptModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JavascriptModels.swift; sourceTree = "<group>"; };
 		4D6E62F11D33191900C63032 /* JSContext+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSContext+MW.swift"; sourceTree = "<group>"; };
+		4D738B591D63AF2C00127844 /* Path+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Path+MW.swift"; sourceTree = "<group>"; };
 		4D757F101CFAE9A40053A20A /* StencilModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilModels.swift; sourceTree = "<group>"; };
 		4D99867A1CFDD41E00C2BEB8 /* ExtractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtractorTests.swift; sourceTree = "<group>"; };
 		4D99867C1CFDD48A00C2BEB8 /* SimpleEnum.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SimpleEnum.fixture; path = Fixtures/SimpleEnum.fixture; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				4DC3C32A1CF7B29700D3702B /* SourceKitRepresentable+MW.swift */,
 				4D6E62F11D33191900C63032 /* JSContext+MW.swift */,
 				4D0F098B1D35225C00EB9D75 /* NSBundle+MW.swift */,
+				4D738B591D63AF2C00127844 /* Path+MW.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -383,8 +386,6 @@
 				4DB29E8F1D526B0E0050E03F /* JSONCodecSimpleResult.fixture */,
 				4DB29E911D526C9C0050E03F /* JSONCodecSimpleEnumSource.fixture */,
 				4DB29E931D526DB50050E03F /* JSONCodecSimpleEnumResult.fixture */,
-				4DEC48431D61FA0C000FF8C6 /* JSONCodecCustomKeySource.fixture */,
-				4DEC48451D61FA20000FF8C6 /* JSONCodecCustomKeyResult.fixture */,
 				4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */,
 				4D4800B41CFF024A0087C474 /* AutoEquatableComplexResult.fixture */,
 				E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */,
@@ -496,13 +497,11 @@
 				4DB29E961D526EC60050E03F /* StringBackedEnum.fixture in Resources */,
 				4DB29E8E1D526A800050E03F /* JSONCodecSimpleSource.fixture in Resources */,
 				4D4800B51CFF024A0087C474 /* AutoEquatableComplexResult.fixture in Resources */,
-				4DEC48441D61FA0C000FF8C6 /* JSONCodecCustomKeySource.fixture in Resources */,
 				4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */,
 				317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */,
 				4DB29E8A1D5269B40050E03F /* Immutable.stencil in Resources */,
 				4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */,
 				4DB29E941D526DB50050E03F /* JSONCodecSimpleEnumResult.fixture in Resources */,
-				4DEC48461D61FA20000FF8C6 /* JSONCodecCustomKeyResult.fixture in Resources */,
 				CDC6B2901CA3FE1F0041517A /* ImmutableComplexSource.fixture in Resources */,
 				4D4800AF1CFEFB6B0087C474 /* ImmutableComplexResult.fixture in Resources */,
 				4DB29E891D5269B40050E03F /* AutoEquatable.stencil in Resources */,
@@ -740,6 +739,7 @@
 				4D6E62F21D33191900C63032 /* JSContext+MW.swift in Sources */,
 				3169C16F1CA2F138009828E2 /* Utils.swift in Sources */,
 				3169C16B1CA2F138009828E2 /* SourceKittenExtractor.swift in Sources */,
+				4D738B5A1D63AF2C00127844 /* Path+MW.swift in Sources */,
 				4DA578911D3031F90089F197 /* TemplateEngine.swift in Sources */,
 				3169C1681CA2F138009828E2 /* Array+MW.swift in Sources */,
 				4D0F098C1D35225C00EB9D75 /* NSBundle+MW.swift in Sources */,

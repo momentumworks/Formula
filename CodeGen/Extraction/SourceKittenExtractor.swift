@@ -24,10 +24,12 @@ public struct SourceKittenExtractor : ExtractorEngine {
       .unique
   }
   
-  func extractTypes(files: [Path]) -> [Name:Type] {
+  func extractTypes(files: [Path]) -> [Type] {
     return files
       .map(extractTypesFromPath)
       .reduce([Name:Type](), combine: +)
+      .values
+      .array
   }
   
 }

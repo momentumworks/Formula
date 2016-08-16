@@ -11,40 +11,32 @@ private func generate(extractorEngines extractorEngines: [ExtractorEngine], temp
   print("About to generate extensions for directory \(sourceDirectory) using templates \(templates)")
   
   let files = FileUtils.fullPathForAllFilesAt(sourceDirectory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
-  let filesByExtension = files
-    .filter { $0.`extension` != nil }
-    .splitBy { $0.`extension` }
-//  
-//  let types = filesByExtension.reduce([Type]()) { working, entry in
-//    let (ext, paths) = entry
-//    let engine = extractorEngines.find({ $0.fileExtension == ext })
-//    if let engine = engine {
-//      return working + engine.extractTypes(paths).values
-//    }
-//    return working
-//  }
-//  
-//  let imports = filesByExtension.reduce([Import]()) { working, entry in
-//    let (ext, paths) = entry
-//    let engine = extractorEngines.find({ $0.fileExtension == ext })
-//    if let engine =  {
-//      return working + engine.extractImports(paths)
-//    }
-//    return working
-//  }
+  let filesByExtension  = files
+    .filter { $0.fileExtension != nil }
+    .arrayGroupBy { [$0.fileExtension!] }
+
+  let types = filesByExtension.reduce([Type]()) { working, entry in
+    let (ext, paths) = entry
+    let engine = extractorEngines.find({ $0.fileExtension == ext })
+    if let engine = engine {
+      return working + engine.extractTypes(paths)
+    }
+    return working
+  }
+
+  let imports = filesByExtension.reduce([Import]()) { working, entry in
+    let (ext, paths) = entry
+    let engine = extractorEngines.find({ $0.fileExtension == ext })
+    if let engine = engine {
+      return working + engine.extractImports(paths)
+    }
+    return working
+  }
   
-  // uncomment the following line and you get a compiler error - wtf?
-//  let types = Array(extractorEngines[0].extractTypes(files).values)
-
-  let types = extractorEngines[0].extractTypes(files).values
-  let imports = extractorEngines[0].extractImports(files)
-
-//
-
   let templatesByExtension : [String: [Path]] = templates
-    .filter { $0.`extension` != nil }
-    .splitBy { [$0.`extension`!] }
-
+    .filter { $0.fileExtension != nil }
+    .arrayGroupBy { [$0.fileExtension!] }
+  
   let generated = templatesByExtension.reduce("") { working, entry in
     let (ext, paths) = entry
     if let engine = templateEngines.find({ $0.templateExtension == ext }) {
@@ -71,11 +63,12 @@ struct Configuration {
   let cleanFirst: Bool
 }
 
-func parseArgs() -> Configuration? {
+
+private func parseArgs() -> Configuration? {
   var targetArgument: String?
   var templatesArgument: String?
   var cleanFirst = false
-
+  
   for (idx, argument) in Process.arguments.enumerate() {
     switch argument {
     case "-target":
@@ -88,7 +81,7 @@ func parseArgs() -> Configuration? {
       break
     }
   }
-
+  
   return targetArgument.map {
     Configuration(
       sourceDirectory: $0,
@@ -97,6 +90,8 @@ func parseArgs() -> Configuration? {
     )
   }
 }
+
+
 
 func main() {
   let extractorEngines:  [ExtractorEngine] = [SourceKittenExtractor()]
@@ -125,3 +120,6 @@ if inTests {
 } else {
     main()
 }
+
+
+

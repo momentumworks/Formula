@@ -20,7 +20,7 @@ class ExtractorTests: QuickSpec {
     describe("when extracting simple enums") {
       
       let file = Path( self.testBundle.pathForResource("SimpleEnum", ofType: "fixture")!)
-      let metaData = Extractor.extractTypes([file])
+      let metaData = SourceKittenExtractor().extractTypes([file]).groupBy { $0.name }
       
       it("should recognize its name & type") {
         expect(metaData["Anenum"]).toNot(beNil())
@@ -49,7 +49,7 @@ class ExtractorTests: QuickSpec {
     describe("when extracting complex enums") {
       
       let file = Path( self.testBundle.pathForResource("ComplexEnum", ofType: "fixture")! )
-      let metaData = Extractor.extractTypes([file])
+      let metaData = SourceKittenExtractor().extractTypes([file]).groupBy { $0.name }
       
       it("should recognize its name & type") {
         expect(metaData["AComplexEnum"]).toNot(beNil())
@@ -80,7 +80,7 @@ class ExtractorTests: QuickSpec {
     describe("when extracting complex nested types") {
       
       let file = Path( self.testBundle.pathForResource("NestedTypes", ofType: "fixture")!)
-      let metaData = Extractor.extractTypes([file])
+      let metaData = SourceKittenExtractor().extractTypes([file]).groupBy { $0.name }
       
       it("should recognize the parent type") {
         expect(metaData["Parent"]).toNot(beNil())
@@ -108,7 +108,7 @@ class ExtractorTests: QuickSpec {
     describe("when extracting an enum with only one case") {
       
       let file = Path( self.testBundle.pathForResource("OneCaseEnum", ofType: "fixture")!)
-      let metaData = Extractor.extractTypes([file])
+      let metaData = SourceKittenExtractor().extractTypes([file]).groupBy { $0.name }
       
       it("should recognize its name & type") {
         expect(metaData["OnlyOne"]).toNot(beNil())
@@ -126,7 +126,7 @@ class ExtractorTests: QuickSpec {
     describe("when extracting a string backed enum") {
       
       let file = Path( self.testBundle.pathForResource("StringBackedEnum", ofType: "fixture")!)
-      let metaData = Extractor.extractTypes([file])
+      let metaData = SourceKittenExtractor().extractTypes([file]).groupBy { $0.name }
       
       it("should recognize its name & type") {
         expect(metaData["StringBacked"]).toNot(beNil())

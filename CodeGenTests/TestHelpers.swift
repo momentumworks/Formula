@@ -15,8 +15,8 @@ import Foundation
 
 internal func loadInputAndGenerate(templateName templateName: String, input: String, expectedOutput: String, engine: TemplateEngine) -> (generated: String, expected: String) {
   
-  let types = Array(Extractor.extractTypes( [Path(input)] ).values)
-  let imports = Extractor.extractImports( [Path(input)] )
+  let types = Array(SourceKittenExtractor().extractTypes( [Path(input)] ))
+  let imports = SourceKittenExtractor().extractImports( [Path(input)] )
   
   let expected : String = try! Path( expectedOutput).read()
   
