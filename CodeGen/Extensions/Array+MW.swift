@@ -12,7 +12,7 @@ extension Array {
   }
   
   @warn_unused_result
-  func splitBy<Key: Hashable>(keyExtractor: Element -> [Key]) -> [Key: [Element]] {
+  func arrayGroupBy<Key: Hashable>(keyExtractor: Element -> [Key]) -> [Key: [Element]] {
     return reduce([Key: [Element]]()) { (acc: [Key: [Element]], type: Element) in
       var newAcc = acc
       keyExtractor(type).forEach { ext in
@@ -27,7 +27,7 @@ extension Array {
   }
   
   @warn_unused_result
-  func splitBy<Key: Hashable>(keyExtractor: Element -> Key) -> [Key: Element] {
+  func groupBy<Key: Hashable>(keyExtractor: Element -> Key) -> [Key: Element] {
     return reduce([Key: Element]()) { acc, item in
       var newAcc = acc
       newAcc[keyExtractor(item)] = item

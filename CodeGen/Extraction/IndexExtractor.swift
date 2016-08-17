@@ -11,7 +11,7 @@ import SourceKittenFramework
 
 struct IndexExtractor {
   
-  static let EnumExtractor = ElementExtractor<Type>(
+  static let EnumExtractor = SourceKittenElementExtractor<Type>(
     
     supportedKinds: [SwiftDeclarationKind.Enum.rawValue],
     

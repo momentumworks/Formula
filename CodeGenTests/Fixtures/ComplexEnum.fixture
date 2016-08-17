@@ -1,8 +1,8 @@
 enum AComplexEnum : Protocol1, Protocol2 {
-case One(Int)
-case Two(Int, Int)
-case Three(String, Int, String)
-case Four
+  case One(Int)
+  case Two(Int, Int)
+  case Three(String, Int, String)
+  case Four
 }
 
 extension AComplexEnum: Protocol3 { }

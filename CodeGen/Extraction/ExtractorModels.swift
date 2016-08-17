@@ -107,6 +107,10 @@ public struct Type {
   public func set(accessibility accessibility: String) -> Type {
     return Type(accessibility: accessibility, name: name, extensions: extensions, kind: kind, staticFields: staticFields)
   }
+  
+  public func set(kind kind: Kind) -> Type {
+    return Type(accessibility: accessibility, name: name, extensions: extensions, kind: kind, staticFields: staticFields)
+  }
 
   public func appendExtensions(extensions: Set<Extension>) -> Type {
     return Type(accessibility: accessibility, name: name, extensions: self.extensions + extensions, kind: kind, staticFields: staticFields)

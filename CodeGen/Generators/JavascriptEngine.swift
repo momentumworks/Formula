@@ -38,11 +38,13 @@ private func createContext(types: [Type], imports: [Import]) -> JSContext {
   context["Field"] = JavascriptField.self
   context["EnumCase"] = JavascriptEnumCase.self
   
+  context["types"] = jstypes
+
   context["structs"] = jstypes.filter { $0.isStruct }
   context["enums"] = jstypes.filter { $0.isEnum }
   context["classes"] = jstypes.filter { $0.isClass }
   context["extensions"] = jstypes
-    .splitBy { $0.extensions }
+    .arrayGroupBy { $0.extensions }
     .mapValues { $0.sort(sortByName) }
   context["imports"] = imports
   

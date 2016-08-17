@@ -18,7 +18,7 @@ struct StencilEngine: TemplateEngine {
     let imports = imports.sort()
     
     let extensions = types
-      .splitBy { $0.extensions }
+      .arrayGroupBy { $0.extensions }
       .mapValues { $0.sort(sortByName) }
 
     let context = Context(dictionary: [
