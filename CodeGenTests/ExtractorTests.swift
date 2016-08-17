@@ -141,6 +141,28 @@ class ExtractorTests: QuickSpec {
         expect(metaData["StringBacked"]?.kind).to(equal(Kind.Enum(enumCases)))
       }
     }
+    
+    describe("when extracting a string backed enum") {
+      
+      let file = Path( self.testBundle.pathForResource("HintEnum", ofType: "fixture")!)
+      let metaData = SourceKittenExtractor().extractTypes([file]).groupBy { $0.name }
+      
+      it("should recognize its name & type") {
+        expect(metaData["AHintedEnum"]).toNot(beNil())
+        expect(metaData["AHintedEnum"]?.kind.isEnum).to(equal(true))
+      }
+      
+      it("should recognize its hinted, overriden cases") {
+        let enumCases = [
+          EnumCase(name: "One", associatedValues: ["Int"]),
+          EnumCase(name: "Two", associatedValues: ["Int"]),
+          EnumCase(name: "Three", associatedValues: ["Int"]),
+          EnumCase(name: "Four", associatedValues: ["Int"]),
+
+          ]
+        expect(metaData["AHintedEnum"]?.kind).to(equal(Kind.Enum(enumCases)))
+      }
+    }
 
   
   }

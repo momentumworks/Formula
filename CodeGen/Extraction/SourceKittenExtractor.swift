@@ -43,6 +43,7 @@ private func extractTypesFromPath(filePath: Path) -> [Name:Type] {
   
   let indexed = Request.Index(file: file.path!).send()
   
+  
   guard let substructures = structure.dictionary.substructures,
     let entities = indexed.entities else {
       return [:]
@@ -71,6 +72,7 @@ private func extractTypesFromPath(filePath: Path) -> [Name:Type] {
   
   let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
   return mergeTypesAndExtensions(allTypes, extensions)
+    .mapValues(mapAssociatedValueHints)
 }
 
 
@@ -116,4 +118,26 @@ private func mergeTypesAndExtensions(lhs: [Name: Type], _ rhs: [Name: ExtensionT
     }
   }
   return merged
+}
+
+private func mapAssociatedValueHints(type: Type) -> Type {
+  
+  let hints = type.staticFields
+    .filter { ($0.name as NSString).hasPrefix("formula_associatedValues_") }
+  
+  if case .Enum = type.kind where !hints.isEmpty {
+    
+    let newCases = hints
+      .map ({field in
+        return EnumCase(
+          name: field.name.drop("formula_associatedValues_"),
+          associatedValues: field.type.drop("(").drop(")").drop(" ").split(",")
+        )
+      })
+    return type.set(kind: .Enum(newCases))
+    
+  } else {
+    return type
+  }
+  
 }

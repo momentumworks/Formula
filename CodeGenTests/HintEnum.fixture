@@ -1,0 +1,16 @@
+
+
+enum AHintedEnum : Protocol1, Protocol2 {
+case One(Int)
+case Two(Int, Int)
+case Three(String, Int, String)
+case Four
+
+
+static let formula_associatedValues_One: (Int)
+static let formula_associatedValues_Two: (Int)
+static let formula_associatedValues_Three: (Int)
+static let formula_associatedValues_Four: (Int)
+
+}
+
