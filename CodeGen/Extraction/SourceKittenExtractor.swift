@@ -131,7 +131,7 @@ private func mapAssociatedValueHints(type: Type) -> Type {
       .map ({field in
         return EnumCase(
           name: field.name.drop("formula_associatedValues_"),
-          associatedValues: field.type.drop("(").drop(")").drop(" ").split(",")
+          associatedValues: field.type.drop("(").drop(")").drop(" ").drop("?").split(",")
         )
       })
     return type.set(kind: .Enum(newCases))
