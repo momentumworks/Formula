@@ -211,17 +211,6 @@ private func mapAssociatedValueNameHints(type: Type) -> Type {
       }
       .map(mergeEnumCaseAndHint)
       
-      
-//      .map { enumCase -> EnumCase in
-//      if let hint = hints.find ({ $0.name.hasPrefix(enumCase.name) }) {
-//        let assocatiedValueNames = hint.name.drop(enumCase.name + "_").split("_")
-//        let updated = zip(enumCase.associatedValues, assocatiedValueNames)
-//          .map { EnumAssociatedValue(name: $0.1, type: $0.0.type) }
-//        return enumCase.set(associatedValues: updated)
-//      } else {
-//        return enumCase
-//      }
-//    }
     return type.set(kind: .Enum(updatedCases))
     
   } else {
