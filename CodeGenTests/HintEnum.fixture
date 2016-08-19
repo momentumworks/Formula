@@ -18,7 +18,7 @@ enum AHintedEnum : Protocol1, Protocol2 {
   static let formula_name_Two_Number2 = ""
   static let formula_name_Three_Number3 = ""
   static let formula_name_Four_Number4 = ""
-  static let formula_name_Five_Number4 = ""
+  static let formula_name_Five_Dic_Arr_Doub = ""
 
 }
 
