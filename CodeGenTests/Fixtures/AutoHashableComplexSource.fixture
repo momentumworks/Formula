@@ -1,0 +1,23 @@
+enum ASemiComplexEnum: AutoHashable {
+
+  case Dell(String)
+  case Bell(NumberType)
+  case Silicon(Int)
+
+}
+
+enum NumberType: String, AutoHashable {
+
+  case One
+  case Two
+  case Three
+
+}
+
+public class FourthThing: AutoHashable {
+
+  let s: String
+  let f: Float
+  let i: Int
+
+}

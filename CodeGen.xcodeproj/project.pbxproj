@@ -30,6 +30,8 @@
 		3169C1791CA2F646009828E2 /* SWXMLHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3169C1521CA2EE2E009828E2 /* SWXMLHash.framework */; };
 		317D2D9F1CA3066300305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
 		317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317D2D9E1CA3066300305424 /* MainMenu.xib */; };
+		4D06C7A31D66197D0095FC08 /* AutoHashableTemplate.js in Resources */ = {isa = PBXBuildFile; fileRef = 4D06C7A21D66197D0095FC08 /* AutoHashableTemplate.js */; };
+		4D06C7A51D661B890095FC08 /* AutoHashableComplexSource.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D06C7A41D661B890095FC08 /* AutoHashableComplexSource.fixture */; };
 		4D0DFE911CFF32F10036E336 /* FileExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0DFE901CFF32F10036E336 /* FileExtractor.swift */; };
 		4D0DFE931CFF3EF20036E336 /* NestedTypes.fixture in Resources */ = {isa = PBXBuildFile; fileRef = 4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */; };
 		4D0F098C1D35225C00EB9D75 /* NSBundle+MW.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0F098B1D35225C00EB9D75 /* NSBundle+MW.swift */; };
@@ -128,6 +130,8 @@
 		3169C1701CA2F168009828E2 /* StencilIntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StencilIntegrationTests.swift; sourceTree = "<group>"; };
 		317D2D9E1CA3066300305424 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		379E1AFE4C92D4DC50969364 /* Pods-CodeGen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CodeGen.release.xcconfig"; path = "Pods/Target Support Files/Pods-CodeGen/Pods-CodeGen.release.xcconfig"; sourceTree = "<group>"; };
+		4D06C7A21D66197D0095FC08 /* AutoHashableTemplate.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = AutoHashableTemplate.js; path = Templates/AutoHashableTemplate.js; sourceTree = SOURCE_ROOT; };
+		4D06C7A41D661B890095FC08 /* AutoHashableComplexSource.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoHashableComplexSource.fixture; sourceTree = "<group>"; };
 		4D0DFE901CFF32F10036E336 /* FileExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileExtractor.swift; sourceTree = "<group>"; };
 		4D0DFE921CFF3EF20036E336 /* NestedTypes.fixture */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = NestedTypes.fixture; sourceTree = "<group>"; };
 		4D0F098B1D35225C00EB9D75 /* NSBundle+MW.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+MW.swift"; sourceTree = "<group>"; };
@@ -295,6 +299,7 @@
 				4DB29E831D5269A60050E03F /* AutoEquatableTemplate.js */,
 				4DB29E841D5269A60050E03F /* ImmutableTemplate.js */,
 				4DB29E8B1D526A580050E03F /* JSONCodecTemplate.js */,
+				4D06C7A21D66197D0095FC08 /* AutoHashableTemplate.js */,
 			);
 			name = JSTemplates;
 			sourceTree = "<group>";
@@ -389,6 +394,7 @@
 				4DB29E8F1D526B0E0050E03F /* JSONCodecSimpleResult.fixture */,
 				4DB29E911D526C9C0050E03F /* JSONCodecSimpleEnumSource.fixture */,
 				4DB29E931D526DB50050E03F /* JSONCodecSimpleEnumResult.fixture */,
+				4D06C7A41D661B890095FC08 /* AutoHashableComplexSource.fixture */,
 				4D4800B61CFF02770087C474 /* AutoEquatableComplexSource.fixture */,
 				4D4800B41CFF024A0087C474 /* AutoEquatableComplexResult.fixture */,
 				E291DA17BA08E486EE4C788A /* ImmutableSimpleSource.fixture */,
@@ -495,6 +501,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D06C7A31D66197D0095FC08 /* AutoHashableTemplate.js in Resources */,
 				4D4800A61CFEF2100087C474 /* ComplexEnum.fixture in Resources */,
 				4D4800AD1CFEFB130087C474 /* ImmutableSimpleResult.fixture in Resources */,
 				4DB29E961D526EC60050E03F /* StringBackedEnum.fixture in Resources */,
@@ -502,6 +509,7 @@
 				4D4800B51CFF024A0087C474 /* AutoEquatableComplexResult.fixture in Resources */,
 				4D4800B71CFF02770087C474 /* AutoEquatableComplexSource.fixture in Resources */,
 				317D2DA01CA306BE00305424 /* MainMenu.xib in Resources */,
+				4D06C7A51D661B890095FC08 /* AutoHashableComplexSource.fixture in Resources */,
 				4DB29E8A1D5269B40050E03F /* Immutable.stencil in Resources */,
 				4D67C6661D00425A009C25AA /* OneCaseEnum.fixture in Resources */,
 				4D738B601D64A3D900127844 /* HintEnum.fixture in Resources */,
