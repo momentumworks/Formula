@@ -142,7 +142,7 @@ class ExtractorTests: QuickSpec {
       }
     }
     
-    describe("when extracting a string backed enum") {
+    describe("when extracting a hinted enum") {
       
       let file = Path( self.testBundle.pathForResource("HintEnum", ofType: "fixture")!)
       let metaData = SourceKittenExtractor().extractTypes([file]).groupBy { $0.name }
@@ -158,6 +158,7 @@ class ExtractorTests: QuickSpec {
           EnumCase(name: "Two", associatedValues: ["Int"]),
           EnumCase(name: "Three", associatedValues: ["Int"]),
           EnumCase(name: "Four", associatedValues: ["Int"]),
+          EnumCase(name: "Five", associatedValues: ["Dictionary<String,Int>", "Array<String>", "Double"]),
 
           ]
         expect(metaData["AHintedEnum"]?.kind).to(equal(Kind.Enum(enumCases)))

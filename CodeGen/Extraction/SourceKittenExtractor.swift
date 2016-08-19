@@ -120,21 +120,68 @@ private func mergeTypesAndExtensions(lhs: [Name: Type], _ rhs: [Name: ExtensionT
   return merged
 }
 
+struct AssociatedTypesWIP {
+  let types: [Name]
+  let genericsCounter: Int
+  let currentProgress: String
+
+  func incrementGenericsCounter() -> AssociatedTypesWIP {
+    return AssociatedTypesWIP(types: self.types, genericsCounter: self.genericsCounter + 1, currentProgress: self.currentProgress)
+  }
+
+  func decrementGenericsCounter() -> AssociatedTypesWIP {
+    return AssociatedTypesWIP(types: self.types, genericsCounter: self.genericsCounter - 1, currentProgress: self.currentProgress)
+  }
+
+  func typeFinished() -> AssociatedTypesWIP {
+    return AssociatedTypesWIP(types: self.types + [currentProgress], genericsCounter: self.genericsCounter, currentProgress: "")
+  }
+
+  func appendChar(char: Character) -> AssociatedTypesWIP {
+    var progress = self.currentProgress
+    progress.append(char)
+    return AssociatedTypesWIP(types: self.types, genericsCounter: self.genericsCounter, currentProgress: progress)
+  }
+
+  static let Default: AssociatedTypesWIP = AssociatedTypesWIP(types: [], genericsCounter: 0, currentProgress: "")
+}
+
 private func mapAssociatedValueHints(type: Type) -> Type {
-  
+
+  func parseTypeChar(wip: AssociatedTypesWIP, char: Character) -> AssociatedTypesWIP {
+    switch char {
+      case "(", ")", " ", "?":
+        return wip
+      case "<":
+        return wip.incrementGenericsCounter().appendChar(char)
+      case ">":
+        return wip.decrementGenericsCounter().appendChar(char)
+      case "," where wip.genericsCounter == 0:
+        return wip.typeFinished()
+      default:
+        return wip.appendChar(char)
+    }
+  }
+
   let hints = type.staticFields
     .filter { ($0.name as NSString).hasPrefix("formula_associatedValues_") }
   
-  if case .Enum = type.kind where !hints.isEmpty {
+  if case .Enum(let oldCases) = type.kind where !hints.isEmpty {
     
-    let newCases = hints
-      .map ({field in
-        return EnumCase(
-          name: field.name.drop("formula_associatedValues_"),
-          associatedValues: field.type.drop("(").drop(")").drop(" ").drop("?").split(",")
-        )
-      })
-    return type.set(kind: .Enum(newCases))
+    let newCases: [String: EnumCase] = Dictionary(tupleArray: hints.map{field in
+      let name = field.name.drop("formula_associatedValues_")
+      let enumCase = EnumCase(
+        name: name,
+        associatedValues: field.type.characters.reduce(AssociatedTypesWIP.Default, combine: parseTypeChar).typeFinished().types
+      )
+      return (name, enumCase)
+    })
+
+    let updatedCases = oldCases.map{oldCase in
+      return newCases[oldCase.name] ?? oldCase
+    }
+
+    return type.set(kind: .Enum(updatedCases))
     
   } else {
     return type
