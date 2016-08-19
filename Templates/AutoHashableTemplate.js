@@ -85,14 +85,11 @@ function getArrayType(type) {
 }
 
 function getDictionaryType(type) {
-  console.log("getDictionaryType: type = " + type)
   if (type.startsWith('Dictionary<') && type.endsWith('>')) {
     var dictionaryTypes = type.slice(11, -1).split(",")
-    console.log("dictionaryTypes = " + dictionaryTypes)
     return {keyType: dictionaryTypes[0].trim(), valueType: dictionaryTypes[1].trim()}
   } else if (type.startsWith('[') && type.endsWith(']') && type.includes(':')) {
     var dictionaryTypes = type.slice(1, -1).split(":")
-    console.log("dictionaryTypes = " + dictionaryTypes)
     return {keyType: dictionaryTypes[0].trim(), valueType: dictionaryTypes[1].trim()}
   } else {
     return null

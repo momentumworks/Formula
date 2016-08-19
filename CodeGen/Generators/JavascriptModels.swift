@@ -79,20 +79,39 @@ import JavaScriptCore
 @objc protocol ExportedEnumCase : JSExport {
   
   var name : String { get }
-  var associatedValues : [String] { get }
+  var associatedValues : [JavascriptEnumAssociatedValue] { get }
   
 }
 
 @objc public class JavascriptEnumCase: NSObject, ExportedEnumCase {
   
-  public let name: Name
-  public let associatedValues: [Name]
+  public let name: String
+  public let associatedValues: [JavascriptEnumAssociatedValue]
   
   public init(enumCase: EnumCase) {
     self.name = enumCase.name
-    self.associatedValues = enumCase.associatedValues
+    self.associatedValues = enumCase.associatedValues.map { JavascriptEnumAssociatedValue(associatedValue: $0) }
   }
   
 }
 
+
+@objc protocol ExportedEnumAssociatedValue : JSExport {
+  
+  var name : String { get }
+  var type : String { get }
+  
+}
+
+@objc public class JavascriptEnumAssociatedValue: NSObject, ExportedEnumAssociatedValue {
+  
+  public let name: Name
+  public let type: String
+  
+  public init(associatedValue: EnumAssociatedValue) {
+    self.name = associatedValue.name
+    self.type = associatedValue.type
+  }
+  
+}
 

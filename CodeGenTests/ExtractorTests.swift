@@ -58,9 +58,14 @@ class ExtractorTests: QuickSpec {
       
       it("should recognize its cases") {
         let enumCases = [
-          EnumCase(name: "One", associatedValues: ["Int"]),
-          EnumCase(name: "Two", associatedValues: ["Int", "Int"]),
-          EnumCase(name: "Three", associatedValues: ["String", "Int", "String"]),
+          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "", type: "Int")]),
+          EnumCase(name: "Two", associatedValues: [
+            EnumAssociatedValue(name: "", type: "Int"),
+            EnumAssociatedValue(name: "", type: "Int")]),
+          EnumCase(name: "Three", associatedValues: [
+            EnumAssociatedValue(name: "", type: "String"),
+            EnumAssociatedValue(name: "", type: "Int"),
+            EnumAssociatedValue(name: "", type: "String")]),
           EnumCase(name: "Four", associatedValues: [])
         ]
         expect(metaData["AComplexEnum"]?.kind).to(equal(Kind.Enum(enumCases)))
@@ -117,7 +122,7 @@ class ExtractorTests: QuickSpec {
       
       it("should recognize its cases") {
         let enumCases = [
-          EnumCase(name: "One", associatedValues: ["Int"]),
+          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "", type: "Int")]),
         ]
         expect(metaData["OnlyOne"]?.kind).to(equal(Kind.Enum(enumCases)))
       }
@@ -154,12 +159,15 @@ class ExtractorTests: QuickSpec {
       
       it("should recognize its hinted, overriden cases") {
         let enumCases = [
-          EnumCase(name: "One", associatedValues: ["Int"]),
-          EnumCase(name: "Two", associatedValues: ["Int"]),
-          EnumCase(name: "Three", associatedValues: ["Int"]),
-          EnumCase(name: "Four", associatedValues: ["Int"]),
-          EnumCase(name: "Five", associatedValues: ["Dictionary<String,Int>", "Array<String>", "Double"]),
-
+          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "", type: "Int")]),
+          EnumCase(name: "Two", associatedValues: [EnumAssociatedValue(name: "", type: "Int")]),
+          EnumCase(name: "Three", associatedValues: [EnumAssociatedValue(name: "", type: "Int")]),
+          EnumCase(name: "Four", associatedValues: [EnumAssociatedValue(name: "", type: "Int")]),
+          EnumCase(name: "Five", associatedValues: [
+            EnumAssociatedValue(name: "", type: "Dictionary<String,Int>"),
+            EnumAssociatedValue(name: "", type: "Array<String>"),
+            EnumAssociatedValue(name: "", type: "Double")
+            ]),
           ]
         expect(metaData["AHintedEnum"]?.kind).to(equal(Kind.Enum(enumCases)))
       }

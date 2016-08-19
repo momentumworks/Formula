@@ -164,22 +164,31 @@ private func mapAssociatedValueHints(type: Type) -> Type {
   }
 
   let hints = type.staticFields
-    .filter { ($0.name as NSString).hasPrefix("formula_associatedValues_") }
+    .filter { $0.name.hasPrefix("formula_associatedValues_") }
+    .map { $0.set(name: $0.name.drop("formula_associatedValues_")) }
   
   if case .Enum(let oldCases) = type.kind where !hints.isEmpty {
     
-    let newCases: [String: EnumCase] = Dictionary(tupleArray: hints.map{field in
-      let name = field.name.drop("formula_associatedValues_")
-      let enumCase = EnumCase(
-        name: name,
-        associatedValues: field.type.characters.reduce(AssociatedTypesWIP.Default, combine: parseTypeChar).typeFinished().types
-      )
-      return (name, enumCase)
-    })
-
-    let updatedCases = oldCases.map{oldCase in
-      return newCases[oldCase.name] ?? oldCase
+    let updatedCases = oldCases.map { enumCase -> EnumCase in
+      if let hint = hints.find ({ $0.name.hasPrefix(enumCase.name) }) {
+        return enumCase.set(associatedValues: hint.type.characters.reduce(AssociatedTypesWIP.Default, combine: parseTypeChar).typeFinished().types.map { EnumAssociatedValue(name: "", type: $0) })
+      } else {
+        return enumCase
+      }
+      
     }
+    
+//    let newCases = hints
+//      .map { field -> EnumCase in
+//        let name = field.name.drop("formula_associatedValues_")
+//        return EnumCase(
+//          name: name,
+//          associatedValues: field.type.characters.reduce(AssociatedTypesWIP.Default, combine: parseTypeChar).typeFinished().types
+//        )
+//      }.groupBy { $0.name }
+
+//    let updatedCases = oldCases.map { newCases[$0.name] ?? $0 }
+    
 
     return type.set(kind: .Enum(updatedCases))
     
@@ -188,3 +197,37 @@ private func mapAssociatedValueHints(type: Type) -> Type {
   }
   
 }
+
+
+//private func mapAssociatedValueNameHints(type: Type) -> Type {
+//  
+//  let hints = type.staticFields
+//    .filter { $0.name.hasPrefix("formula_name_") }
+//  
+//  if case .Enum(let oldCases) = type.kind where !hints.isEmpty {
+//    
+//    let newCases = oldCases.map { enumCase -> EnumCase in
+//      if let hinthints.find)
+//    }
+//    
+////    let newCases = hints
+////      .map { field -> EnumCase in
+////        let name = field.name.drop("formula_name_")
+//////        return EnumCase(
+//////          name: name,
+//////          associatedValues: field.type.characters.reduce(AssociatedTypesWIP.Default, combine: parseTypeChar).typeFinished().types
+//////        )
+////      }.groupBy { $0.name }
+////    
+////    let updatedCases = oldCases.map { newx§Cases[$0.name] ?? $0 }
+////    
+////    
+//    return type.set(kind: .Enum(updatedCases))
+//    
+//  } else {
+//    return type
+//  }
+//  
+//}
+//
+

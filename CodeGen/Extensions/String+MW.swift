@@ -48,4 +48,9 @@ public extension String {
   public func drop(subString: String) -> String {
     return stringByReplacingOccurrencesOfString(subString, withString: "")
   }
+  
+  public func hasPrefix(prefix: String) -> Bool {
+    return (self as NSString).hasPrefix(prefix)
+  }
+  
 }

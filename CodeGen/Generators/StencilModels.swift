@@ -65,11 +65,24 @@ extension StencilType {
 @objc public class StencilEnumCase: NSObject {
   
   public let name: Name
-  public let associatedValues: [Name]
+  public let associatedValues: [StencilEnumAssociatedValue]
   
   public init(enumCase: EnumCase) {
     self.name = enumCase.name
-    self.associatedValues = enumCase.associatedValues
+    self.associatedValues = enumCase.associatedValues.map { StencilEnumAssociatedValue(associatedValue: $0) }
   }
   
 }
+
+@objc public class StencilEnumAssociatedValue: NSObject {
+  
+  public let name: Name
+  public let type: String
+  
+  public init(associatedValue: EnumAssociatedValue) {
+    self.name = associatedValue.name
+    self.type = associatedValue.type
+  }
+  
+}
+

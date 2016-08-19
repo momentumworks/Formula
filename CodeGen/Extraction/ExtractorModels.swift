@@ -167,6 +167,17 @@ public struct Field {
     self.type = type
     self.isStatic = isStatic
   }
+  
+  public init(accessibility: String, name: Name, type: String, isStatic: Bool) {
+    self.accessibility = accessibility
+    self.name = name
+    self.type = type
+    self.isStatic = isStatic
+  }
+  
+  func set(name name: String) -> Field {
+    return Field(accessibility: accessibility, name: name, type: type, isStatic: isStatic)
+  }
 }
 
 public enum Accessibility : String, CustomStringConvertible {
@@ -183,10 +194,25 @@ public enum Accessibility : String, CustomStringConvertible {
   }
 }
 
+public struct EnumAssociatedValue {
+  public let name : Name
+  public let type : String
+  
+  public init(name: Name, type: String) {
+    self.name = name
+    self.type = type
+  }
+}
+
+
 public struct EnumCase {
   
   public let name: Name
-  public let associatedValues: [Name]
+  public let associatedValues: [EnumAssociatedValue]
+  
+  func set(associatedValues associatedValues: [EnumAssociatedValue]) -> EnumCase {
+    return EnumCase(name: name, associatedValues: associatedValues)
+  }
   
 }
 
@@ -274,6 +300,15 @@ public func ==(lhs: Type, rhs: Type) -> Bool {
       lhs.name == rhs.name &&
       lhs.extensions == rhs.extensions &&
       lhs.kind == rhs.kind
+  
+}
+
+extension EnumAssociatedValue : Equatable {}
+
+public func ==(lhs: EnumAssociatedValue, rhs: EnumAssociatedValue) -> Bool {
+  
+  return lhs.name == rhs.name
+    && lhs.type == rhs.type
   
 }
 
