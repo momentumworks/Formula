@@ -137,7 +137,7 @@ func main() {
   let generatedFilePath = generateFirstPass(fromDirectory: config.sourceDirectory, extractorEngines: extractorEngines, templateEngines: templateEngines, usingTemplates: templates, cleanFirst: config.cleanFirst)
   
   if config.passes > 1 {
-    for _ in 1...config.passes {
+    for _ in 2...config.passes {
       generateSecondaryPass(fromSource: generatedFilePath, extractorEngines: extractorEngines, templateEngines: templateEngines, usingTemplates: templates)
     }
   }
