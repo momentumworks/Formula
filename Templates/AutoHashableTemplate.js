@@ -53,9 +53,9 @@ function listEnumAssociatedValues(enumCase) {
 function listEnumAssociatedValuesHash(enumCase) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return enumCase.associatedValues.map(function (associatedValue, index) {
-          if (isArray(associatedValue)) {
+          if (isArray(associatedValue.type)) {
             return `arrayHashValue(value${index+1})`
-          } else if (isDictionary(associatedValue)) {
+          } else if (isDictionary(associatedValue.type)) {
             return `dictionaryHashValue(value${index+1})`
           } else {
             return `value${index+1}.hashValue`

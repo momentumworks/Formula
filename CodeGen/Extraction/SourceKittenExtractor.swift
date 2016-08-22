@@ -177,7 +177,7 @@ private func mapAssociatedValueHints(type: Type) -> Type {
     
     let updatedCases = oldCases
       .map { enumCase -> (EnumCase, Field?) in
-        return (enumCase, hints.find ({ $0.name.hasPrefix(enumCase.name) })) }
+        return (enumCase, hints.find { $0.name.hasPrefix(enumCase.name) }) }
       .map (mergeEnumCaseAndHint)
     return type.set(kind: .Enum(updatedCases))
     
@@ -207,10 +207,10 @@ private func mapAssociatedValueNameHints(type: Type) -> Type {
     
     let updatedCases = oldCases
       .map { enumCase -> (EnumCase, Field?) in
-        return (enumCase, hints.find ({ $0.name.hasPrefix(enumCase.name) }))
+        return (enumCase, hints.find { $0.name.hasPrefix(enumCase.name) })
       }
       .map(mergeEnumCaseAndHint)
-      
+    
     return type.set(kind: .Enum(updatedCases))
     
   } else {

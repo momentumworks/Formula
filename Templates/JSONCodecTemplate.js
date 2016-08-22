@@ -61,7 +61,7 @@ function enumJSONCodec(object) {
 function enumAssociatedValuesExporter(enumCase) {
   return '['
     + enumCase.associatedValues.map(function(associatedValue, index) {
-      if (isSwiftPrimitive(associatedValue)) {
+      if (isSwiftPrimitive(associatedValue.type)) {
         return `JSON(value${index})`
       } else {
         return `value${index}.toJSON()`
@@ -86,10 +86,10 @@ function enumAssociatedValuesConstructor(enumCase, object) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return `      guard let\n`
       + enumCase.associatedValues.map(function(associatedValue, index) {
-        if (isSwiftPrimitive(associatedValue)) {
-          return `        value${index} = values[${index}].${associatedValue.toLowerCase()}`
+        if (isSwiftPrimitive(associatedValue.type)) {
+          return `        value${index} = values[${index}].${associatedValue.type.toLowerCase()}`
         } else {
-          return `        value${index} = ${associatedValue}.fromJSON(values[${index}])`
+          return `        value${index} = ${associatedValue.type}.fromJSON(values[${index}])`
         }
       }).join(',\n')
       + '\n       else {\n'
