@@ -159,14 +159,14 @@ class ExtractorTests: QuickSpec {
       
       it("should recognize its hinted, overriden cases") {
         let enumCases = [
-          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "Number1", type: "Int")]),
-          EnumCase(name: "Two", associatedValues: [EnumAssociatedValue(name: "Number2", type: "Int")]),
-          EnumCase(name: "Three", associatedValues: [EnumAssociatedValue(name: "Number3", type: "Int")]),
-          EnumCase(name: "Four", associatedValues: [EnumAssociatedValue(name: "Number4", type: "Int")]),
+          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "number1", type: "Int")]),
+          EnumCase(name: "Two", associatedValues: [EnumAssociatedValue(name: "number2", type: "Int")]),
+          EnumCase(name: "Three", associatedValues: [EnumAssociatedValue(name: "number3", type: "Int")]),
+          EnumCase(name: "Four", associatedValues: [EnumAssociatedValue(name: "number4", type: "Int")]),
           EnumCase(name: "Five", associatedValues: [
-            EnumAssociatedValue(name: "Dic", type: "Dictionary<String,Int>"),
-            EnumAssociatedValue(name: "Arr", type: "Array<String>"),
-            EnumAssociatedValue(name: "Doub", type: "Double")
+            EnumAssociatedValue(name: "dic", type: "Dictionary<String,Int>"),
+            EnumAssociatedValue(name: "arr", type: "Array<String>"),
+            EnumAssociatedValue(name: "doub", type: "Double")
             ]),
           ]
         expect(metaData["AHintedEnum"]?.kind).to(equal(Kind.Enum(enumCases)))

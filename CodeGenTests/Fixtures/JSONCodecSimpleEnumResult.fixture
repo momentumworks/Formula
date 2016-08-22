@@ -12,28 +12,27 @@ extension ASemiComplexEnum: JSONEncodable {
 
   static func fromJSON(optionalJSON: JSON?) -> ASemiComplexEnum? {
     guard let json = optionalJSON,
-      type = json["type"].string,
-      values = json["values"].array
+      type = json["type"].string
     else {
       return logErrorAndReturnNil(optionalJSON)
     }
 
     switch (type) {
     case "dell":
-      guard let value0 = values[0].string else {
+      guard let name = json["name"].string else {
         return logErrorAndReturnNil(optionalJSON)
       }
-      return .Dell(value0)
+      return .Dell(name)
     case "bell":
-      guard let value0 = NumberType.fromJSON(values[0]) else {
+      guard let number = NumberType.fromJSON(json["number"]) else {
         return logErrorAndReturnNil(optionalJSON)
       }
-      return .Bell(value0)
+      return .Bell(number)
     case "silicon":
-      guard let value0 = values[0].int else {
+      guard let anotherNumber = json["anotherNumber"].int else {
         return logErrorAndReturnNil(optionalJSON)
       }
-      return .Silicon(value0)
+      return .Silicon(anotherNumber)
     default:
       return logErrorAndReturnNil(optionalJSON)
     }
@@ -44,12 +43,12 @@ extension ASemiComplexEnum: JSONEncodable {
     var json = JSON([:])
     json["type"] = JSON(self.typeString)
     switch self {
-    case .Dell(let value0):
-      json["values"] = JSON([JSON(value0)])
-    case .Bell(let value0):
-      json["values"] = JSON([value0.toJSON()])
-    case .Silicon(let value0):
-      json["values"] = JSON([JSON(value0)])
+    case .Dell(let name):
+      json["name"] = JSON(name)
+    case .Bell(let number):
+      json["number"] = number.toJSON()
+    case .Silicon(let anotherNumber):
+      json["anotherNumber"] = JSON(anotherNumber)
     }
     return json
   }

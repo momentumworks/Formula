@@ -30,8 +30,7 @@ function enumJSONCodec(object) {
     + '  }\n\n'
     + `  ${object.accessibility} static func fromJSON(optionalJSON: JSON?) -> ${object.name}? {\n`
     + '    guard let json = optionalJSON,\n'
-    + '      type = json["type"].string,\n'
-    + '      values = json["values"].array\n'
+    + '      type = json["type"].string\n'
     + '      else {\n'
     + '        return logErrorAndReturnNil(optionalJSON)\n'
     + '      }\n\n'
@@ -50,7 +49,7 @@ function enumJSONCodec(object) {
     + '    switch self {\n'
     + object.enumCases.map(function(enumCase) {
       return `      case .${enumCase.name}${listEnumAssociatedValues(enumCase)}:\n`
-        + `      json["values"] = JSON(${enumAssociatedValuesExporter(enumCase)})\n`
+        + enumAssociatedValuesExporter(enumCase)
     }).join('\n')
     + '    }\n'
     + '    return json\n'
@@ -59,22 +58,20 @@ function enumJSONCodec(object) {
 }
 
 function enumAssociatedValuesExporter(enumCase) {
-  return '['
-    + enumCase.associatedValues.map(function(associatedValue, index) {
+  return (enumCase.associatedValues || []).map(function(associatedValue, index) {
       if (isSwiftPrimitive(associatedValue.type)) {
-        return `JSON(value${index})`
+        return `      json["${associatedValue.name}"] = JSON(${associatedValue.name})`
       } else {
-        return `value${index}.toJSON()`
+        return `      json["${associatedValue.name}"] = ${associatedValue.name}.toJSON()`
       }
-    }).join(', ')
-    + ']'
+    }).join('\n')
 }
 
 function listEnumAssociatedValues(enumCase) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {
     return '('
       + enumCase.associatedValues.map(function (associatedValue, index) {
-          return `let value${index}`
+          return `let ${associatedValue.name}`
         }).join(', ')
       + ')'
   } else {
@@ -87,16 +84,16 @@ function enumAssociatedValuesConstructor(enumCase, object) {
     return `      guard let\n`
       + enumCase.associatedValues.map(function(associatedValue, index) {
         if (isSwiftPrimitive(associatedValue.type)) {
-          return `        value${index} = values[${index}].${associatedValue.type.toLowerCase()}`
+          return `        ${associatedValue.name} = json["${associatedValue.name}"].${associatedValue.type.toLowerCase()}`
         } else {
-          return `        value${index} = ${associatedValue.type}.fromJSON(values[${index}])`
+          return `        ${associatedValue.name} = ${associatedValue.type}.fromJSON(json["${associatedValue.name}"])`
         }
       }).join(',\n')
       + '\n       else {\n'
       + '        return logErrorAndReturnNil(optionalJSON) }\n'
       + `      return .${enumCase.name}(`
-      + enumCase.associatedValues.map(function(associatedValue, index) {
-        return `value${index}`
+      + enumCase.associatedValues.map(function(associatedValue) {
+        return associatedValue.name
       }).join(', ')
       + ')'
   } else {
