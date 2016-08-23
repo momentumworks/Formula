@@ -58,14 +58,19 @@ function enumJSONCodec(object) {
 }
 
 function enumAssociatedValuesExporter(enumCase) {
-  return (enumCase.associatedValues || []).map(function(associatedValue, index) {
-      if (isSwiftPrimitive(associatedValue.type)) {
-        return `      json["${associatedValue.name}"] = JSON(${associatedValue.name})`
-      } else {
-        return `      json["${associatedValue.name}"] = ${associatedValue.name}.toJSON()`
-      }
-    }).join('\n')
+  if (enumCase.associatedValues.length === 0) {
+    return '()'
+  } else {
+    return enumCase.associatedValues.map(function(associatedValue, index) {
+        if (isSwiftPrimitive(associatedValue.type)) {
+          return `      json["${associatedValue.name}"] = JSON(${associatedValue.name})`
+        } else {
+          return `      json["${associatedValue.name}"] = ${associatedValue.name}.toJSON()`
+        }
+      }).join('\n')
+  }
 }
+
 
 function listEnumAssociatedValues(enumCase) {
   if (enumCase.associatedValues != undefined && enumCase.associatedValues != null && enumCase.associatedValues.length > 0) {

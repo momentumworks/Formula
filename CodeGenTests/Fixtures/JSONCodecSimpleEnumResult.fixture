@@ -7,6 +7,7 @@ extension ASemiComplexEnum: JSONEncodable {
       case .Dell:  return "dell"
       case .Bell:  return "bell"
       case .Silicon:  return "silicon"
+      case .End :  return "end"
     }
   }
 
@@ -33,6 +34,8 @@ extension ASemiComplexEnum: JSONEncodable {
         return logErrorAndReturnNil(optionalJSON)
       }
       return .Silicon(anotherNumber)
+    case "end":
+      return .End
     default:
       return logErrorAndReturnNil(optionalJSON)
     }
@@ -49,6 +52,8 @@ extension ASemiComplexEnum: JSONEncodable {
       json["number"] = number.toJSON()
     case .Silicon(let anotherNumber):
       json["anotherNumber"] = JSON(anotherNumber)
+    case .End:
+      ()
     }
     return json
   }

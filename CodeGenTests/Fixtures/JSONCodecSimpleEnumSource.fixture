@@ -12,6 +12,7 @@ enum ASemiComplexEnum: AutoJSONEncodable {
   case Dell(String)
   case Bell(NumberType)
   case Silicon(Int)
+  case End
 
 }
 
