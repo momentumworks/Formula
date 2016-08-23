@@ -74,6 +74,7 @@ private func extractTypesFromPath(filePath: Path) -> [Name:Type] {
   return mergeTypesAndExtensions(allTypes, extensions)
     .mapValues(mapAssociatedValueHints)
     .mapValues(mapAssociatedValueNameHints)
+    .mapValues(inferNamesForAssociatedValues)
 }
 
 
@@ -211,6 +212,30 @@ private func mapAssociatedValueNameHints(type: Type) -> Type {
       }
       .map(mergeEnumCaseAndHint)
     
+    return type.set(kind: .Enum(updatedCases))
+    
+  } else {
+    return type
+  }
+  
+}
+
+private func inferNamesForAssociatedValues(type: Type) -> Type {
+  
+  if case .Enum(let oldCases) = type.kind where !oldCases.isEmpty {
+    let updatedCases = oldCases
+      .map { enumCase -> EnumCase in
+        guard enumCase.associatedValues.count == 1 else {
+          return enumCase
+        }
+        let updatedAssociatedValues = enumCase.associatedValues.map { associatedValue -> EnumAssociatedValue in
+          if associatedValue.name == "" {
+            return associatedValue.set(name: enumCase.name.lowercaseString)
+          }
+          return associatedValue
+        }
+        return enumCase.set(associatedValues: updatedAssociatedValues)
+      }
     return type.set(kind: .Enum(updatedCases))
     
   } else {

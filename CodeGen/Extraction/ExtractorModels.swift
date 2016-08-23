@@ -202,6 +202,10 @@ public struct EnumAssociatedValue {
     self.name = name
     self.type = type
   }
+  
+  func set(name name: Name) -> EnumAssociatedValue {
+    return EnumAssociatedValue(name: name, type: type)
+  }
 }
 
 
@@ -211,6 +215,10 @@ public struct EnumCase {
   public let associatedValues: [EnumAssociatedValue]
   
   func set(associatedValues associatedValues: [EnumAssociatedValue]) -> EnumCase {
+    return EnumCase(name: name, associatedValues: associatedValues)
+  }
+  
+  func set(name name: Name) -> EnumCase {
     return EnumCase(name: name, associatedValues: associatedValues)
   }
   

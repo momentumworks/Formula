@@ -58,7 +58,7 @@ class ExtractorTests: QuickSpec {
       
       it("should recognize its cases") {
         let enumCases = [
-          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "", type: "Int")]),
+          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "one", type: "Int")]),
           EnumCase(name: "Two", associatedValues: [
             EnumAssociatedValue(name: "", type: "Int"),
             EnumAssociatedValue(name: "", type: "Int")]),
@@ -122,7 +122,7 @@ class ExtractorTests: QuickSpec {
       
       it("should recognize its cases") {
         let enumCases = [
-          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "", type: "Int")]),
+          EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "one", type: "Int")]),
         ]
         expect(metaData["OnlyOne"]?.kind).to(equal(Kind.Enum(enumCases)))
       }
@@ -162,7 +162,7 @@ class ExtractorTests: QuickSpec {
           EnumCase(name: "One", associatedValues: [EnumAssociatedValue(name: "number1", type: "Int")]),
           EnumCase(name: "Two", associatedValues: [EnumAssociatedValue(name: "number2", type: "Int")]),
           EnumCase(name: "Three", associatedValues: [EnumAssociatedValue(name: "number3", type: "Int")]),
-          EnumCase(name: "Four", associatedValues: [EnumAssociatedValue(name: "number4", type: "Int")]),
+          EnumCase(name: "Four", associatedValues: [EnumAssociatedValue(name: "four", type: "Int")]),
           EnumCase(name: "Five", associatedValues: [
             EnumAssociatedValue(name: "dic", type: "Dictionary<String,Int>"),
             EnumAssociatedValue(name: "arr", type: "Array<String>"),
