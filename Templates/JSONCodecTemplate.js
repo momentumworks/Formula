@@ -126,9 +126,9 @@ function structJSONCodec(object) {
     + '    guard let json = optionalJSON,\n'
     + object.fields.map(function(field) {
        if (isSwiftPrimitive(field.type)) {
-         return `      ${field.name} = json["${field.name}"].${field.type.toLowerCase()}`
+         return `      ${field.name} = json["${field.name.toLowerCase()}"].${field.type.toLowerCase()}`
        } else {
-         return `      ${field.name} = ${field.type}.fromJSON(json["${field.name}"])`
+         return `      ${field.name} = ${field.type}.fromJSON(json["${field.name.toLowerCase()}"])`
        }
     }).join(',\n')
     + '\n      else {\n'
@@ -140,9 +140,9 @@ function structJSONCodec(object) {
     + '    var json = JSON([:])\n'
     + object.fields.map(function(field) {
       if (isSwiftPrimitive(field.type)) {
-         return `    json["${field.name}"] = JSON(self.${field.name})`
+         return `    json["${field.name.toLowerCase()}"] = JSON(self.${field.name})`
        } else {
-         return `    json["${field.name}"] = ${field.name}.toJSON()`
+         return `    json["${field.name.toLowerCase()}"] = ${field.name}.toJSON()`
        }
     }).join('\n')
     + '\n    return json\n'
