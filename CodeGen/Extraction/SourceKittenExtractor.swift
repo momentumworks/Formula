@@ -73,6 +73,8 @@ private func extractTypesFromPath(filePath: Path) -> [Name:Type] {
   let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
   return mergeTypesAndExtensions(allTypes, extensions)
     .mapValues(mapAssociatedValueHints)
+    .mapValues(mapAssociatedValueNameHints)
+    .mapValues(inferNamesForAssociatedValues)
 }
 
 
@@ -162,25 +164,54 @@ private func mapAssociatedValueHints(type: Type) -> Type {
         return wip.appendChar(char)
     }
   }
+  
+  func mergeEnumCaseAndHint(enumCase: EnumCase, field: Field?) -> EnumCase {
+    guard let field = field else { return enumCase }
+    return enumCase.set(associatedValues: field.type.characters.reduce(AssociatedTypesWIP.Default, combine: parseTypeChar).typeFinished().types.map { EnumAssociatedValue(name: "", type: $0) })
+  }
 
   let hints = type.staticFields
-    .filter { ($0.name as NSString).hasPrefix("formula_associatedValues_") }
+    .filter { $0.name.hasPrefix("formula_associatedValues_") }
+    .map { $0.set(name: $0.name.drop("formula_associatedValues_")) }
   
   if case .Enum(let oldCases) = type.kind where !hints.isEmpty {
     
-    let newCases: [String: EnumCase] = Dictionary(tupleArray: hints.map{field in
-      let name = field.name.drop("formula_associatedValues_")
-      let enumCase = EnumCase(
-        name: name,
-        associatedValues: field.type.characters.reduce(AssociatedTypesWIP.Default, combine: parseTypeChar).typeFinished().types
-      )
-      return (name, enumCase)
-    })
+    let updatedCases = oldCases
+      .map { enumCase -> (EnumCase, Field?) in
+        return (enumCase, hints.find { $0.name.hasPrefix(enumCase.name) }) }
+      .map (mergeEnumCaseAndHint)
+    return type.set(kind: .Enum(updatedCases))
+    
+  } else {
+    return type
+  }
+  
+  
+}
 
-    let updatedCases = oldCases.map{oldCase in
-      return newCases[oldCase.name] ?? oldCase
-    }
 
+private func mapAssociatedValueNameHints(type: Type) -> Type {
+  
+  let hints = type.staticFields
+    .filter { $0.name.hasPrefix("formula_name_") }
+    .map { $0.set(name: $0.name.drop("formula_name_")) }
+  
+  func mergeEnumCaseAndHint(enumCase: EnumCase, field: Field?) -> EnumCase {
+    guard let field = field else { return enumCase }
+    let assocatiedValueNames = field.name.drop(enumCase.name + "_").split("_")
+    let updated = zip(enumCase.associatedValues, assocatiedValueNames)
+      .map { EnumAssociatedValue(name: $0.1, type: $0.0.type) }
+    return enumCase.set(associatedValues: updated)
+  }
+  
+  if case .Enum(let oldCases) = type.kind where !hints.isEmpty {
+    
+    let updatedCases = oldCases
+      .map { enumCase -> (EnumCase, Field?) in
+        return (enumCase, hints.find { $0.name.hasPrefix(enumCase.name) })
+      }
+      .map(mergeEnumCaseAndHint)
+    
     return type.set(kind: .Enum(updatedCases))
     
   } else {
@@ -188,3 +219,29 @@ private func mapAssociatedValueHints(type: Type) -> Type {
   }
   
 }
+
+private func inferNamesForAssociatedValues(type: Type) -> Type {
+  
+  if case .Enum(let oldCases) = type.kind where !oldCases.isEmpty {
+    let updatedCases = oldCases
+      .map { enumCase -> EnumCase in
+        guard enumCase.associatedValues.count == 1 else {
+          return enumCase
+        }
+        let updatedAssociatedValues = enumCase.associatedValues.map { associatedValue -> EnumAssociatedValue in
+          if associatedValue.name == "" {
+            return associatedValue.set(name: enumCase.name.lowercaseString)
+          }
+          return associatedValue
+        }
+        return enumCase.set(associatedValues: updatedAssociatedValues)
+      }
+    return type.set(kind: .Enum(updatedCases))
+    
+  } else {
+    return type
+  }
+  
+}
+
+

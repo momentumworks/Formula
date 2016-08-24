@@ -1,6 +1,6 @@
 
 return '// MARK: - AutoEquatable\n\n'
- + extensions.AutoEquatable.map(function(object) {
+ + (extensions.AutoEquatable || []).map(function(object) {
    const equalityString = (object.isEnum) ? enumEquality(object) : structEquality(object)
    return `extension ${object.name}: Equatable {}\n\n`
       + `${object.accessibility} func ==(lhs: ${object.name}, rhs:${object.name}) -> Bool {`

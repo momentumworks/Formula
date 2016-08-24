@@ -69,7 +69,6 @@ class JSIntegrationTests: QuickSpec {
         expect(result.generated.removeAllFormatting()).to(equal(result.expected.removeAllFormatting()))
       }
 
-      
 
     }
     

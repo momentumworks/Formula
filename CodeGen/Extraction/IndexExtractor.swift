@@ -38,10 +38,12 @@ private func extractEnumCase(typeDict: SourceKitRepresentable) -> EnumCase? {
       return nil
   }
   
-  let associatedTypes = entitiesDict
+  let associatedValues = entitiesDict
     .entities?
-    .flatMap { $0.asDictionary?.name } ?? []
+    .flatMap { $0.asDictionary?.name }
+    .map { EnumAssociatedValue(name: "", type: $0) }
+    ?? []
   
-  return EnumCase(name: name, associatedValues: associatedTypes)
+  return EnumCase(name: name, associatedValues: associatedValues)
 }
   

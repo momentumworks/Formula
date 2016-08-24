@@ -78,7 +78,11 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/mark/Dev/momentum-ib/MomentumCore/MomentumCore/Project/Packages/"
+            argument = "/Users/mark/Dev/momentum-ib/MomentumCore/MomentumCore/"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-passes 2"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

@@ -1,6 +1,6 @@
 
 return '// MARK: - Immutable\n\n'
- + extensions.Immutable.map(function(object) {
+ + (extensions.Immutable || []).map(function(object) {
     if (object.isEnum) {
       return ''
     }

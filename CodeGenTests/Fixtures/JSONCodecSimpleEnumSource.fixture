@@ -1,9 +1,18 @@
 
 enum ASemiComplexEnum: AutoJSONEncodable {
 
+  static let formula_associatedValues_Dell: (String)
+  static let formula_associatedValues_Bell: (NumberType)
+  static let formula_associatedValues_Silicon: (Int)
+
+  static let formula_name_Dell_name = ""
+  static let formula_name_Bell_number = ""
+  static let formula_name_Silicon_anotherNumber = ""
+
   case Dell(String)
   case Bell(NumberType)
   case Silicon(Int)
+  case End
 
 }
 
