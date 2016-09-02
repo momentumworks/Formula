@@ -4,30 +4,31 @@ import AppKit
 import PathKit
 
 let GeneratedCodeDirectory = "Autogen"
-let GeneratedCodeFile = "Autogen.swift"
+let GeneratedCodeFile = "Autogen."
 
 
-private func generateFirstPass(fromDirectory sourceDirectory: String, extractorEngines: [ExtractorEngine], templateEngines: [TemplateEngine], usingTemplates templates: [Path], cleanFirst: Bool) -> Path {
-  print("About to generate extensions for directory \(sourceDirectory) using templates \(templates)")
+private func generateFirstPass(fromDirectory sourceDirectory: String, extractorEngines: [ExtractorEngine], templateEngines: [TemplateEngine], usingTemplates templates: [Path], cleanFirst: Bool, generatedFileExtension: String) -> Path {
+  print("About to generate extensions for directory \(sourceDirectory) using templates \(templates) with extension \(generatedFileExtension)")
   
   let files = FileUtils.fullPathForAllFilesAt(sourceDirectory, withExtension: "swift", ignoreSubdirectory: GeneratedCodeDirectory)
   let generated = generateCode(fromSource: files, extractorEngines: extractorEngines, templateEngines: templateEngines, usingTemplates: templates)
   
   let trimmedTarget = FileUtils.removeTrailingFileSeparator(sourceDirectory)
   let outputDirectory = "\(trimmedTarget)/\(GeneratedCodeDirectory)"
-  let outputFile = "\(outputDirectory)/\(GeneratedCodeFile)"
+  let outputFileName = "\(GeneratedCodeFile)\(generatedFileExtension)"
+  let outputFile = "\(outputDirectory)/\(outputFileName)"
   if (cleanFirst) {
     FileUtils.deleteFile(outputFile)
   }
-  print("Writing file \(outputDirectory)/\(GeneratedCodeFile)")
-  FileUtils.mkdirAndWriteFile(fileName: GeneratedCodeFile, inDirectory: outputDirectory, content: generated)
+  print("Writing file \(outputFile)")
+  FileUtils.mkdirAndWriteFile(fileName: outputFileName, inDirectory: outputDirectory, content: generated)
 
   print("Finished generating extensions")
   return Path(outputFile)
 }
 
 
-private func generateSecondaryPass(fromSource source: Path, extractorEngines: [ExtractorEngine], templateEngines: [TemplateEngine], usingTemplates templates: [Path]) {
+private func generateSecondaryPass(fromSource source: Path, extractorEngines: [ExtractorEngine], templateEngines: [TemplateEngine], usingTemplates templates: [Path], generatedFileExtension: String) {
   
   let originalContent: String = try! source.read()
   let generated = generateCode(fromSource: [source], extractorEngines: extractorEngines, templateEngines: templateEngines, usingTemplates: templates)
@@ -81,6 +82,7 @@ struct Configuration {
   let templates: String
   let cleanFirst: Bool
   let passes: Int
+  let generatedFileExtension: String
 }
 
 
@@ -89,6 +91,7 @@ private func parseArgs() -> Configuration? {
   var templatesArgument: String?
   var cleanFirst = false
   var passes = 1
+  var generatedFileExtension: String? = nil
   
   for (idx, argument) in Process.arguments.enumerate() {
     switch argument {
@@ -100,6 +103,8 @@ private func parseArgs() -> Configuration? {
       cleanFirst = true
     case "-passes":
       passes = Int(Process.arguments[idx + 1])!
+    case "-extension":
+      generatedFileExtension = Process.arguments[idx + 1]
     default:
       break
     }
@@ -110,7 +115,8 @@ private func parseArgs() -> Configuration? {
       sourceDirectory: $0,
       templates: templatesArgument ?? FileUtils.pathFromWorkingDirectory("/Templates"),
       cleanFirst: cleanFirst,
-      passes: passes
+      passes: passes,
+      generatedFileExtension: generatedFileExtension ?? "swift"
     )
   }
 }
@@ -134,11 +140,11 @@ func main() {
     withExtension: nil,
     ignoreSubdirectory: GeneratedCodeDirectory
   )
-  let generatedFilePath = generateFirstPass(fromDirectory: config.sourceDirectory, extractorEngines: extractorEngines, templateEngines: templateEngines, usingTemplates: templates, cleanFirst: config.cleanFirst)
+  let generatedFilePath = generateFirstPass(fromDirectory: config.sourceDirectory, extractorEngines: extractorEngines, templateEngines: templateEngines, usingTemplates: templates, cleanFirst: config.cleanFirst, generatedFileExtension: config.generatedFileExtension)
   
   if config.passes > 1 {
     for _ in 2...config.passes {
-      generateSecondaryPass(fromSource: generatedFilePath, extractorEngines: extractorEngines, templateEngines: templateEngines, usingTemplates: templates)
+      generateSecondaryPass(fromSource: generatedFilePath, extractorEngines: extractorEngines, templateEngines: templateEngines, usingTemplates: templates, generatedFileExtension: config.generatedFileExtension)
     }
   }
   
