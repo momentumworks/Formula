@@ -198,8 +198,8 @@ private func mapAssociatedValueNameHints(type: Type) -> Type {
   
   func mergeEnumCaseAndHint(enumCase: EnumCase, field: Field?) -> EnumCase {
     guard let field = field else { return enumCase }
-    let assocatiedValueNames = field.name.drop(enumCase.name + "_").split("_")
-    let updated = zip(enumCase.associatedValues, assocatiedValueNames)
+    let associatedValueNames = field.name.drop(enumCase.name + "_").split("_")
+    let updated = zip(enumCase.associatedValues, associatedValueNames)
       .map { EnumAssociatedValue(name: $0.1, type: $0.0.type) }
     return enumCase.set(associatedValues: updated)
   }
@@ -230,7 +230,7 @@ private func inferNamesForAssociatedValues(type: Type) -> Type {
         }
         let updatedAssociatedValues = enumCase.associatedValues.map { associatedValue -> EnumAssociatedValue in
           if associatedValue.name == "" {
-            return associatedValue.set(name: enumCase.name.lowercaseString)
+            return associatedValue.set(name: enumCase.name)
           }
           return associatedValue
         }
