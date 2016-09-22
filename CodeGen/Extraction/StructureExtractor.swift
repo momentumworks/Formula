@@ -68,7 +68,7 @@ struct StructureExtractor {
       return [Type(accessibility: input.accessibility?.description,
         name: name,
         extensions: Set(input.extensions ?? []),
-        kind: .Enum([]),
+        kind: .Enum(input.substructures?.flatMap(extractEnumCase) ?? []),
         staticFields: extractFields(input).filter { $0.isStatic }
         )
       ]
@@ -96,3 +96,17 @@ private func extractFields(typeDict: [String: SourceKitRepresentable]) -> [Field
     return Field(accessibility: accessibility, name: fieldName, type: fieldType, isStatic: !fieldData.fieldIsntStatic)
   }
 }
+
+private func extractEnumCase(typeDict: SourceKitRepresentable) -> EnumCase? {
+  
+  guard let entitiesDict = typeDict.substructures?.first,
+    let kind = entitiesDict.kind,
+    let name = entitiesDict.name
+    where kind == SwiftDeclarationKind.Enumelement.rawValue
+    else {
+      return nil
+  }
+  
+  return EnumCase(name: name, associatedValues: [])
+}
+

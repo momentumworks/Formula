@@ -7,18 +7,17 @@ enum AHintedEnum : Protocol1, Protocol2 {
   case Four
   case Five
 
+  static let formula_associatedValues_One: (Int)? = nil
+  static let formula_associatedValues_Two: (Int)? = nil
+  static let formula_associatedValues_Three: (Int)? = nil
+  static let formula_associatedValues_Four: (Int)? = nil
+  static let formula_associatedValues_Five: (Dictionary<String, Int>, Array<String>, Double)? = nil
 
-  static let formula_associatedValues_One: (Int)
-  static let formula_associatedValues_Two: (Int)
-  static let formula_associatedValues_Three: (Int)
-  static let formula_associatedValues_Four: (Int)
-  static let formula_associatedValues_Five: (Dictionary<String, Int>, Array<String>, Double)
+static let formula_name_One_number1: String = ""
+static let formula_name_Two_number2: String = ""
+static let formula_name_Three_number3: String = ""
 
-  static let formula_name_One_number1 = ""
-  static let formula_name_Two_number2 = ""
-  static let formula_name_Three_number3 = ""
-//  static let formula_name_Four_number4 = ""
-  static let formula_name_Five_dic_arr_doub = ""
+static let formula_name_Five_dic_arr_doub: String = ""
 
 }
 
