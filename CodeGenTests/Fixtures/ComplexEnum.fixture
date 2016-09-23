@@ -1,4 +1,9 @@
 enum AComplexEnum : Protocol1, Protocol2 {
+
+  static let formula_associatedValues_One: (Int)
+  static let formula_associatedValues_Two: (Int, Int)
+  static let formula_associatedValues_Three: (String, Int, String)
+
   case One(Int)
   case Two(Int, Int)
   case Three(String, Int, String)

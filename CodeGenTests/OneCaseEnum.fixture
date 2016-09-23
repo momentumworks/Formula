@@ -1,3 +1,5 @@
 enum OnlyOne {
+  static let formula_associatedValues_One: (Int)
+
  case One(Int)
 }

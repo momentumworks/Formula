@@ -41,11 +41,7 @@ private func extractTypesFromPath(filePath: Path) -> [Name:Type] {
   print("Extracting objects from \(file.path ?? "source string")")
   let structure: Structure = Structure(file: file)
   
-  let indexed = Request.Index(file: file.path!).send()
-  
-  
-  guard let substructures = structure.dictionary.substructures,
-    let entities = indexed.entities else {
+  guard let substructures = structure.dictionary.substructures else {
       return [:]
   }
   
@@ -58,20 +54,13 @@ private func extractTypesFromPath(filePath: Path) -> [Name:Type] {
     traverseDeeper: { $0.substructures })
     .mergeIntoDictionary()
   
-  let extractedFromIndex = extractFromTree(
-    from: entities,
-    extractors: [IndexExtractor.EnumExtractor],
-    traverseDeeper: { $0.entities })
-    .mergeIntoDictionary()
-  
   let extensions = extractFromTree(
     from: substructures,
     extractors: [StructureExtractor.ExtensionExtractor],
     traverseDeeper: { $0.substructures })
     .mergeIntoDictionary()
   
-  let allTypes = extractedFromStructure.mergeWith(extractedFromIndex, mergeFn: Type.merge)
-  return mergeTypesAndExtensions(allTypes, extensions)
+  return mergeTypesAndExtensions(extractedFromStructure, extensions)
     .mapValues(mapAssociatedValueHints)
     .mapValues(mapAssociatedValueNameHints)
     .mapValues(inferNamesForAssociatedValues)
