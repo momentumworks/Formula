@@ -6,7 +6,7 @@ This is a command line tool (disguised as an app) for generating code for a proj
 
 The code will scan the given `source-root` directory for any `.swift` files using [SourceKitten](https://github.com/jpsim/SourceKitten), and generate code based on templates written using the [Stencil](https://github.com/kylef/Stencil) syntax. Generated code is then written to `Autogen/Autogen.swift`.
 
-Examples of valid templates can be found [in the test fixtures directory](https://bitbucket.org/theconcreteutopia/code-gen/src/HEAD/CodeGenTests/Fixtures/)
+Examples of valid templates can be found [in the test fixtures directory](CodeGenTests/Fixtures/)
 
 # Integrating into the Build Process #
 
